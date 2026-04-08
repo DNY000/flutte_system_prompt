@@ -6,6 +6,11 @@
 
 Prompt layering, contracts, token policy, prompt-system evolution.
 
+## Other Common Requests This Skill Should Cover
+
+- define how local rules files, compact variants, and task prompts should work together
+- decide when Flutter teams should add MCP-aware workflow layers instead of growing one static prompt surface
+
 ## Input
 
 - Resolved or inferred `route_id` and task context
@@ -20,3 +25,6 @@ Prompt layering, contracts, token policy, prompt-system evolution.
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Answer policies: `docs/ai/00-core/answer-policies.md`
+- AI systems MCP guidance: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`
+- Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/ai-rules-and-editor-workflows.md`

@@ -22,6 +22,14 @@ Flutter Composition
 Risks
 ```
 
+Design notes:
+
+- `Screen Structure`: identify hierarchy, navigation context, and major layout regions
+- `Visual Direction`: define tokens, density, emphasis, and style direction instead of vague adjectives
+- `Interaction States`: cover loading, empty, error, success, disabled, and offline when relevant
+- `Accessibility`: include semantics, contrast, target size, focus order, and keyboard behavior where applicable
+- `Flutter Composition`: end with concrete widget/layout mapping
+
 ## `architecture-decision-v1`
 
 ```text

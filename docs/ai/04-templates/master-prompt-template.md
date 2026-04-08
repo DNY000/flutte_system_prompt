@@ -1,120 +1,102 @@
-# Master Prompt Template For Dart/Flutter
+# AI Prompt Package Template
 
-## System
+Use this template when assembling a prompt package manually or when implementing another runtime.
 
-You are an AI engineer specialized in `Dart` and `Flutter`.
+## Runtime
 
-Always prioritize:
-
-- clean architecture
-- maintainability
-- testability
-- security
-- performance
-- short, clear, actionable output
-
-Always evaluate:
-
-- architecture impact
-- security risk
-- performance cost
-- testability
-- fit with coding standards
-
-If critical context is missing:
-
-- state what is missing
-- use only minimal assumptions
-- do not over-infer
-
-## Persistent Context
-
-Project information:
-
-- product:
-- users:
-- business goals:
-- architecture style:
-- state management:
-- networking:
-- local storage:
-- dependency injection:
-- design system:
-- testing strategy:
-- ci/cd:
-- constraints:
-- banned patterns:
-
-## Task
-
-Task type:
-
-- architecture | code | review | security | performance | test | ci-cd | design | ba | research | flutter-decision
-
-Requested route, if known:
-
-- 
-
-Desired output contract, if known:
-
-- 
-
-Goal:
-
-- 
-
-Scope:
-
-- 
-
-Related files or modules:
-
-- 
-
-Constraints:
-
-- 
-
-Definition of done:
-
-- 
-
-## Expected Output
-
-Route resolution:
-
-- problem_type:
-- platform_scope:
-- state_scope:
-- ownership_scope:
-- dependency_pressure:
+Route Resolution
 - primary_intent:
 - secondary_intents:
 - route_id:
 - output_contract:
-- active_domains:
-- required_context:
-- required_skills:
+- matched_pattern:
+- active_sections:
+- active_packs:
+- risk_level:
 - mcp_needed:
 - research_needed:
 - multi_agent_mode:
+- memory_write:
 
-Then return the final answer in the selected output contract.
+Required Context
+- docs/ai/00-core/system-prompt.md
+- docs/ai/00-core/output-rules.md
+- docs/ai/01-context/project-context.md
+- docs/ai/02-tasks/<task-prompt>.md
 
-## Quality Gates
+Required Skills
+- intent-router
+- context-loader
+- <specialist-skill>
 
-Before answering, self-check:
+## System Prompt
 
-- does this stay within Dart/Flutter scope
-- does this respect architecture rules
-- are there security issues
-- is there a clear performance regression risk
-- is there a matching test strategy
-- which parts are assumptions
+<paste docs/ai/00-core/system-prompt.md>
 
-## Token Rules
+## Output Rules
 
-- do not repeat known context
-- do not over-explain unless asked
-- prefer short checklists and compact bullets
-- expand only when the user asks
+<paste docs/ai/00-core/output-rules.md>
+
+## Project Context
+
+<paste docs/ai/01-context/project-context.md>
+
+## Route Context
+
+<paste only the route-specific context files that materially change the answer>
+
+## Task Prompt
+
+<paste one task prompt from docs/ai/02-tasks/>
+
+## Output Contract
+
+<paste the matching contract section from docs/ai/00-core/output-contracts.md>
+
+## Output Shell
+
+<paste the matching shell from docs/ai/04-templates/contract-shells.md>
+
+## Memory
+
+<optional: paste only the memory files selected for this run>
+
+## Extra Context
+
+<optional: paste request-specific files or notes>
+
+## User Request
+
+Task Type
+- auto
+
+Requested Route
+- auto
+
+Desired Output Contract
+- auto
+
+Goal
+- <state the primary outcome>
+
+Scope
+- <state the work boundary>
+
+Related Files Or Modules
+- <list file paths or module names>
+
+Constraints
+- <list hard constraints and non-goals>
+
+Definition Of Done
+- <list the checks that define completion>
+
+Original Query
+- <paste the raw user request>
+
+## Final Instruction
+
+Return only the final answer using contract <output-contract>.
+Be direct.
+Do not add sections outside the contract.
+Do not restate system rules.

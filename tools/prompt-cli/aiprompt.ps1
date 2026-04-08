@@ -12,10 +12,11 @@ param(
     [string[]]$Constraints,
     [string[]]$DefinitionOfDone,
     [string[]]$ExtraContextFiles,
-    [ValidateSet('none', 'decisions', 'patterns', 'mistakes', 'all')]
+    [ValidateSet('none', 'auto', 'decisions', 'patterns', 'mistakes', 'glossary', 'modules', 'all')]
     [string[]]$Memory = @('none'),
     [switch]$SkipProjectContext,
     [switch]$IncludeReferences,
+    [switch]$PersistRun,
     [string]$OutputPath,
     [switch]$Clipboard,
     [switch]$Json
@@ -80,6 +81,7 @@ function Normalize-Text {
     }
 
     $normalized = $builder.ToString().Normalize([Text.NormalizationForm]::FormC).ToLowerInvariant()
+    $normalized = $normalized.Replace([char]0x0111, 'd')
     $normalized = [regex]::Replace($normalized, '[^a-z0-9]+', ' ')
     return $normalized.Trim()
 }
@@ -305,9 +307,105 @@ function Format-BulletList {
     return ($Items | ForEach-Object { "- $_" }) -join "`n"
 }
 
+function Test-AnyNormalizedSignal {
+    param(
+        [AllowEmptyString()]
+        [string]$Text,
+        [string[]]$Signals
+    )
+
+    $normalizedText = Normalize-Text -Text $Text
+    if (-not $normalizedText) {
+        return $false
+    }
+
+    foreach ($signal in @($Signals | Where-Object { $_ })) {
+        $normalizedSignal = Normalize-Text -Text $signal
+        if ($normalizedSignal -and $normalizedText.Contains($normalizedSignal)) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Add-UniqueItem {
+    param(
+        [System.Collections.Generic.List[string]]$List,
+        [string]$Value
+    )
+
+    if (-not $Value) {
+        return
+    }
+
+    if (-not $List.Contains($Value)) {
+        $List.Add($Value)
+    }
+}
+
+function Get-MemoryFilePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('decisions', 'patterns', 'mistakes', 'glossary', 'modules')]
+        [string]$MemoryKey
+    )
+
+    switch ($MemoryKey) {
+        'decisions' { return 'docs/ai/03-memory/decisions.md' }
+        'patterns' { return 'docs/ai/03-memory/patterns.md' }
+        'mistakes' { return 'docs/ai/03-memory/mistakes.md' }
+        'glossary' { return 'docs/ai/03-memory/glossary.md' }
+        'modules' { return 'docs/ai/03-memory/modules.md' }
+    }
+}
+
+function Get-SuggestedMemoryFiles {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Route,
+        [AllowEmptyString()]
+        [string]$QueryValue
+    )
+
+    $files = New-Object System.Collections.Generic.List[string]
+
+    if (@('architecture', 'ai-system', 'ci-cd', 'ba', 'flutter-decision') -contains $Route.taskType) {
+        Add-UniqueItem -List $files -Value (Get-MemoryFilePath -MemoryKey 'decisions')
+    }
+
+    if (@('code', 'architecture', 'design', 'performance', 'test', 'ai-system') -contains $Route.taskType) {
+        Add-UniqueItem -List $files -Value (Get-MemoryFilePath -MemoryKey 'patterns')
+    }
+
+    if (
+        @('review', 'security', 'performance', 'test') -contains $Route.taskType -or
+        $Route.routeId -eq 'debug-triage' -or
+        (Test-AnyNormalizedSignal -Text $QueryValue -Signals @('bug', 'crash', 'regression', 'incident', 'mistake', 'triage'))
+    ) {
+        Add-UniqueItem -List $files -Value (Get-MemoryFilePath -MemoryKey 'mistakes')
+    }
+
+    if (@('flutter-decision', 'architecture', 'ai-system', 'ba') -contains $Route.taskType) {
+        Add-UniqueItem -List $files -Value (Get-MemoryFilePath -MemoryKey 'glossary')
+    }
+
+    if (
+        @('architecture', 'code', 'ai-system', 'ci-cd') -contains $Route.taskType -or
+        (Test-AnyNormalizedSignal -Text $QueryValue -Signals @('architecture', 'module', 'modules', 'feature', 'folder structure', 'boundary', 'plugin', 'routing'))
+    ) {
+        Add-UniqueItem -List $files -Value (Get-MemoryFilePath -MemoryKey 'modules')
+    }
+
+    return @($files)
+}
+
 function Get-MemoryFiles {
     param(
-        [string[]]$Selection
+        [string[]]$Selection,
+        $Route,
+        [AllowEmptyString()]
+        [string]$QueryValue
     )
 
     if ($Selection -contains 'none') {
@@ -316,22 +414,130 @@ function Get-MemoryFiles {
 
     if ($Selection -contains 'all') {
         return @(
-            'docs/ai/03-memory/decisions.md',
-            'docs/ai/03-memory/patterns.md',
-            'docs/ai/03-memory/mistakes.md'
+            (Get-MemoryFilePath -MemoryKey 'decisions'),
+            (Get-MemoryFilePath -MemoryKey 'patterns'),
+            (Get-MemoryFilePath -MemoryKey 'mistakes'),
+            (Get-MemoryFilePath -MemoryKey 'glossary'),
+            (Get-MemoryFilePath -MemoryKey 'modules')
         )
+    }
+
+    if ($Selection -contains 'auto') {
+        if ($null -eq $Route) {
+            return @()
+        }
+        return Get-SuggestedMemoryFiles -Route $Route -QueryValue $QueryValue
     }
 
     $files = @()
     foreach ($item in $Selection) {
         switch ($item) {
-            'decisions' { $files += 'docs/ai/03-memory/decisions.md' }
-            'patterns' { $files += 'docs/ai/03-memory/patterns.md' }
-            'mistakes' { $files += 'docs/ai/03-memory/mistakes.md' }
+            'decisions' { $files += (Get-MemoryFilePath -MemoryKey 'decisions') }
+            'patterns' { $files += (Get-MemoryFilePath -MemoryKey 'patterns') }
+            'mistakes' { $files += (Get-MemoryFilePath -MemoryKey 'mistakes') }
+            'glossary' { $files += (Get-MemoryFilePath -MemoryKey 'glossary') }
+            'modules' { $files += (Get-MemoryFilePath -MemoryKey 'modules') }
         }
     }
 
-    return $files
+    return @($files | Select-Object -Unique)
+}
+
+function Get-ExecutionPolicy {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Route,
+        [AllowEmptyString()]
+        [string]$QueryValue,
+        [string[]]$SelectedMemoryFiles = @()
+    )
+
+    $routeSkills = @($Route.skills)
+    $specialistSkills = @($routeSkills | Where-Object { $_ -notin @('intent-router', 'context-loader', 'quality-grader', 'source-validator') })
+    $suggestedMemoryFiles = @(Get-SuggestedMemoryFiles -Route $Route -QueryValue $QueryValue)
+
+    $researchNeeded = 'false'
+    if ($Route.taskType -eq 'research' -or $routeSkills -contains 'source-validator') {
+        $researchNeeded = 'true'
+    }
+    elseif (Test-AnyNormalizedSignal -Text $QueryValue -Signals @('latest', 'current', 'today', 'version', 'release note', 'release notes', 'changelog', 'official docs', 'official doc', 'documentation', 'compare package', 'best package', 'benchmark')) {
+        $researchNeeded = if ($Route.riskLevel -eq 'high') { 'true' } else { 'optional' }
+    }
+    elseif ($Route.routeId -in @('package-selection', 'plugin-authoring', 'pipeline-change', 'security-audit', 'security-implement', 'prompt-system-roadmap', 'agent-system-roadmap', 'eval-system-roadmap')) {
+        $researchNeeded = 'optional'
+    }
+
+    $mcpNeeded = 'false'
+    if (Test-AnyNormalizedSignal -Text $QueryValue -Signals @('mcp', 'connector', 'schema', 'figma', 'ticket', 'tickets', 'issue tracker', 'internal docs', 'workspace data', 'repo data', 'repository data')) {
+        $mcpNeeded = if ($routeSkills -contains 'mcp-orchestrator') { 'true' } else { 'optional' }
+    }
+    elseif ($routeSkills -contains 'mcp-orchestrator') {
+        $mcpNeeded = 'optional'
+    }
+
+    $multiAgentMode = 'off'
+    if ($Route.routeId -eq 'agent-system-roadmap') {
+        $multiAgentMode = 'recommended'
+    }
+    elseif ($specialistSkills.Count -ge 4) {
+        $multiAgentMode = 'consider'
+    }
+    elseif ($Route.riskLevel -eq 'high' -and @('architecture', 'security', 'performance', 'test', 'ai-system') -contains $Route.taskType -and $specialistSkills.Count -ge 3) {
+        $multiAgentMode = 'consider'
+    }
+
+    $memoryWrite = 'optional'
+    if (@($SelectedMemoryFiles | Where-Object { $_ }).Count -gt 0) {
+        $memoryWrite = 'enabled'
+    }
+    elseif (
+        @('architecture', 'ai-system', 'ba', 'ci-cd') -contains $Route.taskType -or
+        $Route.routeId -in @('state-management-decision', 'package-selection', 'code-organization-decision', 'module-design-decision', 'pattern-selection', 'plugin-authoring', 'offline-sync-strategy', 'web-desktop-strategy', 'add-to-app')
+    ) {
+        $memoryWrite = 'likely'
+    }
+
+    return [pscustomobject]@{
+        researchNeeded = $researchNeeded
+        mcpNeeded = $mcpNeeded
+        multiAgentMode = $multiAgentMode
+        memoryWrite = $memoryWrite
+        suggestedMemoryFiles = $suggestedMemoryFiles
+    }
+}
+
+function New-RunRequestId {
+    return ('{0}-{1}' -f (Get-Date -Format 'yyyyMMddHHmmssfff'), ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+}
+
+function Get-TextHash {
+    param([AllowEmptyString()][string]$Text)
+
+    $bytes = [Text.Encoding]::UTF8.GetBytes($(if ($null -eq $Text) { '' } else { $Text }))
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try {
+        $hash = $sha.ComputeHash($bytes)
+        return ([BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
+    }
+    finally {
+        $sha.Dispose()
+    }
+}
+
+function Write-RunRecord {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Record
+    )
+
+    $runsDir = Join-Path $script:RepoRoot '.promptos\runs'
+    New-Item -ItemType Directory -Force -Path $runsDir | Out-Null
+
+    $timestamp = Get-Date
+    $fileName = '{0}-{1}-{2}.json' -f $timestamp.ToString('yyyyMMdd-HHmmssfff'), $Record.command, $Record.routeId
+    $targetPath = Join-Path $runsDir $fileName
+    $Record | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $targetPath -Encoding UTF8
+    return $targetPath
 }
 
 function Get-RouteResolutionBlock {
@@ -344,19 +550,17 @@ function Get-RouteResolutionBlock {
         [string[]]$MemoryFiles,
         [string[]]$SectionIds,
         [string[]]$DomainIds,
-        [bool]$NeedReferences
+        [bool]$NeedReferences,
+        [Parameter(Mandatory = $true)]
+        $ExecutionPolicy
     )
 
     $secondaryIntent = 'none'
-    $researchNeeded = if ($Route.routeId -eq 'research-brief') { 'true' } else { 'false' }
-    $mcpNeeded = 'false'
-    $multiAgentMode = 'off'
     $memoryItems = @($MemoryFiles | Where-Object { $_ })
     $extraItems = @($ExtraFiles | Where-Object { $_ })
     $sectionItems = @($SectionIds | Where-Object { $_ })
     $domainItems = @($DomainIds | Where-Object { $_ })
     $requiredContextItems = @($RequiredContext | Where-Object { $_ })
-    $memoryWrite = if ($memoryItems.Count -gt 0) { 'enabled' } else { 'optional' }
     $activeSections = if ($sectionItems.Count -gt 0) { $sectionItems -join ', ' } else { 'none' }
     $activePacks = if ($domainItems.Count -gt 0) { $domainItems -join ', ' } else { 'none' }
 
@@ -381,10 +585,10 @@ Route Resolution
 - active_sections: $activeSections
 - active_packs: $activePacks
 - risk_level: $($Route.riskLevel)
-- mcp_needed: $mcpNeeded
-- research_needed: $researchNeeded
-- multi_agent_mode: $multiAgentMode
-- memory_write: $memoryWrite
+- mcp_needed: $($ExecutionPolicy.mcpNeeded)
+- research_needed: $($ExecutionPolicy.researchNeeded)
+- multi_agent_mode: $($ExecutionPolicy.multiAgentMode)
+- memory_write: $($ExecutionPolicy.memoryWrite)
 
 Required Context
 $contextBlock
@@ -416,7 +620,9 @@ function Build-PromptPackage {
         files = @()
     }
 
-    $routeContextFiles += @($Route.contextFiles | Where-Object { $_ })
+    if ($Route.PSObject.Properties.Name -contains 'contextFiles') {
+        $routeContextFiles += @($Route.contextFiles | Where-Object { $_ })
+    }
 
     if (Test-GuidePackSupport -Route $Route) {
         $domainManifest = Get-DomainManifest
@@ -440,7 +646,8 @@ $(Get-FileText -RelativePath $routeContextFile)
 "@
     }
 
-    $memoryFiles = Get-MemoryFiles -Selection $Memory
+    $memoryFiles = Get-MemoryFiles -Selection $Memory -Route $Route -QueryValue $Query
+    $executionPolicy = Get-ExecutionPolicy -Route $Route -QueryValue $Query -SelectedMemoryFiles @($memoryFiles)
     $memoryBlocks = @()
     foreach ($memoryFile in $memoryFiles) {
         $memoryBlocks += @"
@@ -490,7 +697,7 @@ $(Get-FileText -RelativePath 'docs/ai/07-references/source-map.md')
         $requiredContext += 'docs/ai/01-context/project-context.md'
     }
 
-    $routeResolution = Get-RouteResolutionBlock -Route $Route -MatchedPattern $MatchedPattern -RequiredContext $requiredContext -ExtraFiles @($ExtraContextFiles) -MemoryFiles @($memoryFiles) -SectionIds @($resolvedDomains.sectionIds) -DomainIds @($resolvedDomains.domainIds) -NeedReferences $IncludeReferences.IsPresent
+    $routeResolution = Get-RouteResolutionBlock -Route $Route -MatchedPattern $MatchedPattern -RequiredContext $requiredContext -ExtraFiles @($ExtraContextFiles) -MemoryFiles @($memoryFiles) -SectionIds @($resolvedDomains.sectionIds) -DomainIds @($resolvedDomains.domainIds) -NeedReferences $IncludeReferences.IsPresent -ExecutionPolicy $executionPolicy
 
     $requestBody = @"
 Task Type
@@ -565,7 +772,7 @@ $($routeContextBlocks -join "`n`n")
         ''
     }
 
-    return @"
+    $text = @"
 # AI Prompt Package
 
 ## Runtime
@@ -608,6 +815,15 @@ Be direct.
 Do not add sections outside the contract.
 Do not restate system rules.
 "@.Trim() + "`n"
+
+    return [pscustomobject]@{
+        text = $text
+        requiredContext = @($requiredContext | Select-Object -Unique)
+        routeContextFiles = @($routeContextFiles | Select-Object -Unique)
+        memoryFiles = @($memoryFiles | Select-Object -Unique)
+        executionPolicy = $executionPolicy
+        resolvedDomains = $resolvedDomains
+    }
 }
 
 function Write-Result {
@@ -646,7 +862,9 @@ Common options:
   -Constraints "Use Material 3" "Support tablet"
   -DefinitionOfDone "Include empty and error states"
   -ExtraContextFiles docs/ai/06-examples/route-examples.md
-  -Memory decisions patterns
+  -Memory auto
+  -Memory decisions patterns glossary
+  -PersistRun
   -IncludeReferences
   -Clipboard
 "@
@@ -683,6 +901,8 @@ switch ($Command) {
         }
 
         $resolved = Resolve-RouteFromQuery -QueryValue $Query -Manifest $manifest
+        $selectedMemoryFiles = Get-MemoryFiles -Selection $Memory -Route $resolved.route -QueryValue $Query
+        $executionPolicy = Get-ExecutionPolicy -Route $resolved.route -QueryValue $Query -SelectedMemoryFiles @($selectedMemoryFiles)
         $result = [pscustomobject]@{
             routeId = $resolved.route.routeId
             taskType = $resolved.route.taskType
@@ -690,6 +910,24 @@ switch ($Command) {
             outputContract = $resolved.route.outputContract
             matchedPattern = $resolved.matchedPattern
             score = $resolved.score
+            executionPolicy = $executionPolicy
+        }
+
+        if ($PersistRun) {
+            $runRecord = [pscustomobject]@{
+                requestId = New-RunRequestId
+                timestamp = (Get-Date).ToString('o')
+                runtime = 'prompt-cli-powershell'
+                command = 'resolve'
+                routeId = $resolved.route.routeId
+                outputContract = $resolved.route.outputContract
+                riskLevel = $resolved.route.riskLevel
+                matchedPattern = $resolved.matchedPattern
+                queryLength = $(if ($null -eq $Query) { 0 } else { $Query.Length })
+                queryHash = Get-TextHash -Text $Query
+                executionPolicy = $executionPolicy
+            }
+            [void](Write-RunRecord -Record $runRecord)
         }
 
         if ($Json) {
@@ -731,7 +969,29 @@ switch ($Command) {
         }
 
         $package = Build-PromptPackage -Route $resolvedRoute -MatchedPattern $matchedPattern
-        Write-Result -Text $package
+
+        if ($PersistRun) {
+            $runRecord = [pscustomobject]@{
+                requestId = New-RunRequestId
+                timestamp = (Get-Date).ToString('o')
+                runtime = 'prompt-cli-powershell'
+                command = 'build'
+                routeId = $resolvedRoute.routeId
+                outputContract = $resolvedRoute.outputContract
+                riskLevel = $resolvedRoute.riskLevel
+                matchedPattern = $(if ($matchedPattern) { $matchedPattern } else { 'manual-route' })
+                queryLength = $(if ($null -eq $Query) { 0 } else { $Query.Length })
+                queryHash = Get-TextHash -Text $Query
+                requiredContext = $package.requiredContext
+                routeContextFiles = $package.routeContextFiles
+                memoryFiles = $package.memoryFiles
+                executionPolicy = $package.executionPolicy
+                outputPath = $(if ($OutputPath) { $OutputPath } else { $null })
+            }
+            [void](Write-RunRecord -Record $runRecord)
+        }
+
+        Write-Result -Text $package.text
         break
     }
 }

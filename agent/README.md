@@ -1,30 +1,33 @@
 # Agent (core orchestration)
 
-Orchestration for the **Flutter / mobile** prompt operating system: resolve route, activate skills, load context, enforce one output contract.
+Orchestration for the Flutter / mobile prompt operating system: resolve route, activate skills, load context, and enforce one output contract.
 
-## Entry points
+## Entry Points
 
 | Layer | Path | Role |
 | --- | --- | --- |
-| **Skill index** | `agent/SKILLS.md` | All `skill_id` → `SKILL.md` links |
+| **Skill index** | `agent/SKILLS.md` | Flat index of all `skill_id` -> `SKILL.md` links |
+| **Operator surface** | `agents/`, `commands/`, `contexts/`, `manifests/` | Thin wrappers and catalogs for daily usage |
 | **PowerShell CLI** | `tools/prompt-cli/aiprompt.ps1` | Build prompt packages from `routes.json` |
-| **TypeScript** | `tools/prompt-runtime-ts/` | Router parity with PS, `--explain` (top candidates + command/route hints), `npm run validate-manifest`, skill order per `skill-precedence-policy.md` |
-| **Runtime state** | `.promptos/` | Plans, runs, logs, metrics (mobile-scoped) |
+| **TypeScript runtime** | `tools/prompt-runtime-ts/` | Route parity with PowerShell, `--explain`, catalog validation, and skill ordering |
+| **Runtime state** | `.promptos/` | Plans, runs, logs, and metrics |
 
-## Skill system (no duplication)
+## Skill System
 
-- **Definitions:** `docs/ai/11-skills/skills/<skill_id>/SKILL.md` (one folder per id)
-- **Registry & rules:** `docs/ai/00-core/skill-registry.md`, `skill-contracts.md`, `skill-precedence-policy.md`
-- **Human “table of contents”:** this folder → `SKILLS.md`
+- definitions: `docs/ai/11-skills/skills/<skill_id>/SKILL.md`
+- registry and rules: `docs/ai/00-core/skill-registry.md`, `docs/ai/00-core/skill-contracts.md`, `docs/ai/00-core/skill-precedence-policy.md`
+- human-readable table of contents: `agent/SKILLS.md`
 
-Do not put duplicate long skill prose under `agent/`; extend `SKILL.md` or `skill-contracts.md` instead.
+Do not duplicate long skill definitions under `agent/`.
 
-## Agent roles (profiles)
+## Agent Roles
 
-Role docs (ask / plan / execute / review): `docs/ai/11-skills/agents/`
+Canonical role docs live under `docs/ai/11-skills/agents/`.
 
-These are **profiles** that combine skills; they are not separate `skill_id` entries in `routes.json`.
+These are profiles that combine skills; they are not separate `skill_id` entries in `routes.json`.
 
-## Hermes-style loop (future)
+## Today vs Future
 
-Full persistent agent loop (gateway, scheduled runs) is optional. Today: use `.promptos/PLANNING_WORKFLOW.md` + CLI/TS for execution.
+Full persistent agent loops remain optional.
+
+Today, use `.promptos/PLANNING_WORKFLOW.md` together with the CLI and TypeScript runtime.

@@ -3,6 +3,32 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { RoutesManifest } from "./types.js";
 
+interface OutputArtifactSuite {
+  cases: Array<{
+    caseId: string;
+    routeId?: string;
+    outputContract?: string;
+    artifactPath: string;
+  }>;
+}
+
+interface SurfaceCatalogItem {
+  id: string;
+  path: string;
+  description: string;
+  canonicalRefs: string[];
+  routeBias?: string[];
+  skills?: string[];
+  commands?: string[];
+}
+
+interface SurfaceCatalog {
+  version: string;
+  agents: SurfaceCatalogItem[];
+  commands: SurfaceCatalogItem[];
+  contexts: SurfaceCatalogItem[];
+}
+
 function repoRootFromArgs(): string {
   const args = process.argv.slice(2);
   const idx = args.indexOf("--repo-root");
@@ -33,6 +59,59 @@ function parseContractSectionNames(markdown: string): Set<string> {
     names.add(m[1]);
   }
   return names;
+}
+
+function validateSurfaceCatalog(repoRoot: string, manifest: RoutesManifest, errors: string[]): void {
+  const catalogPath = join(repoRoot, "manifests", "catalog.json");
+  const schemaPath = join(repoRoot, "manifests", "catalog.schema.json");
+  const validCommands = new Set(["ask", "plan", "review", "execute", "ship-check"]);
+
+  if (!existsSync(catalogPath)) {
+    errors.push("Missing operator surface catalog: manifests/catalog.json");
+    return;
+  }
+  if (!existsSync(schemaPath)) {
+    errors.push("Missing operator surface schema: manifests/catalog.schema.json");
+  }
+
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8")) as SurfaceCatalog;
+  const routeIds = new Set(manifest.routes.map((route) => route.routeId));
+
+  for (const section of ["agents", "commands", "contexts"] as const) {
+    const items = catalog[section];
+    const seenIds = new Set<string>();
+    for (const item of items) {
+      if (seenIds.has(item.id)) {
+        errors.push(`Surface catalog ${section}: duplicate id ${item.id}`);
+      }
+      seenIds.add(item.id);
+
+      if (!existsSync(join(repoRoot, item.path))) {
+        errors.push(`Surface catalog ${section}/${item.id}: missing path ${item.path}`);
+      }
+      for (const ref of item.canonicalRefs ?? []) {
+        if (!existsSync(join(repoRoot, ref))) {
+          errors.push(`Surface catalog ${section}/${item.id}: missing canonicalRef ${ref}`);
+        }
+      }
+      for (const routeId of item.routeBias ?? []) {
+        if (!routeIds.has(routeId)) {
+          errors.push(`Surface catalog ${section}/${item.id}: unknown routeBias ${routeId}`);
+        }
+      }
+      for (const skillId of item.skills ?? []) {
+        const skillFile = join(repoRoot, "docs/ai/11-skills/skills", skillId, "SKILL.md");
+        if (!existsSync(skillFile)) {
+          errors.push(`Surface catalog ${section}/${item.id}: unknown skill ${skillId}`);
+        }
+      }
+      for (const command of item.commands ?? []) {
+        if (!validCommands.has(command)) {
+          errors.push(`Surface catalog ${section}/${item.id}: unknown command ${command}`);
+        }
+      }
+    }
+  }
 }
 
 function main(): void {
@@ -110,6 +189,31 @@ function main(): void {
   if (!existsSync(qualityThresholdPath)) {
     errors.push(`Missing quality thresholds: tools/prompt-cli/evals/quality-thresholds.json`);
   }
+  const outputArtifactSuitePath = join(repoRoot, "tools/prompt-cli/evals/output-artifact-regression.json");
+  if (!existsSync(outputArtifactSuitePath)) {
+    errors.push(`Missing output artifact suite: tools/prompt-cli/evals/output-artifact-regression.json`);
+  } else {
+    const outputArtifactSuite = JSON.parse(readFileSync(outputArtifactSuitePath, "utf8")) as OutputArtifactSuite;
+    for (const testCase of outputArtifactSuite.cases) {
+      const targetContract =
+        testCase.outputContract ??
+        (testCase.routeId ? manifest.routes.find((route) => route.routeId === testCase.routeId)?.outputContract : undefined);
+
+      if (testCase.routeId && !routeIds.has(testCase.routeId)) {
+        errors.push(`Output artifact suite case ${testCase.caseId}: unknown routeId ${testCase.routeId}`);
+      }
+      if (!targetContract) {
+        errors.push(`Output artifact suite case ${testCase.caseId}: could not resolve output contract`);
+      } else if (!contractSections.has(targetContract)) {
+        errors.push(`Output artifact suite case ${testCase.caseId}: unknown output contract ${targetContract}`);
+      }
+      if (!existsSync(join(repoRoot, testCase.artifactPath))) {
+        errors.push(`Output artifact suite case ${testCase.caseId}: missing artifactPath ${testCase.artifactPath}`);
+      }
+    }
+  }
+
+  validateSurfaceCatalog(repoRoot, manifest, errors);
 
 
 
@@ -129,7 +233,7 @@ function main(): void {
   }
 
   process.stdout.write(
-    `validate-manifest: OK (${manifest.routes.length} routes, ${contractSections.size} contract sections, ${docRouteTable.size} table rows)\n`
+    `validate-manifest: OK (${manifest.routes.length} routes, ${contractSections.size} contract sections, ${docRouteTable.size} table rows, operator surface catalog checked)\n`
   );
 }
 

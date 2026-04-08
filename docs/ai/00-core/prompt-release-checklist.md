@@ -20,6 +20,7 @@ Run this checklist before promoting prompt-system changes.
 
 - route regression checks pass for impacted routes
 - output contract compliance checks pass
+- generated output artifact verification passes for representative artifacts
 - at least one representative prompt package builds per changed route family
 - high-risk routes reviewed manually
 

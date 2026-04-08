@@ -115,6 +115,10 @@
       "expectedContract": "architecture-decision-v1"
     },
     {
+      "routeId": "ai-mcp-workflow",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
       "routeId": "ba-refinement",
       "expectedContract": "implementation-plan-v1"
     },

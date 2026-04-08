@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { evaluateCommandRouteAlignment, parseCommand } from "./commands.js";
-import { resolveRoutesManifestPath } from "./paths.js";
+import { decideExecutionPolicy } from "./execution-policy.js";
+import { repoRootFromManifestPath, resolveRoutesManifestPath } from "./paths.js";
+import { persistRuntimeRun } from "./persist-run.js";
 import { resolveRoute, topRouteCandidates } from "./router.js";
 import { resolveSkillsByPrecedence } from "./skills.js";
 import type { RoutesManifest, RuntimeResult } from "./types.js";
@@ -11,7 +13,8 @@ function usage(): never {
       "Usage: node dist/index.js --command <ask|plan|review|execute|ship-check> --query \"...\"",
       "  [--project-skills a,b] [--global-skills a,b]",
       "  [--routes path/to/routes.json]  (else PROMPT_ROUTES_MANIFEST or default tools/prompt-cli/routes.json)",
-      "  [--explain]  (include top routing candidates + command/route alignment hints)"
+      "  [--explain]  (include top routing candidates + command/route alignment hints)",
+      "  [--persist-run]  (write a structured run artifact under .promptos/runs)"
     ].join("\n")
   );
 }
@@ -46,6 +49,7 @@ function main(): void {
     projectSkills: csv(argValue(args, "--project-skills")),
     globalSkills: csv(argValue(args, "--global-skills"))
   });
+  const executionPolicy = decideExecutionPolicy(match.route, query);
 
   const result: RuntimeResult = {
     command,
@@ -53,7 +57,8 @@ function main(): void {
     outputContract: match.route.outputContract,
     riskLevel: match.route.riskLevel,
     skills,
-    matchedPattern: match.matchedPattern
+    matchedPattern: match.matchedPattern,
+    executionPolicy
   };
 
   if (args.includes("--explain")) {
@@ -69,6 +74,10 @@ function main(): void {
         hints: alignment.hints
       }
     };
+  }
+
+  if (args.includes("--persist-run")) {
+    persistRuntimeRun(repoRootFromManifestPath(manifestPath), command, query, result);
   }
 
   process.stdout.write(JSON.stringify(result, null, 2) + "\n");

@@ -85,3 +85,40 @@ Why:
 Switch:
 
 - if the field is simple search input without validation, plain `TextField` is lighter
+
+## Example 5: Shared Command Surface
+
+Context:
+
+- editor screen has Save button in the app bar
+- desktop users also need `Ctrl+S`
+- the same save flow can be triggered from multiple places
+
+Default decision:
+
+- use `Shortcuts` and `Actions` with one shared save command
+
+Why:
+
+- command ownership is now independent from one button widget
+- keyboard and pointer entry points stay aligned
+
+Switch:
+
+- if the action is local and touch-only, a simple button callback can still be enough
+
+## Example 6: Direct Widget Choice
+
+Context:
+
+- developer asks which widget should be used for a screen title, a form submit button, a long list, and a validated email field
+- the main need is direct widget selection with code, not architecture
+
+Default decision:
+
+- load `widget-by-widget-cases-and-examples`
+
+Why:
+
+- the request is about concrete widget situations one by one
+- abstract layout or architecture packs would be too broad

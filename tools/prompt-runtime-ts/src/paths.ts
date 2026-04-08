@@ -28,3 +28,7 @@ export function resolveRoutesManifestPath(
   }
   return defaultRoutesManifestPath();
 }
+
+export function repoRootFromManifestPath(manifestPath: string): string {
+  return resolve(dirname(manifestPath), "..", "..");
+}

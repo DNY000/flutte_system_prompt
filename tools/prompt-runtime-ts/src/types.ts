@@ -1,4 +1,7 @@
 export type RiskLevel = "low" | "medium" | "high";
+export type NeedLevel = "false" | "optional" | "true";
+export type MultiAgentMode = "off" | "consider" | "recommended";
+export type MemoryWriteMode = "optional" | "likely" | "enabled";
 
 export interface RouteDef {
   routeId: string;
@@ -43,6 +46,14 @@ export interface RuntimeExplain {
   };
 }
 
+export interface ExecutionPolicy {
+  researchNeeded: NeedLevel;
+  mcpNeeded: NeedLevel;
+  multiAgentMode: MultiAgentMode;
+  memoryWrite: MemoryWriteMode;
+  suggestedMemoryFiles: string[];
+}
+
 export interface RuntimeResult {
   command: RuntimeCommand;
   routeId: string;
@@ -50,5 +61,6 @@ export interface RuntimeResult {
   riskLevel: RiskLevel;
   skills: string[];
   matchedPattern: string;
+  executionPolicy: ExecutionPolicy;
   explain?: RuntimeExplain;
 }

@@ -342,11 +342,11 @@ Each entry is a direct link to `docs/ai/11-skills/skills/<id>/SKILL.md`.
 
 #### `tools/prompt-cli/evals/multilingual-routing-benchmark.json`
 
-**Role:** Routing benchmark with multi-language queries — ensures text normalization works correctly for Vietnamese, Japanese, etc.
+**Role:** Routing benchmark with alternate query phrasings — ensures text normalization works correctly for accented Latin text, Japanese, and other non-trivial inputs.
 
 **Strengths:** Rarely seen in prompt systems — high value for globalization.
 
-**Recommendation:** P2 — Add more Vietnamese query cases since this is the primary usage context.
+**Recommendation:** P2 — Add more alternate-English and accented query cases for broader coverage.
 
 ---
 
@@ -534,13 +534,13 @@ Each entry is a direct link to `docs/ai/11-skills/skills/<id>/SKILL.md`.
 
 **Role:** `normalizeText()` — NFD decompose → strip accents → lowercase → replace non-alphanumeric with space → trim.
 
-**Quality:** ✅ Pure function; no side effects. Handles Vietnamese/accented input correctly via NFD.
+**Quality:** ✅ Pure function; no side effects. Handles accented input correctly via NFD.
 
 **Strengths:** Minimal and technically correct.
 
 **Weaknesses:** No dedicated unit tests for `normalizeText` — only tested indirectly through router tests.
 
-**Recommendation:** P2 — Add direct unit tests for `normalizeText` (Vietnamese input, CJK characters, emoji).
+**Recommendation:** P2 — Add direct unit tests for `normalizeText` (accented Latin input, CJK characters, emoji).
 
 ---
 

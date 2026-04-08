@@ -6,6 +6,11 @@
 
 Package and API research with versioned facts for Flutter ecosystem.
 
+## Other Common Requests This Skill Should Cover
+
+- compare package options using current official docs, release notes, and metadata
+- validate AI-assisted package research or debugging workflows with current sources
+
 ## Input
 
 - Resolved or inferred `route_id` and task context
@@ -20,3 +25,5 @@ Package and API research with versioned facts for Flutter ecosystem.
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Research prompt: `docs/ai/02-tasks/research.md`
+- Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/mcp-assisted-debugging-and-package-research.md`

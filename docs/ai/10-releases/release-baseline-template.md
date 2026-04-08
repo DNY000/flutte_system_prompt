@@ -16,6 +16,7 @@
 - route regression pass rate:
 - multilingual routing pass rate:
 - contract compliance pass rate:
+- output artifact verification pass rate:
 - manual quality average:
 
 ## Risk

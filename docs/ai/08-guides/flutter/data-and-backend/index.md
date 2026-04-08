@@ -12,6 +12,8 @@ Examples:
 | `storage` | preferences, secure storage, files, cache, database choices | `flutter/domains/storage.md` |
 | `api-network` | API clients, DTO mapping, repositories, retries, interceptors | `flutter/domains/api-network.md` |
 | `async-concurrency` | futures, streams, isolates, background work, async safety | `flutter/domains/async-concurrency.md` |
+| `modeling-and-mappers` | DTO, domain, and UI model boundaries, mapper ownership, model-generation libraries | `flutter/data-and-backend/modeling-and-mappers.md` |
+| `result-and-error-modeling` | app-owned result types, failure mapping, repository error boundaries, UI error translation | `flutter/data-and-backend/result-and-error-modeling.md` |
 
 ## Retrieval Rules
 
@@ -19,4 +21,6 @@ Examples:
 - prefer `storage` when the main risk is persistence or token handling
 - prefer `api-network` when the main boundary is remote transport or DTO translation
 - prefer `async-concurrency` when the decision is about execution model rather than data source
+- add `modeling-and-mappers` when the question is about model split, DTO leakage, or mapper ownership
+- add `result-and-error-modeling` when the issue is how to normalize exceptions or model recoverable failures
 - load `flutter/data-and-backend/examples.md` when the state or data boundary is under-specified

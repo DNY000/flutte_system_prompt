@@ -6,6 +6,12 @@
 
 Feature and module boundaries, dependency direction, Flutter app architecture.
 
+## Other Common Requests This Skill Should Cover
+
+- split DTO, domain, and UI models without leaking transport concerns
+- place mappers at the correct boundary and keep folder ownership clear
+- decide when code generation is justified for models
+
 ## Input
 
 - Resolved or inferred `route_id` and task context
@@ -38,3 +44,5 @@ lib/shared/core/
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Feature organization guidance: `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`
+- Modeling guidance: `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`

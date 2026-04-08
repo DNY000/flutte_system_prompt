@@ -5,7 +5,8 @@
   "metrics": {
     "routeRegressionPassRate": 1.0,
     "contractCompliancePassRate": 1.0,
+    "outputArtifactVerificationPassRate": 1.0,
     "manualQualityAverage": null,
-    "notes": "Set manualQualityAverage after first rubric scoring cycle."
+    "notes": "Set manualQualityAverage after first rubric scoring cycle. Generated output artifact verification is now enforced by automated fixture checks."
   }
 }

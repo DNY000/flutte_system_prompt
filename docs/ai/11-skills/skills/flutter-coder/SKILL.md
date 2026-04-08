@@ -6,6 +6,13 @@
 
 Implementation, refactor, and code-review preparation with Effective Dart alignment.
 
+## Other Common Requests This Skill Should Cover
+
+- implement reusable UI primitives without leaking styling and interaction policy into every screen
+- wire gestures, focus, and keyboard shortcuts correctly for form-heavy or desktop-capable Flutter screens
+- implement wrappers around image, storage, network, and plugin packages without leaking them through feature code
+- add widget, unit, and integration tests for image-heavy, native-bridge, and security-sensitive flows
+
 ## Input
 
 - Resolved or inferred `route_id` and task context
@@ -41,3 +48,9 @@ Future<void> submit() async {
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Design-system guidance: `docs/ai/08-guides/flutter/ui/design-system-and-base-widgets.md`
+- Gesture and focus guidance: `docs/ai/08-guides/flutter/ui/gestures-shortcuts-and-focus.md`
+- Widget-by-widget guidance: `docs/ai/08-guides/flutter/ui/widget-by-widget-cases-and-examples.md`
+- Package selection guidance: `docs/ai/08-guides/flutter/packages-and-plugins/practical-package-selection.md`
+- Test guidance: `docs/ai/08-guides/flutter/testing-and-debugging/images-channels-and-security-tests.md`
+- Error modeling guidance: `docs/ai/08-guides/flutter/data-and-backend/result-and-error-modeling.md`

@@ -115,6 +115,10 @@
       "expectedRouteId": "plugin-authoring"
     },
     {
+      "query": "dart flutter mcp server",
+      "expectedRouteId": "ai-mcp-workflow"
+    },
+    {
       "query": "clarify requirements",
       "expectedRouteId": "ba-refinement"
     },

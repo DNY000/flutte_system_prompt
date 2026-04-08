@@ -46,3 +46,8 @@ test("topRouteCandidates respects manifest order on tie", () => {
   assert.equal(top[0].routeId, "a-first");
   assert.equal(top[1].routeId, "b-second");
 });
+
+test("scorePattern handles accented Latin text and maps \\u0111 to d", () => {
+  const score = scorePattern("mo\u0111ule d\u00E9sign flutter", "module design flutter");
+  assert.ok(score >= 1000);
+});

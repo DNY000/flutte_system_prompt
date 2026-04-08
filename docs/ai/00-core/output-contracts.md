@@ -333,6 +333,7 @@ Potential duplicate state emission if repository callback is retried.
 | `offline-sync-strategy` | `architecture-decision-v1` |
 | `web-desktop-strategy` | `architecture-decision-v1` |
 | `plugin-authoring` | `architecture-decision-v1` |
+| `ai-mcp-workflow` | `decision-matrix-v1` |
 | `ba-refinement` | `implementation-plan-v1` |
 | `research-brief` | `research-brief-v1` |
 | `prompt-system-roadmap` | `improvement-roadmap-v1` |

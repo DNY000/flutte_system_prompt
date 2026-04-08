@@ -1,0 +1,167 @@
+{
+  "$schema": "catalog.schema.json",
+  "version": "0.1.0",
+  "agents": [
+    {
+      "id": "ask",
+      "path": "agents/ask.md",
+      "description": "Evidence-first analysis and research framing.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/agents/ask-agent.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "routeBias": ["research-brief", "architecture-review", "prompt-system-roadmap"],
+      "skills": ["intent-router", "context-loader", "research-analyst", "source-validator"]
+    },
+    {
+      "id": "plan",
+      "path": "agents/plan.md",
+      "description": "Sequencing, migration planning, and roadmap design.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/agents/plan-agent.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "routeBias": ["architecture-decision", "module-design-decision", "prompt-system-roadmap", "agent-system-roadmap", "eval-system-roadmap"],
+      "skills": ["intent-router", "context-loader", "flutter-architect", "module-designer", "prompt-architect", "eval-designer"]
+    },
+    {
+      "id": "execute",
+      "path": "agents/execute.md",
+      "description": "Implementation-oriented work with target files and tests.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/agents/execute-agent.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "routeBias": ["code-implement", "code-refactor", "test-implement", "security-implement", "performance-optimize", "pipeline-change"],
+      "skills": ["intent-router", "context-loader", "flutter-coder", "test-engineer", "security-auditor", "performance-analyst"]
+    },
+    {
+      "id": "review",
+      "path": "agents/review.md",
+      "description": "Findings-first audits and severity-ordered triage.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/agents/review-agent.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "routeBias": ["code-review", "security-audit", "performance-audit", "debug-triage", "architecture-review"],
+      "skills": ["intent-router", "context-loader", "flutter-coder", "security-auditor", "performance-analyst", "debug-investigator"]
+    },
+    {
+      "id": "architect",
+      "path": "agents/architect.md",
+      "description": "High-risk architecture and module-boundary planning.",
+      "canonicalRefs": [
+        "docs/ai/02-tasks/architecture.md",
+        "docs/ai/02-tasks/module-design.md"
+      ],
+      "routeBias": ["architecture-decision", "module-design-decision", "add-to-app", "offline-sync-strategy", "web-desktop-strategy"],
+      "skills": ["flutter-architect", "module-designer", "hybrid-integrator", "sync-architect", "multiplatform-strategist"]
+    },
+    {
+      "id": "prompt-architect",
+      "path": "agents/prompt-architect.md",
+      "description": "Prompt, agent, and eval system evolution.",
+      "canonicalRefs": [
+        "docs/ai/02-tasks/prompt-system.md",
+        "docs/ai/02-tasks/agent-system.md",
+        "docs/ai/02-tasks/ai-evals.md"
+      ],
+      "routeBias": ["prompt-system-roadmap", "agent-system-roadmap", "eval-system-roadmap"],
+      "skills": ["prompt-architect", "agent-architect", "eval-designer", "quality-grader", "context-loader"]
+    }
+  ],
+  "commands": [
+    {
+      "id": "ask",
+      "path": "commands/ask.md",
+      "description": "Evidence-first command surface.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/commands/README.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "commands": ["ask"]
+    },
+    {
+      "id": "plan",
+      "path": "commands/plan.md",
+      "description": "Planning and sequencing command surface.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/commands/README.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "commands": ["plan"]
+    },
+    {
+      "id": "review",
+      "path": "commands/review.md",
+      "description": "Findings-first review command surface.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/commands/README.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "commands": ["review"]
+    },
+    {
+      "id": "execute",
+      "path": "commands/execute.md",
+      "description": "Implementation-oriented command surface.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/commands/README.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "commands": ["execute"]
+    },
+    {
+      "id": "ship-check",
+      "path": "commands/ship-check.md",
+      "description": "Release-readiness and rollback-oriented command surface.",
+      "canonicalRefs": [
+        "docs/ai/11-skills/commands/README.md",
+        "docs/ai/11-skills/commands/command-routing-map.md"
+      ],
+      "commands": ["ship-check"]
+    }
+  ],
+  "contexts": [
+    {
+      "id": "core-runtime",
+      "path": "contexts/core-runtime.md",
+      "description": "Minimum runtime context for most requests.",
+      "canonicalRefs": [
+        "docs/ai/00-core/system-prompt.md",
+        "docs/ai/00-core/execution-flow.md",
+        "docs/ai/01-context/project-context.md"
+      ]
+    },
+    {
+      "id": "flutter-engineering",
+      "path": "contexts/flutter-engineering.md",
+      "description": "Curated Flutter decision and implementation context.",
+      "canonicalRefs": [
+        "docs/ai/00-core/decision-engine.md",
+        "docs/ai/00-core/self-analysis-protocol.md",
+        "docs/ai/08-guides/flutter/index.md"
+      ]
+    },
+    {
+      "id": "ai-systems",
+      "path": "contexts/ai-systems.md",
+      "description": "Prompt, agent, and eval system context bundle.",
+      "canonicalRefs": [
+        "docs/ai/08-guides/ai-systems/index.md",
+        "docs/ai/02-tasks/prompt-system.md",
+        "docs/ai/02-tasks/ai-evals.md"
+      ]
+    },
+    {
+      "id": "governance-and-memory",
+      "path": "contexts/governance-and-memory.md",
+      "description": "Release, memory, and durable policy context bundle.",
+      "canonicalRefs": [
+        "docs/ai/03-memory/memory-governance.md",
+        "docs/ai/03-memory/incident-to-memory-loop.md",
+        "docs/ai/00-core/prompt-release-checklist.md"
+      ]
+    }
+  ]
+}

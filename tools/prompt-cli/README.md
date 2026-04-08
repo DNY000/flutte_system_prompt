@@ -67,6 +67,8 @@ pwsh ./aiprompt.ps1 resolve -Query "design login screen UI" -Json
   -Query "design login screen UI" `
   -Goal "Design login screen for Flutter" `
   -Related "lib/features/auth/presentation/login_screen.dart" `
+  -Memory auto `
+  -PersistRun `
   -Constraints "Use Material 3","Support tablet" `
   -DefinitionOfDone "Return design-spec-v1 only" `
   -OutputPath ".out/login-prompt.md" `
@@ -104,6 +106,7 @@ This script runs:
 - route regression checks from `tools/prompt-cli/evals/route-regression.json`
 - additional routing checks from `tools/prompt-cli/evals/multilingual-routing-benchmark.json`
 - contract compliance checks from `tools/prompt-cli/evals/contract-compliance.json`
+- generated output artifact verification from `tools/prompt-cli/evals/output-artifact-regression.json`
 - route-to-contract doc sync checks against `docs/ai/00-core/output-contracts.md`
 - threshold and trend baseline sanity checks from `quality-thresholds.json` and `trend-baseline.json`
 
@@ -112,21 +115,32 @@ Quality scoring references:
 - rubric: `tools/prompt-cli/evals/task-quality-rubric.md`
 - thresholds: `tools/prompt-cli/evals/quality-thresholds.json`
 
+Generated-output verification can also be run directly from the TypeScript runtime:
+
+```bash
+npm --prefix tools/prompt-runtime-ts run verify-artifacts
+```
+
 ## Useful Options
 
 - `-ExtraContextFiles`
   Add extra local context files into the generated package.
 - `-Memory decisions patterns mistakes`
   Inject memory files into the package.
+- `-Memory auto`
+  Inject route-aware memory files selected from the current route and query.
 - `-IncludeReferences`
   Attach the source map for research-heavy prompts.
 - `-SkipProjectContext`
   Omit `project-context.md` when you want a smaller package.
+- `-PersistRun`
+  Write a structured run artifact under `.promptos/runs`.
 
 ## Default Behavior
 
 - `build` loads only the files needed for the chosen route.
 - `resolve` uses normalized token overlap against `queryPatterns` (ASCII folding and light normalization).
+- `resolve` and the TypeScript runtime now emit an `executionPolicy` block with `research`, `mcp`, `memory`, and `multi-agent` hints.
 - architecture, testing, performance, security, CI/CD, and Flutter decision routes load `decision-engine` plus only the matching Flutter docs section and leaf packs.
 - AI-system routes can load dedicated context files from `08-guides/ai-systems/`.
 - output can be printed, written to a file, or copied to the clipboard.
@@ -143,6 +157,7 @@ cd tools/prompt-runtime-ts
 npm install
 npm run build
 node dist/index.js --command plan --query "design auth module architecture Flutter"
+node dist/index.js --command plan --query "design auth module architecture Flutter" --persist-run
 ```
 
 Optional precedence overrides (**order:** project skills first, then global-only, then route built-ins; duplicates once):

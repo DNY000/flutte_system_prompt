@@ -27,6 +27,8 @@ Use this index to map common user requests to routes, skills, and output contrac
 | `how to organize presentation domain data layers in Flutter` | `architecture-decision` | `architecture-decision-v1` | `02-tasks/architecture.md` | `intent-router`, `flutter-architect`, `context-loader` |
 | `design login screen UI` | `design-screen` | `design-spec-v1` | `02-tasks/design.md` | `intent-router`, `flutter-ui-designer`, `context-loader` |
 | `design a design system for the app` | `design-system` | `design-spec-v1` | `02-tasks/design.md` | `intent-router`, `flutter-ui-designer`, `context-loader` |
+| `give me a Flutter screen design prompt template` | `design-screen` | `design-spec-v1` | `02-tasks/design.md` | `intent-router`, `flutter-ui-designer`, `context-loader` |
+| `give me a design system prompt template` | `design-system` | `design-spec-v1` | `02-tasks/design.md` | `intent-router`, `flutter-ui-designer`, `context-loader` |
 | `propose architecture for chat feature` | `architecture-decision` | `architecture-decision-v1` | `02-tasks/architecture.md` | `intent-router`, `flutter-architect`, `context-loader` |
 | `review auth module architecture` | `architecture-review` | `review-report-v1` | `02-tasks/architecture.md` | `intent-router`, `flutter-architect`, `context-loader` |
 | `implement Flutter profile screen` | `code-implement` | `implementation-plan-v1` | `02-tasks/code.md` | `intent-router`, `flutter-coder`, `context-loader` |
@@ -47,6 +49,8 @@ Use this index to map common user requests to routes, skills, and output contrac
 | `create Android release pipeline` | `pipeline-change` | `pipeline-change-v1` | `02-tasks/ci-cd.md` | `intent-router`, `ci-engineer`, `context-loader` |
 | `what to cache in GitHub Actions for Flutter` | `pipeline-change` | `pipeline-change-v1` | `02-tasks/ci-cd.md` | `intent-router`, `ci-engineer`, `context-loader` |
 | `flavor signing release android flutter` | `pipeline-change` | `pipeline-change-v1` | `02-tasks/ci-cd.md` | `intent-router`, `ci-engineer`, `context-loader` |
+| `how should I use AI rules files and MCP for Flutter` | `ai-mcp-workflow` | `decision-matrix-v1` | `02-tasks/ai-mcp-workflow.md` | `intent-router`, `prompt-architect`, `mcp-orchestrator`, `research-analyst`, `source-validator`, `context-loader` |
+| `should I use the Dart Flutter MCP server for package research` | `ai-mcp-workflow` | `decision-matrix-v1` | `02-tasks/ai-mcp-workflow.md` | `intent-router`, `prompt-architect`, `mcp-orchestrator`, `research-analyst`, `source-validator`, `context-loader` |
 | `clarify acceptance criteria for onboarding` | `ba-refinement` | `implementation-plan-v1` | `02-tasks/ba.md` | `intent-router`, `business-analyst`, `context-loader` |
 | `research best deep link packages` | `research-brief` | `research-brief-v1` | `02-tasks/research.md` | `intent-router`, `research-analyst`, `context-loader` |
 | `how to optimize prompts for this system` | `prompt-system-roadmap` | `improvement-roadmap-v1` | `02-tasks/prompt-system.md` | `intent-router`, `prompt-architect`, `context-loader` |

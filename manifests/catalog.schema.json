@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/flutter-aigent/manifests/catalog.schema.json",
+  "title": "OperatorSurfaceCatalog",
+  "type": "object",
+  "required": ["version", "agents", "commands", "contexts"],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/surfaceItem"
+      }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/surfaceItem"
+      }
+    },
+    "contexts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/surfaceItem"
+      }
+    }
+  },
+  "$defs": {
+    "surfaceItem": {
+      "type": "object",
+      "required": ["id", "path", "description", "canonicalRefs"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "canonicalRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "routeBias": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -49,6 +49,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/prompt-runtime-ts/package-lock.json
+
+      - name: Install runtime dependencies
+        working-directory: tools/prompt-runtime-ts
+        run: npm ci
+
       - name: Run Prompt Evals
         shell: pwsh
         run: ./tools/prompt-cli/run-evals.ps1

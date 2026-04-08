@@ -11,6 +11,7 @@ $contractsPath = Join-Path $RepoRoot 'docs\ai\00-core\output-contracts.md'
 $routeEvalPath = Join-Path $PSScriptRoot 'evals\route-regression.json'
 $contractEvalPath = Join-Path $PSScriptRoot 'evals\contract-compliance.json'
 $multiEvalPath = Join-Path $PSScriptRoot 'evals\multilingual-routing-benchmark.json'
+$outputArtifactEvalPath = Join-Path $PSScriptRoot 'evals\output-artifact-regression.json'
 $thresholdPath = Join-Path $PSScriptRoot 'evals\quality-thresholds.json'
 $baselinePath = Join-Path $PSScriptRoot 'evals\trend-baseline.json'
 $routerScript = Join-Path $PSScriptRoot 'aiprompt.ps1'
@@ -37,7 +38,9 @@ function Resolve-RouteId {
     param([string]$Query)
 
     $raw = & $routerScript resolve -Query $Query -Json
-    if ($LASTEXITCODE -ne 0) {
+    $exitCodeVar = Get-Variable -Name LASTEXITCODE -Scope Global -ErrorAction SilentlyContinue
+    $exitCode = if ($null -ne $exitCodeVar) { [int]$exitCodeVar.Value } else { 0 }
+    if ($exitCode -ne 0) {
         throw "Resolve failed for query: $Query"
     }
 
@@ -45,10 +48,28 @@ function Resolve-RouteId {
     return $obj.routeId
 }
 
+function Invoke-OutputArtifactVerification {
+    param([string]$RepoRootValue)
+
+    $runtimeDir = Join-Path $RepoRootValue 'tools\prompt-runtime-ts'
+    $output = & npm --prefix $runtimeDir run verify-artifacts 2>&1
+    $exitCodeVar = Get-Variable -Name LASTEXITCODE -Scope Global -ErrorAction SilentlyContinue
+    $exitCode = if ($null -ne $exitCodeVar) { [int]$exitCodeVar.Value } else { 0 }
+
+    if ($output) {
+        $output | ForEach-Object { Write-Output $_ }
+    }
+
+    if ($exitCode -ne 0) {
+        throw "npm run verify-artifacts failed"
+    }
+}
+
 $routesManifest = Get-Content -LiteralPath $routesPath -Raw | ConvertFrom-Json
 $routeEval = Get-Content -LiteralPath $routeEvalPath -Raw | ConvertFrom-Json
 $contractEval = Get-Content -LiteralPath $contractEvalPath -Raw | ConvertFrom-Json
 $multiEval = Get-Content -LiteralPath $multiEvalPath -Raw | ConvertFrom-Json
+$outputArtifactEval = Get-Content -LiteralPath $outputArtifactEvalPath -Raw | ConvertFrom-Json
 $thresholds = Get-Content -LiteralPath $thresholdPath -Raw | ConvertFrom-Json
 $baseline = Get-Content -LiteralPath $baselinePath -Raw | ConvertFrom-Json
 $contractMap = Parse-ContractMapFromMarkdown -FilePath $contractsPath
@@ -104,6 +125,16 @@ if ($thresholds.minimumCriterionFloor -lt 0 -or $thresholds.minimumCriterionFloo
 if (-not $baseline.currentVersion) {
     $failures.Add("trend-baseline: currentVersion is required")
 }
+if ($null -ne $baseline.metrics.outputArtifactVerificationPassRate -and ($baseline.metrics.outputArtifactVerificationPassRate -lt 0 -or $baseline.metrics.outputArtifactVerificationPassRate -gt 1)) {
+    $failures.Add("trend-baseline: outputArtifactVerificationPassRate must be between 0 and 1")
+}
+
+try {
+    Invoke-OutputArtifactVerification -RepoRootValue $RepoRoot
+}
+catch {
+    $failures.Add("output-artifact-verification: $($_.Exception.Message)")
+}
 
 if ($failures.Count -gt 0) {
     Write-Output "Prompt evals: FAILED"
@@ -115,5 +146,6 @@ Write-Output "Prompt evals: PASSED"
 Write-Output "- route regression (one golden query per route where applicable): $($routeEval.cases.Count) cases"
 Write-Output "- multilingual routing: $($multiEval.cases.Count) cases"
 Write-Output "- contract compliance: $($contractEval.routes.Count) checks"
+Write-Output "- generated output artifact verification: $($outputArtifactEval.cases.Count) cases"
 Write-Output "- quality thresholds and trend baseline: validated"
 Write-Output "- note: run 'npm run validate-manifest' in tools/prompt-runtime-ts (also on CI) for manifest/file/docs sync"

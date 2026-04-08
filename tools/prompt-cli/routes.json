@@ -14,7 +14,10 @@
         "design screen",
         "design ui",
         "design a screen",
-        "flutter screen design"
+        "flutter screen design",
+        "design flutter screen layout",
+        "design flutter interface",
+        "design flutter login screen"
       ]
     },
     {
@@ -91,7 +94,9 @@
         "setState vs Riverpod",
         "state management",
         "BLoC vs Riverpod",
-        "when to use ValueNotifier"
+        "when to use ValueNotifier",
+        "provider or riverpod for flutter",
+        "setstate or riverpod"
       ]
     },
     {
@@ -107,7 +112,9 @@
         "choose Flutter package",
         "SDK vs pub package",
         "best flutter package",
-        "compare package"
+        "compare package",
+        "select flutter package",
+        "which flutter package should I use"
       ]
     },
     {
@@ -206,7 +213,9 @@
         "presentation domain data layer",
         "dependency direction",
         "feature module flutter",
-        "layering flutter"
+        "layering flutter",
+        "propose flutter architecture",
+        "flutter architecture"
       ]
     },
     {
@@ -400,7 +409,10 @@
         "flutter crash",
         "runtime bug",
         "release mode bug",
-        "flaky issue"
+        "flaky issue",
+        "analyze flutter error",
+        "flutter app crash",
+        "flutter runtime error"
       ]
     },
     {
@@ -468,7 +480,9 @@
         "flutter desktop strategy",
         "web desktop flutter",
         "renderer flutter web",
-        "multi platform flutter"
+        "multi platform flutter",
+        "flutter web desktop strategy",
+        "flutter web and desktop"
       ]
     },
     {
@@ -485,6 +499,32 @@
         "federated plugin",
         "Flutter plugin design",
         "plugin architecture flutter"
+      ]
+    },
+    {
+      "routeId": "ai-mcp-workflow",
+      "taskType": "ai-system",
+      "primaryIntent": "ai.mcp_workflow",
+      "outputContract": "decision-matrix-v1",
+      "taskPrompt": "docs/ai/02-tasks/ai-mcp-workflow.md",
+      "skills": ["intent-router", "prompt-architect", "mcp-orchestrator", "research-analyst", "source-validator", "context-loader"],
+      "riskLevel": "high",
+      "contextFiles": [
+        "docs/ai/08-guides/flutter/ai-and-mcp/index.md",
+        "docs/ai/08-guides/flutter/ai-and-mcp/ai-rules-and-editor-workflows.md",
+        "docs/ai/08-guides/flutter/ai-and-mcp/dart-flutter-mcp-server-and-tooling.md",
+        "docs/ai/08-guides/flutter/ai-and-mcp/mcp-assisted-debugging-and-package-research.md",
+        "docs/ai/08-guides/flutter/ai-and-mcp/examples.md",
+        "docs/ai/08-guides/ai-systems/context-memory-and-mcp.md"
+      ],
+      "queryPatterns": [
+        "flutter ai workflow",
+        "flutter ai rules",
+        "dart flutter mcp server",
+        "mcp workflow flutter",
+        "create with ai flutter",
+        "flutter mcp",
+        "ai rules and mcp for flutter"
       ]
     },
     {
@@ -524,7 +564,10 @@
         "prompt engineering",
         "design prompt system",
         "build prompt system",
-        "prompt architecture"
+        "prompt architecture",
+        "optimize prompt system",
+        "how to use the prompt system",
+        "how this prompt system works"
       ]
     },
     {

@@ -275,3 +275,67 @@ research_needed: optional
 multi_agent_mode: off
 memory_write: likely
 ```
+
+## Example 9: Flutter AI MCP Workflow Request
+
+Raw request:
+
+`Should we use local AI rules files only, or add the Dart and Flutter MCP server for package research and debugging?`
+
+Resolved route:
+
+```text
+primary_intent: ai.mcp_workflow
+secondary_intents: research.external
+route_id: ai-mcp-workflow
+output_contract: decision-matrix-v1
+required_context:
+  - 02-tasks/ai-mcp-workflow.md
+  - 08-guides/flutter/ai-and-mcp/index.md
+  - 08-guides/flutter/ai-and-mcp/ai-rules-and-editor-workflows.md
+  - 08-guides/flutter/ai-and-mcp/dart-flutter-mcp-server-and-tooling.md
+  - 08-guides/flutter/ai-and-mcp/mcp-assisted-debugging-and-package-research.md
+required_skills:
+  - intent-router
+  - prompt-architect
+  - mcp-orchestrator
+  - research-analyst
+  - source-validator
+  - context-loader
+risk_level: high
+mcp_needed: optional
+research_needed: likely
+multi_agent_mode: off
+memory_write: optional
+```
+
+## Example 10: Design Prompt Template Request
+
+Raw request:
+
+`Give me a Flutter screen design prompt template for a tablet-friendly checkout flow.`
+
+Resolved route:
+
+```text
+primary_intent: design.ui_screen
+secondary_intents: none
+route_id: design-screen
+output_contract: design-spec-v1
+required_context:
+  - 02-tasks/design.md
+  - 04-templates/design-prompt-templates.md
+  - 08-guides/flutter/index.md
+  - 08-guides/flutter/ui/index.md
+  - 08-guides/flutter/domains/layout.md
+  - 08-guides/flutter/domains/theming-adaptive.md
+required_skills:
+  - intent-router
+  - flutter-ui-designer
+  - context-loader
+risk_level: medium
+mcp_needed: false
+research_needed: false
+multi_agent_mode: off
+memory_write: optional
+```

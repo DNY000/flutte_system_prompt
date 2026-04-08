@@ -4,6 +4,15 @@
 
 This folder holds **content**: agents, commands, per-`skill_id` SKILL packs, plugins, hooks.
 
+Thin operator-facing wrappers live at the repo root under:
+
+- `agents/`
+- `commands/`
+- `contexts/`
+- `manifests/`
+
+Those wrappers should point back to this folder and other canonical docs rather than duplicating them.
+
 ## Subfolders
 
 - `agents/`: role profiles (ask, plan, execute, review)

@@ -8,6 +8,10 @@ Canonical terms used across prompt routes, outputs, and review artifacts.
 - output_contract: strict response shape for a route
 - task_prompt: specialist prompt file for one discipline
 - required_context: minimum files needed for one answer
+- prompt_package: assembled runtime artifact that contains route metadata, prompt layers, and user request
+- route_manifest: machine-readable route table in `tools/prompt-cli/routes.json`
+- guide_pack: retrieval-oriented reference pack loaded only when it materially changes the answer
+- skill_precedence: ordering rule for project, global, and built-in skills
 - review_gate: checkpoint before promotion or release
 
 ## Engineering Terms

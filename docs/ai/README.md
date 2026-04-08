@@ -1,162 +1,133 @@
-# AI Prompt System Index
+# AI Prompt System
 
-This is the entry point for the Dart/Flutter prompt operating system.
+This directory is the canonical knowledge base for the Flutter prompt operating system.
 
-## Read Order
+Use this tree for prompt rules, route definitions, task prompts, templates, guide packs, memory, and release governance.
 
-1. `00-core/operating-model.md`
-2. `00-core/system-prompt.md`
-3. `00-core/decision-engine.md`
-4. `00-core/self-analysis-protocol.md`
-5. `00-core/routing-rules.md` (tie-break expectations; matcher math in `00-core/routing-algorithm.md`)
-6. `00-core/output-contracts.md`
-7. `00-core/context-loading-rules.md`
-8. `01-context/project-context.md`
-9. one task prompt from `02-tasks/`
-10. one template from `04-templates/`
-11. `05-index/query-index.md` for routing examples
-12. `08-guides/flutter/index.md` for Flutter docs-aligned retrieval
+## Start Here
 
-## Running the system (Windows + macOS)
+1. `GETTING_STARTED.md`
+2. `00-core/folder-standards.md`
+3. `00-core/operating-model.md`
+4. `00-core/execution-flow.md`
+5. `00-core/system-prompt.md`
+6. `00-core/routing-rules.md`
+7. `00-core/output-contracts.md`
+8. `00-core/context-loading-rules.md`
+9. `01-context/project-context.md`
+10. one task prompt from `02-tasks/`
+11. one output shell from `04-templates/contract-shells.md`
+12. one relevant guide index from `08-guides/`
 
-- Cross-platform runtime (recommended): `tools/prompt-runtime-ts/`
-  - from that folder: `npm ci`, `npm test`, `node dist/index.js --command plan --query \"...\" --explain`
-- PowerShell CLI: repo root `aiprompt.ps1`
-  - Windows: run directly
-  - macOS: install PowerShell (`brew install powershell`) and run via `pwsh ./aiprompt.ps1 ...`
+## Canonical Execution Order
+
+1. Normalize the request.
+2. Resolve one primary route.
+3. Load the smallest context that changes the answer materially.
+4. Activate route skills.
+5. Select one output contract.
+6. Assemble the prompt package.
+7. Produce the answer.
+8. Run quality checks.
+9. Persist durable knowledge only when needed.
+
+Detailed flow: `00-core/execution-flow.md`
+
+## Prompt Package Assembly Order
+
+The standard package order is:
+
+1. `Runtime`
+2. `System Prompt`
+3. `Output Rules`
+4. `Project Context`
+5. `Route Context`
+6. `Task Prompt`
+7. `Output Contract`
+8. `Output Shell`
+9. `Memory` when requested
+10. `Extra Context` when requested
+11. `User Request`
+12. `Final Instruction`
+
+Reference template: `04-templates/master-prompt-template.md`
 
 ## Folder Map
 
-- `00-core/`
-  Core runtime rules for routing, outputs, context loading, skills, MCP, research, and memory.
-  Matcher reference: `routing-algorithm.md`.
-  Governance files include `prompt-versioning-policy.md`, `prompt-release-checklist.md`, and `answer-policies.md`.
-  Runtime variants include `rules.md`, `rules_10k.md`, `rules_4k.md`, and `rules_1k.md`.
-  Skill references include `skill-registry.md` and `skill-contracts.md`.
-  Flat skill index (all SKILL.md paths): `agent/SKILLS.md` (repo root).
-  Precedence rules: `skill-precedence-policy.md`.
-- `01-context/`
-  Stable project facts and constraints.
-- `02-tasks/`
-  Specialist prompts by discipline.
-- `03-memory/`
-  Durable project knowledge.
-  Core files: `decisions.md`, `patterns.md`, `mistakes.md`, `glossary.md`, `modules.md`.
-  Operational workflow: `memory-governance.md`.
-- `04-templates/`
-  Request, routing, and output shells.
-- `05-index/`
-  Query patterns mapped to routes.
-- `06-examples/`
-  Concrete route examples.
-- `07-references/`
-  Primary sources that shape the system.
-- `08-guides/`
-  Decision handbooks, docs-aligned section packs, AI-system guides, and gap analyses.
-- `09-roadmap/`
-  Completion program, task backlog, and staged review passes.
-- `10-releases/`
-  Prompt release changelog and baseline templates.
-- `11-skills/`
-  Skill catalog, maturity levels, and promotion criteria.
+| Folder | Purpose |
+| --- | --- |
+| `00-core/` | Stable operating rules, routing logic, context rules, contracts, and governance |
+| `01-context/` | Stable project facts and constraints |
+| `02-tasks/` | Route-specific task prompts |
+| `03-memory/` | Durable reusable knowledge |
+| `04-templates/` | Prompt assembly, request, and contract shells |
+| `05-index/` | Query examples and discovery aids |
+| `06-examples/` | End-to-end route examples |
+| `07-references/` | Source map and references |
+| `08-guides/` | Retrieval packs for Flutter and AI-system topics |
+| `09-roadmap/` | Planned work and staged review passes |
+| `10-releases/` | Release baselines and changelog |
+| `11-skills/` | Skill definitions, command docs, and agent role profiles |
 
-Runtime state folder:
+Detailed responsibilities: `00-core/folder-standards.md`
 
-- `.promptos/`
-  Persistent state for plans, logs, runs, metrics, and pending memory drafts — **scoped to Flutter / mobile** (see `.promptos/README.md` and `SCOPE.md`).
+## Runtime Entry Points
 
-## Repo layout elsewhere
+- PowerShell CLI: repo root `aiprompt.ps1`
+- CLI implementation: `tools/prompt-cli/aiprompt.ps1`
+- TypeScript runtime: `tools/prompt-runtime-ts/`
+- Skill index: repo root `agent/SKILLS.md`
+- Operator wrappers: repo root `agents/`, `commands/`, `contexts/`, `manifests/`
 
-- **Skills index:** `agent/SKILLS.md` (repo root); definitions in this tree under `11-skills/skills/<skill_id>/`.
-- **Plans and workflow:** `.promptos/plans/` and `.promptos/PLANNING_WORKFLOW.md` (not duplicated under `docs/ai/`).
-- **Missions / demos:** `missions/`, `playground/` at repo root. See the repository root `README.md` for the full map.
+## Minimum Viable Loadout
 
-## Minimum Viable Runtime
-
-To answer one request correctly, the AI should load:
+For one request, load:
 
 1. `00-core/system-prompt.md`
-2. `00-core/decision-engine.md` for decision questions
-3. `00-core/self-analysis-protocol.md`
-4. `00-core/routing-rules.md`
-5. `00-core/output-contracts.md`
-6. `01-context/project-context.md`
-7. exactly one relevant task prompt
-8. one relevant section index from `08-guides/flutter/`
-9. one `examples.md` from that section when the query is under-specified
-10. one leaf pack
-11. one output shell from `04-templates/contract-shells.md`
+2. `00-core/output-rules.md`
+3. `00-core/routing-rules.md`
+4. `00-core/output-contracts.md`
+5. `01-context/project-context.md`
+6. exactly one task prompt
+7. zero or more route context files
+8. one output shell
 
-## Example
+Add `decision-engine.md` and `self-analysis-protocol.md` for decision-sensitive or high-risk work.
 
-If the user asks:
+## Examples
+
+Query:
 
 `Design a Flutter login screen`
 
-Then load:
-
-1. `00-core/system-prompt.md`
-2. `00-core/routing-rules.md`
-3. `00-core/output-contracts.md`
-4. `01-context/project-context.md`
-5. `02-tasks/design.md`
-6. `04-templates/route-resolution-template.md`
-7. `04-templates/contract-shells.md`
-
-And resolve to:
+Typical route:
 
 - `route_id: design-screen`
 - `output_contract: design-spec-v1`
 
-If the user asks:
+Primary files:
+
+- `00-core/system-prompt.md`
+- `02-tasks/design.md`
+- `04-templates/contract-shells.md`
+
+Query:
 
 `When should I use setState instead of Riverpod?`
 
-Then load:
-
-1. `00-core/system-prompt.md`
-2. `00-core/decision-engine.md`
-3. `00-core/self-analysis-protocol.md`
-4. `00-core/routing-rules.md`
-5. `00-core/output-contracts.md`
-6. `01-context/project-context.md`
-7. `02-tasks/state-management-decision.md`
-8. `08-guides/flutter/index.md`
-9. `08-guides/flutter/data-and-backend/index.md`
-10. `08-guides/flutter/domains/state-management.md`
-11. `04-templates/contract-shells.md`
-
-And resolve to:
+Typical route:
 
 - `route_id: state-management-decision`
 - `output_contract: decision-matrix-v1`
 
-If the user asks:
+Primary files:
 
-`When should I use initState instead of didChangeDependencies?`
+- `00-core/system-prompt.md`
+- `00-core/decision-engine.md`
+- `02-tasks/state-management-decision.md`
+- `08-guides/flutter/domains/state-management.md`
 
-Then load:
-
-1. `00-core/system-prompt.md`
-2. `00-core/decision-engine.md`
-3. `00-core/self-analysis-protocol.md`
-4. `00-core/routing-rules.md`
-5. `00-core/output-contracts.md`
-6. `01-context/project-context.md`
-7. `02-tasks/flutter-framework-decision.md`
-8. `08-guides/flutter/index.md`
-9. `08-guides/flutter/ui/index.md`
-10. `08-guides/flutter/domains/lifecycle.md`
-11. `04-templates/contract-shells.md`
-
-And resolve to:
-
-- `route_id: flutter-framework-decision`
-- `output_contract: decision-matrix-v1`
-
-## Terminal CLI
-
-Use the packaged CLI from the repository root:
+## CLI Quick Start
 
 ```powershell
 .\aiprompt.ps1 help
@@ -165,6 +136,7 @@ Use the packaged CLI from the repository root:
 .\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen for Flutter"
 ```
 
-CLI docs:
+More operator guidance:
 
+- `GETTING_STARTED.md`
 - `tools/prompt-cli/README.md`

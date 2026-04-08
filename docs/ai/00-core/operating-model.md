@@ -17,7 +17,7 @@ This system should run as an operating model, not as one large prompt.
 6. `Execute`
    Produce the answer, plan, patch, or review.
 7. `Verify`
-   Apply quality gates.
+   Apply quality gates, including generated-output artifact verification where available.
 8. `Persist`
    Write durable learnings to memory files.
 

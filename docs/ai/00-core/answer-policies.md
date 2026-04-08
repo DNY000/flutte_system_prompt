@@ -33,6 +33,7 @@ Applies to:
 - `code-organization-decision`
 - `class-split-decision`
 - `pattern-selection`
+- `ai-mcp-workflow`
 
 Policy:
 - output contract must be `decision-matrix-v1`

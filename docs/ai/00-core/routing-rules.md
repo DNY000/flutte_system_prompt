@@ -61,6 +61,7 @@ memory_write:
 - `data.offline_sync`
 - `platform.web_desktop`
 - `platform.plugin_authoring`
+- `ai.mcp_workflow`
 - `ai.prompt_system`
 - `ai.agent_system`
 - `ai.prompt_evals`
@@ -97,6 +98,7 @@ memory_write:
 | `offline-sync-strategy` | `data.offline_sync` | `architecture-decision-v1` | `intent-router`, `sync-architect`, `flutter-architect`, `performance-analyst`, `context-loader` |
 | `web-desktop-strategy` | `platform.web_desktop` | `architecture-decision-v1` | `intent-router`, `multiplatform-strategist`, `flutter-architect`, `performance-analyst`, `test-engineer`, `context-loader` |
 | `plugin-authoring` | `platform.plugin_authoring` | `architecture-decision-v1` | `intent-router`, `plugin-engineer`, `flutter-architect`, `mcp-orchestrator`, `security-auditor`, `context-loader` |
+| `ai-mcp-workflow` | `ai.mcp_workflow` | `decision-matrix-v1` | `intent-router`, `prompt-architect`, `mcp-orchestrator`, `research-analyst`, `source-validator`, `context-loader` |
 | `ba-refinement` | `ba.refinement` | `implementation-plan-v1` | `intent-router`, `business-analyst`, `context-loader` |
 | `research-brief` | `research.external` | `research-brief-v1` | `intent-router`, `research-analyst`, `source-validator`, `context-loader` |
 | `prompt-system-roadmap` | `ai.prompt_system` | `improvement-roadmap-v1` | `intent-router`, `prompt-architect`, `quality-grader`, `context-loader` |
