@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "v1",
+  "requiredFields": [
+    "timestamp",
+    "requestId",
+    "routeId",
+    "outputContract",
+    "riskLevel",
+    "status"
+  ],
+  "optionalFields": [
+    "latencyMs",
+    "fallbackUsed",
+    "failureReason",
+    "evalSuiteVersion"
+  ]
+}

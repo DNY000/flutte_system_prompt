@@ -1,0 +1,14 @@
+{
+  "required": ["id", "version", "description", "hookPoints"],
+  "properties": {
+    "id": { "type": "string" },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "hookPoints": {
+      "type": "array",
+      "items": {
+        "enum": ["pre-route", "post-route", "pre-execute", "post-execute", "pre-release-gate"]
+      }
+    }
+  }
+}

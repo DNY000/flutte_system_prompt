@@ -1,0 +1,138 @@
+{
+  "suite": "route-regression-v1",
+  "description": "Golden route resolution: one verified query per routeId (PowerShell parity target).",
+  "cases": [
+    {
+      "query": "ui layout design",
+      "expectedRouteId": "design-screen"
+    },
+    {
+      "query": "design system",
+      "expectedRouteId": "design-system"
+    },
+    {
+      "query": "when to use initState didChangeDependencies didUpdateWidget dispose",
+      "expectedRouteId": "flutter-framework-decision"
+    },
+    {
+      "query": "when to use ListView.builder",
+      "expectedRouteId": "widget-decision"
+    },
+    {
+      "query": "Provider vs Riverpod",
+      "expectedRouteId": "state-management-decision"
+    },
+    {
+      "query": "which package should I use",
+      "expectedRouteId": "package-selection"
+    },
+    {
+      "query": "custom vs package",
+      "expectedRouteId": "custom-vs-package"
+    },
+    {
+      "query": "organize Flutter code",
+      "expectedRouteId": "code-organization-decision"
+    },
+    {
+      "query": "when to split a widget",
+      "expectedRouteId": "class-split-decision"
+    },
+    {
+      "query": "module design",
+      "expectedRouteId": "module-design-decision"
+    },
+    {
+      "query": "repository vs use case",
+      "expectedRouteId": "pattern-selection"
+    },
+    {
+      "query": "propose architecture",
+      "expectedRouteId": "architecture-decision"
+    },
+    {
+      "query": "review architecture",
+      "expectedRouteId": "architecture-review"
+    },
+    {
+      "query": "write code",
+      "expectedRouteId": "code-implement"
+    },
+    {
+      "query": "refactor",
+      "expectedRouteId": "code-refactor"
+    },
+    {
+      "query": "review code",
+      "expectedRouteId": "code-review"
+    },
+    {
+      "query": "security audit",
+      "expectedRouteId": "security-audit"
+    },
+    {
+      "query": "implement security",
+      "expectedRouteId": "security-implement"
+    },
+    {
+      "query": "audit performance",
+      "expectedRouteId": "performance-audit"
+    },
+    {
+      "query": "optimize performance",
+      "expectedRouteId": "performance-optimize"
+    },
+    {
+      "query": "test plan",
+      "expectedRouteId": "test-plan"
+    },
+    {
+      "query": "write tests",
+      "expectedRouteId": "test-implement"
+    },
+    {
+      "query": "debug triage",
+      "expectedRouteId": "debug-triage"
+    },
+    {
+      "query": "ci cd",
+      "expectedRouteId": "pipeline-change"
+    },
+    {
+      "query": "add to app",
+      "expectedRouteId": "add-to-app"
+    },
+    {
+      "query": "offline first",
+      "expectedRouteId": "offline-sync-strategy"
+    },
+    {
+      "query": "flutter web strategy",
+      "expectedRouteId": "web-desktop-strategy"
+    },
+    {
+      "query": "plugin authoring flutter",
+      "expectedRouteId": "plugin-authoring"
+    },
+    {
+      "query": "clarify requirements",
+      "expectedRouteId": "ba-refinement"
+    },
+    {
+      "query": "optimize prompts",
+      "expectedRouteId": "prompt-system-roadmap"
+    },
+    {
+      "query": "design AI agent system",
+      "expectedRouteId": "agent-system-roadmap"
+    },
+    {
+      "query": "prompt regression",
+      "expectedRouteId": "eval-system-roadmap"
+    },
+    {
+      "query": "research",
+      "expectedRouteId": "research-brief"
+    }
+  ]
+}

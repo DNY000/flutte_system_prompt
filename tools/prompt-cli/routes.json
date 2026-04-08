@@ -9,11 +9,11 @@
       "skills": ["intent-router", "flutter-ui-designer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "design giao dien",
-        "thiet ke giao dien",
+        "ui layout design",
+        "design interface",
         "design screen",
         "design ui",
-        "thiet ke man hinh",
+        "design a screen",
         "flutter screen design"
       ]
     },
@@ -27,7 +27,7 @@
       "riskLevel": "medium",
       "queryPatterns": [
         "design system",
-        "thiet ke design system",
+        "design system blueprint",
         "component system",
         "ui kit",
         "design token"
@@ -42,23 +42,23 @@
       "skills": ["intent-router", "flutter-decision-analyst", "framework-advisor", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "khi nao dung initstate didchangedependencies didupdatewidget dispose",
-        "initstate hay didchangedependencies",
-        "khi nao dung navigator hay go router",
-        "navigator hay go router",
-        "khi nao dung textfield hay textformfield",
-        "textfield hay textformfield",
-        "khi nao dung gesturedetector hay inkwell",
-        "gesturedetector hay inkwell",
-        "khi nao dung animatedcontainer hay animationcontroller",
-        "animatedcontainer hay animationcontroller",
-        "khi nao dung secure storage hay sharedpreferences",
-        "khi nao dung database hay file storage",
+        "when to use initState didChangeDependencies didUpdateWidget dispose",
+        "initState vs didChangeDependencies",
+        "when to use Navigator vs go_router",
+        "Navigator vs go_router",
+        "when to use TextField vs TextFormField",
+        "TextField vs TextFormField",
+        "when to use GestureDetector vs InkWell",
+        "GestureDetector vs InkWell",
+        "when to use AnimatedContainer vs AnimationController",
+        "AnimatedContainer vs AnimationController",
+        "when to use secure storage vs SharedPreferences",
+        "when to use database vs file storage",
         "storage decision flutter",
         "api layer flutter",
-        "khi nao dung methodchannel eventchannel hay ffi",
-        "methodchannel hay eventchannel",
-        "ffi hay methodchannel"
+        "when to use MethodChannel EventChannel vs FFI",
+        "MethodChannel vs EventChannel",
+        "FFI vs MethodChannel"
       ]
     },
     {
@@ -70,10 +70,10 @@
       "skills": ["intent-router", "flutter-decision-analyst", "widget-selector", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "khi nao dung listview builder",
-        "singlechildscrollview hay listview",
-        "khi nao dung layoutbuilder",
-        "nen dung widget nao",
+        "when to use ListView.builder",
+        "SingleChildScrollView vs ListView",
+        "when to use LayoutBuilder",
+        "which widget should I use",
         "widget choice"
       ]
     },
@@ -86,11 +86,12 @@
       "skills": ["intent-router", "flutter-decision-analyst", "state-manager", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "provider hay riverpod",
-        "setstate hay riverpod",
+        "Provider vs Riverpod",
+        "should I use Provider or Riverpod",
+        "setState vs Riverpod",
         "state management",
-        "bloc hay riverpod",
-        "khi nao dung valuenotifier"
+        "BLoC vs Riverpod",
+        "when to use ValueNotifier"
       ]
     },
     {
@@ -102,9 +103,9 @@
       "skills": ["intent-router", "flutter-decision-analyst", "package-selector", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "nen dung thu vien nao",
-        "chon package flutter",
-        "sdk hay package",
+        "which package should I use",
+        "choose Flutter package",
+        "SDK vs pub package",
         "best flutter package",
         "compare package"
       ]
@@ -118,10 +119,10 @@
       "skills": ["intent-router", "flutter-decision-analyst", "package-selector", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "custom hay package",
-        "tu build hay dung package",
-        "custom widget hay package",
-        "nen tu viet hay dung thu vien"
+        "custom vs package",
+        "build custom vs use package",
+        "custom widget vs package",
+        "build from scratch vs use library"
       ]
     },
     {
@@ -133,7 +134,7 @@
       "skills": ["intent-router", "flutter-decision-analyst", "code-organizer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "to chuc code flutter",
+        "organize Flutter code",
         "folder structure flutter",
         "feature first",
         "code organization"
@@ -148,8 +149,8 @@
       "skills": ["intent-router", "flutter-decision-analyst", "code-organizer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "khi nao tach widget",
-        "khi nao tach class",
+        "when to split a widget",
+        "when to split a class",
         "split widget",
         "split service class"
       ]
@@ -163,8 +164,8 @@
       "skills": ["intent-router", "flutter-architect", "module-designer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "thiet ke module",
         "module design",
+        "how to structure a Flutter module",
         "feature module",
         "shared module",
         "internal package",
@@ -181,10 +182,10 @@
       "skills": ["intent-router", "flutter-decision-analyst", "pattern-advisor", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "repository hay use case",
-        "chon design pattern",
-        "nen dung pattern nao",
-        "adapter hay facade",
+        "repository vs use case",
+        "choose design pattern",
+        "which pattern should I use",
+        "adapter vs facade",
         "pattern selection"
       ]
     },
@@ -197,8 +198,8 @@
       "skills": ["intent-router", "flutter-architect", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "de xuat kien truc",
         "propose architecture",
+        "architecture proposal flutter",
         "feature architecture",
         "clean architecture",
         "module architecture",
@@ -217,7 +218,7 @@
       "skills": ["intent-router", "flutter-architect", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "review kien truc",
+        "review architecture",
         "architecture review",
         "audit architecture",
         "review module",
@@ -234,9 +235,9 @@
       "skills": ["intent-router", "flutter-coder", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "viet code",
+        "write code",
         "implement",
-        "tao man hinh",
+        "create screen",
         "build feature",
         "flutter implementation"
       ]
@@ -251,10 +252,10 @@
       "riskLevel": "high",
       "queryPatterns": [
         "refactor",
-        "tai cau truc code",
-        "migrate bloc sang riverpod",
+        "restructure code",
+        "migrate BLoC to Riverpod",
         "code cleanup",
-        "restructure code"
+        "large scale refactor"
       ]
     },
     {
@@ -281,10 +282,10 @@
       "skills": ["intent-router", "security-auditor", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "audit bao mat",
         "security audit",
+        "security review flutter",
         "review security",
-        "bao mat token",
+        "token security",
         "secure storage review",
         "certificate pinning",
         "webview security",
@@ -301,7 +302,7 @@
       "skills": ["intent-router", "security-auditor", "flutter-coder", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "trien khai bao mat",
+        "implement security",
         "secure token storage",
         "implement security",
         "secure auth flow",
@@ -338,13 +339,13 @@
       "skills": ["intent-router", "performance-analyst", "flutter-coder", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
-        "toi uu hieu nang",
         "optimize performance",
-        "toi uu startup",
+        "performance tuning flutter",
+        "optimize startup",
         "fix jank",
         "improve frame rate",
-        "toi uu listview",
-        "toi uu image",
+        "optimize ListView",
+        "optimize images",
         "compute isolate"
       ]
     },
@@ -358,11 +359,11 @@
       "riskLevel": "medium",
       "queryPatterns": [
         "test plan",
-        "lap test plan",
+        "build test plan",
         "testing strategy",
-        "chien luoc test",
-        "widget test hay integration test",
-        "khi nao dung golden test",
+        "flutter testing approach",
+        "widget test vs integration test",
+        "when to use golden tests",
         "test pyramid"
       ]
     },
@@ -375,7 +376,7 @@
       "skills": ["intent-router", "test-engineer", "flutter-coder", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "viet test",
+        "write tests",
         "widget test",
         "integration test",
         "golden test",
@@ -385,12 +386,30 @@
       ]
     },
     {
+      "routeId": "debug-triage",
+      "taskType": "test",
+      "primaryIntent": "debug.triage",
+      "outputContract": "review-report-v1",
+      "taskPrompt": "docs/ai/02-tasks/debug-triage.md",
+      "skills": ["intent-router", "debug-investigator", "test-engineer", "flutter-coder", "observability-engineer", "context-loader"],
+      "riskLevel": "high",
+      "queryPatterns": [
+        "debug triage",
+        "bug triage",
+        "analyze Flutter crash",
+        "flutter crash",
+        "runtime bug",
+        "release mode bug",
+        "flaky issue"
+      ]
+    },
+    {
       "routeId": "pipeline-change",
       "taskType": "ci-cd",
       "primaryIntent": "ci.pipeline",
       "outputContract": "pipeline-change-v1",
       "taskPrompt": "docs/ai/02-tasks/ci-cd.md",
-      "skills": ["intent-router", "ci-engineer", "context-loader"],
+      "skills": ["intent-router", "ci-engineer", "release-manager", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
         "ci cd",
@@ -405,6 +424,70 @@
       ]
     },
     {
+      "routeId": "add-to-app",
+      "taskType": "architecture",
+      "primaryIntent": "platform.add_to_app",
+      "outputContract": "architecture-decision-v1",
+      "taskPrompt": "docs/ai/02-tasks/add-to-app.md",
+      "skills": ["intent-router", "hybrid-integrator", "flutter-architect", "module-designer", "release-manager", "context-loader"],
+      "riskLevel": "high",
+      "queryPatterns": [
+        "add to app",
+        "flutter add-to-app",
+        "embed Flutter in native app",
+        "hybrid app flutter native",
+        "host app flutter module"
+      ]
+    },
+    {
+      "routeId": "offline-sync-strategy",
+      "taskType": "architecture",
+      "primaryIntent": "data.offline_sync",
+      "outputContract": "architecture-decision-v1",
+      "taskPrompt": "docs/ai/02-tasks/offline-sync.md",
+      "skills": ["intent-router", "sync-architect", "flutter-architect", "performance-analyst", "context-loader"],
+      "riskLevel": "high",
+      "queryPatterns": [
+        "offline first",
+        "offline sync",
+        "offline data sync",
+        "sync conflict",
+        "local first flutter"
+      ]
+    },
+    {
+      "routeId": "web-desktop-strategy",
+      "taskType": "architecture",
+      "primaryIntent": "platform.web_desktop",
+      "outputContract": "architecture-decision-v1",
+      "taskPrompt": "docs/ai/02-tasks/web-desktop-strategy.md",
+      "skills": ["intent-router", "multiplatform-strategist", "flutter-architect", "performance-analyst", "test-engineer", "context-loader"],
+      "riskLevel": "high",
+      "queryPatterns": [
+        "flutter web strategy",
+        "flutter desktop strategy",
+        "web desktop flutter",
+        "renderer flutter web",
+        "multi platform flutter"
+      ]
+    },
+    {
+      "routeId": "plugin-authoring",
+      "taskType": "architecture",
+      "primaryIntent": "platform.plugin_authoring",
+      "outputContract": "architecture-decision-v1",
+      "taskPrompt": "docs/ai/02-tasks/plugin-authoring.md",
+      "skills": ["intent-router", "plugin-engineer", "flutter-architect", "mcp-orchestrator", "security-auditor", "context-loader"],
+      "riskLevel": "high",
+      "queryPatterns": [
+        "plugin authoring flutter",
+        "write Flutter plugin",
+        "federated plugin",
+        "Flutter plugin design",
+        "plugin architecture flutter"
+      ]
+    },
+    {
       "routeId": "ba-refinement",
       "taskType": "ba",
       "primaryIntent": "ba.refinement",
@@ -413,7 +496,7 @@
       "skills": ["intent-router", "business-analyst", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
-        "lam ro yeu cau",
+        "clarify requirements",
         "acceptance criteria",
         "business requirement",
         "user flow",
@@ -426,7 +509,7 @@
       "primaryIntent": "ai.prompt_system",
       "outputContract": "improvement-roadmap-v1",
       "taskPrompt": "docs/ai/02-tasks/prompt-system.md",
-      "skills": ["intent-router", "prompt-architect", "context-loader"],
+      "skills": ["intent-router", "prompt-architect", "quality-grader", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
         "docs/ai/08-guides/ai-systems/index.md",
@@ -436,11 +519,11 @@
         "docs/ai/09-roadmap/completion-master-plan.md"
       ],
       "queryPatterns": [
-        "toi uu prompt",
+        "optimize prompts",
         "optimize prompt",
         "prompt engineering",
-        "thiet ke prompt system",
-        "xay dung prompt system",
+        "design prompt system",
+        "build prompt system",
         "prompt architecture"
       ]
     },
@@ -460,10 +543,10 @@
         "docs/ai/09-roadmap/completion-master-plan.md"
       ],
       "queryPatterns": [
-        "thiet ke ai agent",
+        "design AI agent system",
         "agent orchestration",
         "multi agent",
-        "xay dung agent",
+        "build agents",
         "ai agent system",
         "handoff agent"
       ]
@@ -474,7 +557,7 @@
       "primaryIntent": "ai.prompt_evals",
       "outputContract": "improvement-roadmap-v1",
       "taskPrompt": "docs/ai/02-tasks/ai-evals.md",
-      "skills": ["intent-router", "eval-designer", "context-loader"],
+      "skills": ["intent-router", "eval-designer", "quality-grader", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
         "docs/ai/08-guides/ai-systems/index.md",
@@ -497,14 +580,14 @@
       "primaryIntent": "research.external",
       "outputContract": "research-brief-v1",
       "taskPrompt": "docs/ai/02-tasks/research.md",
-      "skills": ["intent-router", "research-analyst", "context-loader"],
+      "skills": ["intent-router", "research-analyst", "source-validator", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
         "research",
-        "nghien cuu",
+        "research study",
         "compare package",
         "best flutter package",
-        "tim tai lieu"
+        "find documentation"
       ]
     }
   ]

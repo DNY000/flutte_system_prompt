@@ -28,10 +28,10 @@ Load only when needed:
 - release context
 - design system context
 - dependency notes
-- `08-guides/flutter-docs/index.md` for docs-aligned retrieval
-- one section index from `08-guides/flutter-docs/`
+- `08-guides/flutter/index.md` for docs-aligned retrieval
+- one section index from `08-guides/flutter/`
 - one matching `examples.md` from that section when recognition needs concrete scenarios
-- one or two leaf packs from `08-guides/flutter-domains/` or `08-guides/flutter-docs/` that match the question
+- one or two leaf packs from `08-guides/flutter/domains/` or `08-guides/flutter/` that match the question
 
 ## Token Discipline
 

@@ -2,6 +2,8 @@
 
 Use this file to classify requests and send them to the correct specialist path.
 
+**Algorithm reference (scoring, ties, normalization):** `routing-algorithm.md`
+
 ## Router Priority
 
 1. explicit route requested by the user
@@ -54,6 +56,11 @@ memory_write:
 - `ci.pipeline`
 - `ba.refinement`
 - `research.external`
+- `debug.triage`
+- `platform.add_to_app`
+- `data.offline_sync`
+- `platform.web_desktop`
+- `platform.plugin_authoring`
 - `ai.prompt_system`
 - `ai.agent_system`
 - `ai.prompt_evals`
@@ -84,12 +91,17 @@ memory_write:
 | `performance-optimize` | `performance.optimization` | `implementation-plan-v1` | `intent-router`, `performance-analyst`, `flutter-coder`, `context-loader` |
 | `test-plan` | `test.plan` | `test-plan-v1` | `intent-router`, `test-engineer`, `context-loader` |
 | `test-implement` | `test.implement` | `implementation-plan-v1` | `intent-router`, `test-engineer`, `flutter-coder`, `context-loader` |
+| `debug-triage` | `debug.triage` | `review-report-v1` | `intent-router`, `debug-investigator`, `test-engineer`, `flutter-coder`, `observability-engineer`, `context-loader` |
 | `pipeline-change` | `ci.pipeline` | `pipeline-change-v1` | `intent-router`, `ci-engineer`, `context-loader` |
+| `add-to-app` | `platform.add_to_app` | `architecture-decision-v1` | `intent-router`, `hybrid-integrator`, `flutter-architect`, `module-designer`, `release-manager`, `context-loader` |
+| `offline-sync-strategy` | `data.offline_sync` | `architecture-decision-v1` | `intent-router`, `sync-architect`, `flutter-architect`, `performance-analyst`, `context-loader` |
+| `web-desktop-strategy` | `platform.web_desktop` | `architecture-decision-v1` | `intent-router`, `multiplatform-strategist`, `flutter-architect`, `performance-analyst`, `test-engineer`, `context-loader` |
+| `plugin-authoring` | `platform.plugin_authoring` | `architecture-decision-v1` | `intent-router`, `plugin-engineer`, `flutter-architect`, `mcp-orchestrator`, `security-auditor`, `context-loader` |
 | `ba-refinement` | `ba.refinement` | `implementation-plan-v1` | `intent-router`, `business-analyst`, `context-loader` |
-| `research-brief` | `research.external` | `research-brief-v1` | `intent-router`, `research-analyst`, `context-loader` |
-| `prompt-system-roadmap` | `ai.prompt_system` | `improvement-roadmap-v1` | `intent-router`, `prompt-architect`, `context-loader` |
+| `research-brief` | `research.external` | `research-brief-v1` | `intent-router`, `research-analyst`, `source-validator`, `context-loader` |
+| `prompt-system-roadmap` | `ai.prompt_system` | `improvement-roadmap-v1` | `intent-router`, `prompt-architect`, `quality-grader`, `context-loader` |
 | `agent-system-roadmap` | `ai.agent_system` | `improvement-roadmap-v1` | `intent-router`, `agent-architect`, `mcp-orchestrator`, `context-loader` |
-| `eval-system-roadmap` | `ai.prompt_evals` | `improvement-roadmap-v1` | `intent-router`, `eval-designer`, `context-loader` |
+| `eval-system-roadmap` | `ai.prompt_evals` | `improvement-roadmap-v1` | `intent-router`, `eval-designer`, `quality-grader`, `context-loader` |
 
 ## Risk Escalation Rules
 

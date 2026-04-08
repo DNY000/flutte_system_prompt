@@ -423,7 +423,7 @@ function Build-PromptPackage {
         $resolvedDomains = Resolve-FlutterDomains -QueryValue $Query -Route $Route -DomainManifest $domainManifest
         $routeContextFiles += 'docs/ai/00-core/decision-engine.md'
         $routeContextFiles += 'docs/ai/00-core/self-analysis-protocol.md'
-        $routeContextFiles += 'docs/ai/08-guides/flutter-docs/index.md'
+        $routeContextFiles += 'docs/ai/08-guides/flutter/index.md'
         $routeContextFiles += @($resolvedDomains.sectionIndexes)
         $routeContextFiles += @(Get-SectionExampleFiles -SectionIndexes @($resolvedDomains.sectionIndexes))
         $routeContextFiles += @($resolvedDomains.files)
@@ -636,10 +636,10 @@ function Show-Usage {
     @"
 Usage:
   .\aiprompt.ps1 list-routes
-  .\aiprompt.ps1 resolve -Query "design giao dien login"
+  .\aiprompt.ps1 resolve -Query "design login screen UI"
   .\aiprompt.ps1 show-route -RouteId design-screen
   .\aiprompt.ps1 build -RouteId design-screen -Goal "Design login screen"
-  .\aiprompt.ps1 build -Query "design giao dien login" -Goal "Design login screen" -OutputPath .out\login-prompt.md
+  .\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen" -OutputPath .out\login-prompt.md
 
 Common options:
   -Related lib/features/auth/presentation/login_screen.dart

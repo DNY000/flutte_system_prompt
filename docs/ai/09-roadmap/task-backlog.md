@@ -33,6 +33,9 @@ Group tasks by technology or capability so the system can be completed in a cont
 - build representative task-quality dataset
 - add trace grading for agent workflows
 - add prompt release gates
+- add multilingual route benchmark
+- add quality thresholds and trend baseline tracking
+- integrate eval gates in CI
 
 ## Flutter And Mobile
 
@@ -50,3 +53,4 @@ Group tasks by technology or capability so the system can be completed in a cont
 - define deduplication and pruning process
 - define pattern promotion rules
 - define mistake-to-guardrail loop
+- add incident-to-memory closed loop

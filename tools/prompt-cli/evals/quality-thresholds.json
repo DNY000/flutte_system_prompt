@@ -1,0 +1,12 @@
+{
+  "suite": "quality-thresholds-v1",
+  "defaultThreshold": 2.8,
+  "minimumCriterionFloor": 2.0,
+  "familyThresholds": {
+    "decision": 2.8,
+    "implementation": 3.0,
+    "review": 3.0,
+    "roadmap": 2.8,
+    "research": 3.0
+  }
+}

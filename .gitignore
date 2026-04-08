@@ -1,0 +1,39 @@
+# Node / TypeScript
+node_modules/
+*.log
+npm-debug.log*
+
+# Build artifacts
+/tools/prompt-runtime-ts/dist/
+/tools/prompt-runtime-ts/.tsbuildinfo
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python / virtualenv (if any)
+.venv/
+__pycache__/
+
+# Prompt runtime state (local only)
+.promptos/logs/
+.promptos/runs/
+.promptos/metrics/
+
+# Evals output (if you write result files)
+/tools/prompt-cli/*.out
+
+# Misc
+*.tmp
+# Optional: keep structure in git but ignore local noise (uncomment if you want)
+# logs/*
+# !logs/.gitkeep
+# runs/*
+# !runs/.gitkeep
+ !metrics/.gitkeep
+# memory-drafts/*
+# !memory-drafts/.gitkeep
+# plans/*
+# !plans/README.md
+# !plans/approved-plan-template.md

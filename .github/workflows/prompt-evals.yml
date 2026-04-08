@@ -1,0 +1,54 @@
+name: Prompt Evals
+
+on:
+  push:
+    paths:
+      - "docs/ai/**"
+      - "tools/prompt-cli/**"
+      - "tools/prompt-runtime-ts/**"
+      - ".github/workflows/prompt-evals.yml"
+  pull_request:
+    paths:
+      - "docs/ai/**"
+      - "tools/prompt-cli/**"
+      - "tools/prompt-runtime-ts/**"
+      - ".github/workflows/prompt-evals.yml"
+
+jobs:
+  ts-runtime:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/prompt-runtime-ts
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/prompt-runtime-ts/package-lock.json
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Validate routes manifest and contract docs
+        run: npm run validate-manifest
+
+  evals:
+    needs: ts-runtime
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Prompt Evals
+        shell: pwsh
+        run: ./tools/prompt-cli/run-evals.ps1

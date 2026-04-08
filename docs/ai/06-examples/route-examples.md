@@ -120,9 +120,9 @@ required_context:
   - 01-context/project-context.md
   - 02-tasks/state-management-decision.md
   - 00-core/decision-engine.md
-  - 08-guides/flutter-docs/index.md
-  - 08-guides/flutter-docs/data-and-backend/index.md
-  - 08-guides/flutter-domains/state-management.md
+  - 08-guides/flutter/index.md
+  - 08-guides/flutter/data-and-backend/index.md
+  - 08-guides/flutter/domains/state-management.md
 required_skills:
   - intent-router
   - flutter-decision-analyst
@@ -162,9 +162,9 @@ required_context:
   - 00-core/self-analysis-protocol.md
   - 02-tasks/flutter-widget-decision.md
   - 00-core/decision-engine.md
-  - 08-guides/flutter-docs/index.md
-  - 08-guides/flutter-docs/ui/index.md
-  - 08-guides/flutter-domains/layout.md
+  - 08-guides/flutter/index.md
+  - 08-guides/flutter/ui/index.md
+  - 08-guides/flutter/domains/layout.md
 required_skills:
   - intent-router
   - flutter-decision-analyst
@@ -199,9 +199,9 @@ required_context:
   - 00-core/self-analysis-protocol.md
   - 02-tasks/flutter-framework-decision.md
   - 00-core/decision-engine.md
-  - 08-guides/flutter-docs/index.md
-  - 08-guides/flutter-docs/ui/index.md
-  - 08-guides/flutter-domains/lifecycle.md
+  - 08-guides/flutter/index.md
+  - 08-guides/flutter/ui/index.md
+  - 08-guides/flutter/domains/lifecycle.md
 required_skills:
   - intent-router
   - flutter-decision-analyst
@@ -231,9 +231,9 @@ required_context:
   - 00-core/self-analysis-protocol.md
   - 02-tasks/performance.md
   - 00-core/decision-engine.md
-  - 08-guides/flutter-docs/index.md
-  - 08-guides/flutter-docs/performance/index.md
-  - 08-guides/flutter-docs/performance/lists-images-and-memory.md
+  - 08-guides/flutter/index.md
+  - 08-guides/flutter/performance/index.md
+  - 08-guides/flutter/performance/lists-images-and-memory.md
 required_skills:
   - intent-router
   - performance-analyst

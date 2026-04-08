@@ -1,0 +1,10 @@
+{
+  "suite": "multilingual-routing-benchmark-v1",
+  "description": "Route resolution checks using English queries only (file name kept for script compatibility).",
+  "cases": [
+    { "query": "design login screen flutter", "expectedRouteId": "design-screen" },
+    { "query": "should I use Provider or Riverpod", "expectedRouteId": "state-management-decision" },
+    { "query": "analyze Flutter crash in release mode", "expectedRouteId": "debug-triage" },
+    { "query": "flutter web and desktop strategy", "expectedRouteId": "web-desktop-strategy" }
+  ]
+}

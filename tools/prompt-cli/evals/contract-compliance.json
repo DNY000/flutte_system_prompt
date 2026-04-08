@@ -1,0 +1,138 @@
+{
+  "suite": "contract-compliance-v1",
+  "description": "Route to contract mapping assertions (full routes.json coverage).",
+  "routes": [
+    {
+      "routeId": "design-screen",
+      "expectedContract": "design-spec-v1"
+    },
+    {
+      "routeId": "design-system",
+      "expectedContract": "design-spec-v1"
+    },
+    {
+      "routeId": "flutter-framework-decision",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "widget-decision",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "state-management-decision",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "package-selection",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "custom-vs-package",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "code-organization-decision",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "class-split-decision",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "module-design-decision",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "pattern-selection",
+      "expectedContract": "decision-matrix-v1"
+    },
+    {
+      "routeId": "architecture-decision",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "architecture-review",
+      "expectedContract": "review-report-v1"
+    },
+    {
+      "routeId": "code-implement",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "code-refactor",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "code-review",
+      "expectedContract": "review-report-v1"
+    },
+    {
+      "routeId": "security-audit",
+      "expectedContract": "review-report-v1"
+    },
+    {
+      "routeId": "security-implement",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "performance-audit",
+      "expectedContract": "review-report-v1"
+    },
+    {
+      "routeId": "performance-optimize",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "test-plan",
+      "expectedContract": "test-plan-v1"
+    },
+    {
+      "routeId": "test-implement",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "debug-triage",
+      "expectedContract": "review-report-v1"
+    },
+    {
+      "routeId": "pipeline-change",
+      "expectedContract": "pipeline-change-v1"
+    },
+    {
+      "routeId": "add-to-app",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "offline-sync-strategy",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "web-desktop-strategy",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "plugin-authoring",
+      "expectedContract": "architecture-decision-v1"
+    },
+    {
+      "routeId": "ba-refinement",
+      "expectedContract": "implementation-plan-v1"
+    },
+    {
+      "routeId": "prompt-system-roadmap",
+      "expectedContract": "improvement-roadmap-v1"
+    },
+    {
+      "routeId": "agent-system-roadmap",
+      "expectedContract": "improvement-roadmap-v1"
+    },
+    {
+      "routeId": "eval-system-roadmap",
+      "expectedContract": "improvement-roadmap-v1"
+    },
+    {
+      "routeId": "research-brief",
+      "expectedContract": "research-brief-v1"
+    }
+  ]
+}

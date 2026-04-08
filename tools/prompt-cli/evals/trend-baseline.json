@@ -1,0 +1,11 @@
+{
+  "suite": "quality-trend-baseline-v1",
+  "currentVersion": "0.3.0",
+  "recordedAt": "2026-04-08",
+  "metrics": {
+    "routeRegressionPassRate": 1.0,
+    "contractCompliancePassRate": 1.0,
+    "manualQualityAverage": null,
+    "notes": "Set manualQualityAverage after first rubric scoring cycle."
+  }
+}

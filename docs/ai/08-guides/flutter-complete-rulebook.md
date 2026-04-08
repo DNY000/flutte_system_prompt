@@ -7,8 +7,8 @@ For token-efficient prompt assembly, do not load this file alone expecting all a
 Load:
 
 1. `00-core/decision-engine.md`
-2. `08-guides/flutter-docs/index.md`
-3. one relevant section index from `08-guides/flutter-docs/`
+2. `08-guides/flutter/index.md`
+3. one relevant section index from `08-guides/flutter/`
 4. one or two specific packs
 
 Coverage is split by Flutter docs-aligned sections:

@@ -41,8 +41,8 @@ Current prompt coverage is solid for:
 
 Main local evidence:
 
-- `08-guides/flutter-docs/`
-- `08-guides/flutter-domains/`
+- `08-guides/flutter/`
+- `08-guides/flutter/domains/`
 - `02-tasks/`
 - `tools/prompt-cli/routes.json`
 
@@ -286,7 +286,7 @@ These should be implemented first because they close the largest practical gaps.
 Expected deliverables:
 
 - new routes in `routes.json`
-- new packs in `08-guides/flutter-docs/`
+- new packs in `08-guides/flutter/`
 - new output contract for triage
 - new example files
 - automated verification script for key route queries
@@ -374,22 +374,22 @@ These are the highest-value files that do not exist yet.
 - `02-tasks/add-to-app.md`
 - `02-tasks/ai-mcp-workflow.md`
 - `02-tasks/upgrade-migration.md`
-- `08-guides/flutter-docs/testing-and-debugging/error-handling-and-runtime-triage.md`
-- `08-guides/flutter-docs/testing-and-debugging/build-modes-and-diagnostics.md`
-- `08-guides/flutter-docs/testing-and-debugging/devtools-and-app-size.md`
-- `08-guides/flutter-docs/add-to-app/index.md`
-- `08-guides/flutter-docs/add-to-app/android.md`
-- `08-guides/flutter-docs/add-to-app/ios.md`
-- `08-guides/flutter-docs/add-to-app/hybrid-navigation-and-engine-lifecycle.md`
-- `08-guides/flutter-docs/ai-and-mcp/index.md`
-- `08-guides/flutter-docs/ai-and-mcp/rules-and-compact-variants.md`
-- `08-guides/flutter-docs/ai-and-mcp/dart-flutter-mcp-server.md`
-- `08-guides/flutter-docs/platform-integration/web-platform-strategy.md`
-- `08-guides/flutter-docs/platform-integration/desktop-platform-strategy.md`
-- `08-guides/flutter-docs/packages-and-plugins/plugin-authoring-and-federation.md`
-- `08-guides/flutter-docs/data-and-backend/offline-first-and-sync.md`
-- `08-guides/flutter-docs/security/release-readiness-and-crash-symbols.md`
-- `08-guides/flutter-docs/ui/accessibility-audit-and-large-text.md`
+- `08-guides/flutter/testing-and-debugging/error-handling-and-runtime-triage.md`
+- `08-guides/flutter/testing-and-debugging/build-modes-and-diagnostics.md`
+- `08-guides/flutter/testing-and-debugging/devtools-and-app-size.md`
+- `08-guides/flutter/add-to-app/index.md`
+- `08-guides/flutter/add-to-app/android.md`
+- `08-guides/flutter/add-to-app/ios.md`
+- `08-guides/flutter/add-to-app/hybrid-navigation-and-engine-lifecycle.md`
+- `08-guides/flutter/ai-and-mcp/index.md`
+- `08-guides/flutter/ai-and-mcp/rules-and-compact-variants.md`
+- `08-guides/flutter/ai-and-mcp/dart-flutter-mcp-server.md`
+- `08-guides/flutter/platform-integration/web-platform-strategy.md`
+- `08-guides/flutter/platform-integration/desktop-platform-strategy.md`
+- `08-guides/flutter/packages-and-plugins/plugin-authoring-and-federation.md`
+- `08-guides/flutter/data-and-backend/offline-first-and-sync.md`
+- `08-guides/flutter/security/release-readiness-and-crash-symbols.md`
+- `08-guides/flutter/ui/accessibility-audit-and-large-text.md`
 - `tools/prompt-cli/tests/route-resolution.ps1`
 
 ## Source-Based Justification

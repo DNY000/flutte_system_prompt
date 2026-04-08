@@ -1,0 +1,48 @@
+{
+  "suite": "benchmark-dataset-v1",
+  "description": "Representative prompt-system benchmark set by capability area.",
+  "groups": [
+    {
+      "groupId": "flutter-decisions",
+      "queries": [
+        "when to use initState vs didChangeDependencies",
+        "setState vs Riverpod",
+        "custom widget vs package in Flutter"
+      ]
+    },
+    {
+      "groupId": "architecture-and-refactor",
+      "queries": [
+        "propose architecture for auth module in Flutter",
+        "organize Flutter code by feature",
+        "migrate BLoC to Riverpod"
+      ]
+    },
+    {
+      "groupId": "quality-and-release",
+      "queries": [
+        "build test plan for checkout flow",
+        "security audit secure storage",
+        "github actions release android flutter"
+      ]
+    },
+    {
+      "groupId": "new-capabilities",
+      "queries": [
+        "flutter crash triage release mode",
+        "add Flutter module to existing iOS app",
+        "offline first sync conflict strategy flutter",
+        "flutter web desktop renderer strategy",
+        "plugin authoring federated plugin flutter"
+      ]
+    },
+    {
+      "groupId": "ai-system",
+      "queries": [
+        "optimize prompts for this system",
+        "design AI agent system",
+        "build benchmarks and regression tests for prompts"
+      ]
+    }
+  ]
+}

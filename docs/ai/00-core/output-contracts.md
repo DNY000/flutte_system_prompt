@@ -201,12 +201,113 @@ Section requirements:
 - `Task Backlog`: group tasks by capability area
 - `Review Gates`: define how the plan will be checked before promotion
 
+
+## Concrete Output Examples (Flutter)
+
+### Example for `design-spec-v1`
+
+```md
+## Summary
+Login screen for mobile-first auth with clear error recovery.
+
+## User Goal
+Sign in within 10 seconds on stable network.
+
+## Screen Structure
+Header, form card, primary action, secondary recovery link.
+
+## Visual Direction
+Material 3, medium density, 8dp spacing grid.
+
+## Interaction States
+Loading spinner on submit; invalid credentials inline error; offline retry banner.
+
+## Accessibility
+48dp minimum hit targets, semantic labels, error announced via live region.
+
+## Flutter Composition
+`Scaffold` -> `SafeArea` -> `Center` -> `ConstrainedBox(maxWidth: 420)` -> `LoginForm`.
+
+## Risks
+Localization string expansion may overflow CTA row on small devices.
+```
+
+### Example for `decision-matrix-v1`
+
+```md
+## Summary
+State-management selection for auth + profile cache.
+
+## Decision
+Use Riverpod.
+
+## Context Signals
+Cross-screen shared state, async refresh, background invalidation.
+
+## Option Matrix
+- setState: simple local UI only.
+- Riverpod: strong for shared async graph.
+- Bloc: better when event choreography is complex.
+
+## Recommendation
+Adopt Riverpod for auth/profile; keep ephemeral field state local.
+
+## Implementation Notes
+Start with providers for repository + profile fetch, then migrate login flow.
+
+## Risks
+Team unfamiliarity may slow first sprint; add pair-programming support.
+```
+
+### Example for `implementation-plan-v1`
+
+```md
+## Summary
+Implement login submit flow with error handling.
+
+## Assumptions
+Backend returns domain error codes for invalid credentials.
+
+## Target Files
+- `lib/features/auth/presentation/login_controller.dart`
+- `test/features/auth/login_controller_test.dart`
+
+## Implementation Steps
+1. Add submit guard and loading state transitions.
+2. Map repository result to success/error presentation state.
+3. Add unit tests for success and failure paths.
+
+## Tests
+Unit tests for controller transitions; widget test for error message render.
+
+## Risks
+Potential duplicate state emission if repository callback is retried.
+```
+
+### Example for `review-report-v1`
+
+```md
+## Findings
+- severity: high
+  title: Token persisted in plain SharedPreferences
+  impact: sensitive credential exposure on rooted devices
+  evidence: `lib/features/auth/data/token_store.dart`
+  recommendation: migrate to secure storage and rotate existing tokens
+
+## Open Questions
+- Are legacy tokens invalidated after migration?
+
+## Residual Risks
+- Root/jailbreak scenarios still require device-integrity policy.
+```
+
 ## Contract Routing Rules
 
 | route_id | output_contract |
 | --- | --- |
 | `design-screen` | `design-spec-v1` |
 | `design-system` | `design-spec-v1` |
+| `flutter-framework-decision` | `decision-matrix-v1` |
 | `architecture-decision` | `architecture-decision-v1` |
 | `architecture-review` | `review-report-v1` |
 | `widget-decision` | `decision-matrix-v1` |
@@ -226,7 +327,12 @@ Section requirements:
 | `performance-optimize` | `implementation-plan-v1` |
 | `test-plan` | `test-plan-v1` |
 | `test-implement` | `implementation-plan-v1` |
+| `debug-triage` | `review-report-v1` |
 | `pipeline-change` | `pipeline-change-v1` |
+| `add-to-app` | `architecture-decision-v1` |
+| `offline-sync-strategy` | `architecture-decision-v1` |
+| `web-desktop-strategy` | `architecture-decision-v1` |
+| `plugin-authoring` | `architecture-decision-v1` |
 | `ba-refinement` | `implementation-plan-v1` |
 | `research-brief` | `research-brief-v1` |
 | `prompt-system-roadmap` | `improvement-roadmap-v1` |

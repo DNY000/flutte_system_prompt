@@ -8,25 +8,41 @@ This is the entry point for the Dart/Flutter prompt operating system.
 2. `00-core/system-prompt.md`
 3. `00-core/decision-engine.md`
 4. `00-core/self-analysis-protocol.md`
-5. `00-core/routing-rules.md`
+5. `00-core/routing-rules.md` (tie-break expectations; matcher math in `00-core/routing-algorithm.md`)
 6. `00-core/output-contracts.md`
 7. `00-core/context-loading-rules.md`
 8. `01-context/project-context.md`
 9. one task prompt from `02-tasks/`
 10. one template from `04-templates/`
 11. `05-index/query-index.md` for routing examples
-12. `08-guides/flutter-docs/index.md` for Flutter docs-aligned retrieval
+12. `08-guides/flutter/index.md` for Flutter docs-aligned retrieval
+
+## Running the system (Windows + macOS)
+
+- Cross-platform runtime (recommended): `tools/prompt-runtime-ts/`
+  - from that folder: `npm ci`, `npm test`, `node dist/index.js --command plan --query \"...\" --explain`
+- PowerShell CLI: repo root `aiprompt.ps1`
+  - Windows: run directly
+  - macOS: install PowerShell (`brew install powershell`) and run via `pwsh ./aiprompt.ps1 ...`
 
 ## Folder Map
 
 - `00-core/`
   Core runtime rules for routing, outputs, context loading, skills, MCP, research, and memory.
+  Matcher reference: `routing-algorithm.md`.
+  Governance files include `prompt-versioning-policy.md`, `prompt-release-checklist.md`, and `answer-policies.md`.
+  Runtime variants include `rules.md`, `rules_10k.md`, `rules_4k.md`, and `rules_1k.md`.
+  Skill references include `skill-registry.md` and `skill-contracts.md`.
+  Flat skill index (all SKILL.md paths): `agent/SKILLS.md` (repo root).
+  Precedence rules: `skill-precedence-policy.md`.
 - `01-context/`
   Stable project facts and constraints.
 - `02-tasks/`
   Specialist prompts by discipline.
 - `03-memory/`
   Durable project knowledge.
+  Core files: `decisions.md`, `patterns.md`, `mistakes.md`, `glossary.md`, `modules.md`.
+  Operational workflow: `memory-governance.md`.
 - `04-templates/`
   Request, routing, and output shells.
 - `05-index/`
@@ -39,6 +55,21 @@ This is the entry point for the Dart/Flutter prompt operating system.
   Decision handbooks, docs-aligned section packs, AI-system guides, and gap analyses.
 - `09-roadmap/`
   Completion program, task backlog, and staged review passes.
+- `10-releases/`
+  Prompt release changelog and baseline templates.
+- `11-skills/`
+  Skill catalog, maturity levels, and promotion criteria.
+
+Runtime state folder:
+
+- `.promptos/`
+  Persistent state for plans, logs, runs, metrics, and pending memory drafts — **scoped to Flutter / mobile** (see `.promptos/README.md` and `SCOPE.md`).
+
+## Repo layout elsewhere
+
+- **Skills index:** `agent/SKILLS.md` (repo root); definitions in this tree under `11-skills/skills/<skill_id>/`.
+- **Plans and workflow:** `.promptos/plans/` and `.promptos/PLANNING_WORKFLOW.md` (not duplicated under `docs/ai/`).
+- **Missions / demos:** `missions/`, `playground/` at repo root. See the repository root `README.md` for the full map.
 
 ## Minimum Viable Runtime
 
@@ -51,7 +82,7 @@ To answer one request correctly, the AI should load:
 5. `00-core/output-contracts.md`
 6. `01-context/project-context.md`
 7. exactly one relevant task prompt
-8. one relevant section index from `08-guides/flutter-docs/`
+8. one relevant section index from `08-guides/flutter/`
 9. one `examples.md` from that section when the query is under-specified
 10. one leaf pack
 11. one output shell from `04-templates/contract-shells.md`
@@ -90,9 +121,9 @@ Then load:
 5. `00-core/output-contracts.md`
 6. `01-context/project-context.md`
 7. `02-tasks/state-management-decision.md`
-8. `08-guides/flutter-docs/index.md`
-9. `08-guides/flutter-docs/data-and-backend/index.md`
-10. `08-guides/flutter-domains/state-management.md`
+8. `08-guides/flutter/index.md`
+9. `08-guides/flutter/data-and-backend/index.md`
+10. `08-guides/flutter/domains/state-management.md`
 11. `04-templates/contract-shells.md`
 
 And resolve to:
@@ -113,9 +144,9 @@ Then load:
 5. `00-core/output-contracts.md`
 6. `01-context/project-context.md`
 7. `02-tasks/flutter-framework-decision.md`
-8. `08-guides/flutter-docs/index.md`
-9. `08-guides/flutter-docs/ui/index.md`
-10. `08-guides/flutter-domains/lifecycle.md`
+8. `08-guides/flutter/index.md`
+9. `08-guides/flutter/ui/index.md`
+10. `08-guides/flutter/domains/lifecycle.md`
 11. `04-templates/contract-shells.md`
 
 And resolve to:
@@ -130,8 +161,8 @@ Use the packaged CLI from the repository root:
 ```powershell
 .\aiprompt.ps1 help
 .\aiprompt.ps1 list-routes
-.\aiprompt.ps1 resolve -Query "design giao dien login"
-.\aiprompt.ps1 build -Query "design giao dien login" -Goal "Design login screen for Flutter"
+.\aiprompt.ps1 resolve -Query "design login screen UI"
+.\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen for Flutter"
 ```
 
 CLI docs:
