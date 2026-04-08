@@ -18,6 +18,16 @@ Resolve one primary route with explicit risk level.
 - `output_contract`
 - `risk_level`
 
+## Example
+
+**Example request:** "how do I fix jank when scrolling the product list?"
+
+**Example expected output fragment (resolved route state):**
+- `route_id`: `performance-audit`
+- `primary_intent`: `flutter.performance_audit`
+- `output_contract`: `review-report-v1`
+- `risk_level`: medium
+
 ## References
 
 - Agent skill index: `agent/SKILLS.md`
