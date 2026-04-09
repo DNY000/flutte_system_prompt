@@ -67,32 +67,20 @@ Required Skills
 
 ## User Request
 
-Task Type
-- auto
-
-Requested Route
-- auto
-
-Desired Output Contract
-- auto
-
-Goal
-- <state the primary outcome>
-
-Scope
-- <state the work boundary>
-
-Related Files Or Modules
-- <list file paths or module names>
-
-Constraints
-- <list hard constraints and non-goals>
-
-Definition Of Done
-- <list the checks that define completion>
-
-Original Query
-- <paste the raw user request>
+Role: Bạn là senior Flutter developer
+Task: Giải quyết vấn đề X
+Context:
+- requirement: <clear requirement>
+- code/input: <real code snippet or related file path>
+- expected result: <clear expected result>
+Constraints:
+- Ngắn gọn
+- Không lan man
+- Đúng trọng tâm
+Output:
+- Root cause
+- Fix code
+- Notes (optional)
 
 ## Final Instruction
 
@@ -100,3 +88,4 @@ Return only the final answer using contract <output-contract>.
 Be direct.
 Do not add sections outside the contract.
 Do not restate system rules.
+If requirement, code/input, or expected result is missing, ask one short clarification question first.

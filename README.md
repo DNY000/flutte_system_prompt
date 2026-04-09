@@ -105,9 +105,11 @@ Build a full prompt package:
 .\aiprompt.ps1 build `
   -Query "design login screen UI" `
   -Goal "Design a Flutter login screen" `
+  -Related "lib/features/auth/presentation/login_screen.dart" `
   -Memory auto `
   -PersistRun `
-  -Constraints "Use Material 3","Support loading and error states"
+  -Constraints "Use Material 3","Support loading and error states" `
+  -DefinitionOfDone "Return root cause + fix code + short notes"
 ```
 
 Use the TypeScript runtime with command hints:

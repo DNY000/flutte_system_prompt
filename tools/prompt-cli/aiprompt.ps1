@@ -307,6 +307,46 @@ function Format-BulletList {
     return ($Items | ForEach-Object { "- $_" }) -join "`n"
 }
 
+function Assert-BuildInputClarity {
+    param(
+        [AllowEmptyString()]
+        [string]$GoalValue,
+        [AllowEmptyString()]
+        [string]$QueryValue,
+        [string[]]$RelatedItems,
+        [string[]]$ExtraContextItems,
+        [string[]]$ExpectedResultItems
+    )
+
+    $hasRequirement = -not [string]::IsNullOrWhiteSpace($GoalValue) -or -not [string]::IsNullOrWhiteSpace($QueryValue)
+    $hasCode = @($RelatedItems | Where-Object { $_ }).Count -gt 0 -or @($ExtraContextItems | Where-Object { $_ }).Count -gt 0
+    $hasExpectedResult = @($ExpectedResultItems | Where-Object { $_ }).Count -gt 0
+
+    $clarifications = @()
+    if (-not $hasRequirement) {
+        $clarifications += '- What exactly should be solved?'
+    }
+    if (-not $hasCode) {
+        $clarifications += '- Please share a real code snippet or related file path.'
+    }
+    if (-not $hasExpectedResult) {
+        $clarifications += '- What is the expected result?'
+    }
+
+    if ($clarifications.Count -gt 0) {
+        throw @"
+Missing required input clarity fields for build.
+Provide all of:
+- clear requirement
+- real code snippet or related code file
+- expected result
+
+Clarification:
+$($clarifications -join "`n")
+"@.Trim()
+    }
+}
+
 function Test-AnyNormalizedSignal {
     param(
         [AllowEmptyString()]
@@ -699,33 +739,45 @@ $(Get-FileText -RelativePath 'docs/ai/07-references/source-map.md')
 
     $routeResolution = Get-RouteResolutionBlock -Route $Route -MatchedPattern $MatchedPattern -RequiredContext $requiredContext -ExtraFiles @($ExtraContextFiles) -MemoryFiles @($memoryFiles) -SectionIds @($resolvedDomains.sectionIds) -DomainIds @($resolvedDomains.domainIds) -NeedReferences $IncludeReferences.IsPresent -ExecutionPolicy $executionPolicy
 
+    $taskStatement = if (-not [string]::IsNullOrWhiteSpace($Goal)) {
+        $Goal
+    }
+    elseif (-not [string]::IsNullOrWhiteSpace($Query)) {
+        $Query
+    }
+    else {
+        "Giải quyết vấn đề route $($Route.routeId)"
+    }
+
+    $contextRequirement = @(
+        @($Goal | Where-Object { $_ })
+        @($Scope | Where-Object { $_ })
+        @($Query | Where-Object { $_ } | ForEach-Object { "Original query: $_" })
+    ) | Select-Object -Unique
+    $contextCode = @(
+        @($Related | Where-Object { $_ })
+        @($ExtraContextFiles | Where-Object { $_ })
+    ) | Select-Object -Unique
+
     $requestBody = @"
-Task Type
-- $($Route.taskType)
-
-Requested Route
-- $($Route.routeId)
-
-Desired Output Contract
-- $($Route.outputContract)
-
-Goal
-$(Format-BulletList -Items @($Goal | Where-Object { $_ }))
-
-Scope
-$(Format-BulletList -Items @($Scope | Where-Object { $_ }))
-
-Related Files Or Modules
-$(Format-BulletList -Items $Related)
-
-Constraints
-$(Format-BulletList -Items $Constraints)
-
-Definition Of Done
+Role: Bạn là senior Flutter developer
+Task: $taskStatement
+Context:
+- Requirement
+$(Format-BulletList -Items $contextRequirement)
+- Code/Input
+$(Format-BulletList -Items $contextCode)
+- Expected result
 $(Format-BulletList -Items $DefinitionOfDone)
-
-Original Query
-$(Format-BulletList -Items @($Query | Where-Object { $_ }))
+Constraints:
+- Ngắn gọn
+- Không lan man
+- Đúng trọng tâm
+$(if (@($Constraints | Where-Object { $_ }).Count -gt 0) { (Format-BulletList -Items @($Constraints | Where-Object { $_ } | ForEach-Object { "Bổ sung: $_" })) } else { '' })
+Output:
+- Root cause
+- Fix code
+- Notes (optional)
 "@.Trim()
 
     $memorySection = if ($memoryBlocks.Count -gt 0) {
@@ -854,8 +906,8 @@ Usage:
   .\aiprompt.ps1 list-routes
   .\aiprompt.ps1 resolve -Query "design login screen UI"
   .\aiprompt.ps1 show-route -RouteId design-screen
-  .\aiprompt.ps1 build -RouteId design-screen -Goal "Design login screen"
-  .\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen" -OutputPath .out\login-prompt.md
+  .\aiprompt.ps1 build -RouteId design-screen -Goal "Design login screen" -Related "lib\features\auth\presentation\login_screen.dart" -DefinitionOfDone "Return root cause + fix code + short notes"
+  .\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen" -Related "lib\features\auth\presentation\login_screen.dart" -DefinitionOfDone "Return root cause + fix code + short notes" -OutputPath .out\login-prompt.md
 
 Common options:
   -Related lib/features/auth/presentation/login_screen.dart
@@ -967,6 +1019,8 @@ switch ($Command) {
         else {
             throw "The build command requires -RouteId or -Query."
         }
+
+        Assert-BuildInputClarity -GoalValue $Goal -QueryValue $Query -RelatedItems @($Related) -ExtraContextItems @($ExtraContextFiles) -ExpectedResultItems @($DefinitionOfDone)
 
         $package = Build-PromptPackage -Route $resolvedRoute -MatchedPattern $matchedPattern
 

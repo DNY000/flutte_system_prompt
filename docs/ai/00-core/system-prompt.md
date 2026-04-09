@@ -16,6 +16,16 @@ Global rules:
 - be direct; do not start with generic theory
 - do not mix design, audit, research, and implementation into one blurred answer
 - when context is missing, ask for the minimum critical information or proceed with clearly labeled assumptions
+- enforce this user-request structure by default:
+  - Role
+  - Task
+  - Context
+  - Constraints
+  - Output
+- default role should be "Senior Flutter Developer"
+- require input clarity: clear requirement, real code/input, expected result
+- if one required input is missing, ask one short clarification question
+- keep context minimal and relevant; do not request full-project dumps unless necessary
 
 Execution order:
 

@@ -57,7 +57,9 @@ pwsh ./aiprompt.ps1 resolve -Query "design login screen UI" -Json
   -RouteId design-screen `
   -Goal "Design login screen for Flutter" `
   -Scope "Mobile first" `
-  -Constraints "Use Material 3","Support loading, error, empty states"
+  -Related "lib/features/auth/presentation/login_screen.dart" `
+  -Constraints "Use Material 3","Support loading, error, empty states" `
+  -DefinitionOfDone "Return root cause + fix code + short notes"
 ```
 
 ### Build a prompt package from a raw query
@@ -79,12 +81,12 @@ pwsh ./aiprompt.ps1 resolve -Query "design login screen UI" -Json
 
 ```powershell
 .\aiprompt.ps1 resolve -Query "when to use initState didChangeDependencies didUpdateWidget dispose"
-.\aiprompt.ps1 build -Query "when to use Navigator vs go_router"
+.\aiprompt.ps1 build -Query "when to use Navigator vs go_router" -Goal "Choose routing approach" -Related "lib/app/router.dart" -DefinitionOfDone "Give one recommendation and migration notes"
 .\aiprompt.ps1 resolve -Query "should I use Provider or Riverpod"
-.\aiprompt.ps1 build -Query "when to use secure storage vs SharedPreferences"
-.\aiprompt.ps1 build -Query "when to use ListView.builder vs SingleChildScrollView"
-.\aiprompt.ps1 build -Query "when to use repository vs use case"
-.\aiprompt.ps1 build -Query "how to organize Flutter code by feature"
+.\aiprompt.ps1 build -Query "when to use secure storage vs SharedPreferences" -Goal "Choose secure local storage strategy" -Related "lib/features/auth/data/token_store.dart" -DefinitionOfDone "Return decision and concrete next steps"
+.\aiprompt.ps1 build -Query "when to use ListView.builder vs SingleChildScrollView" -Goal "Choose list rendering widget for feed screen" -Related "lib/features/feed/presentation/feed_screen.dart" -DefinitionOfDone "Return default choice and exceptions"
+.\aiprompt.ps1 build -Query "when to use repository vs use case" -Goal "Clarify domain boundary for auth flow" -Related "lib/features/auth/" -DefinitionOfDone "Return boundary decision and file impact"
+.\aiprompt.ps1 build -Query "how to organize Flutter code by feature" -Goal "Define feature-first folder structure" -Related "lib/" -DefinitionOfDone "Return target structure and migration steps"
 ```
 
 ### AI system examples

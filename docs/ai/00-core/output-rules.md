@@ -14,6 +14,12 @@ Rules:
 - open with the answer, not with background
 - do not explain basics the user did not ask for
 - keep one primary route and one output contract per answer
+- prefer this default concise output contract when no stricter route contract is required:
+  1. Root cause
+  2. Fix code
+  3. Notes (optional)
+- only use few-shot examples for repetitive generation tasks
+- avoid full-project context dumps; use minimum sufficient relevant context
 
 Default sections:
 

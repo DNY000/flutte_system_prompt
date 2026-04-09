@@ -2,109 +2,40 @@
 
 Use this block before calling `build`, or as the request section inside a manual prompt package.
 
-## Runtime Mode
+## Mandatory Prompt Format
 
-- command: ask | plan | review | execute | ship-check | none
+```text
+Role: Bạn là senior Flutter developer
+Task: Giải quyết vấn đề X
+Context:
+- requirement: <clear requirement>
+- code/input: <real code snippet or related file path>
+- expected result: <clear expected result>
+Constraints:
+- Ngắn gọn
+- Không lan man
+- Đúng trọng tâm
+Output:
+- Root cause
+- Fix code
+- Notes (optional)
+```
 
-## Task Type
+## Input Clarity Rules (Required)
 
-- architecture | code | review | security | performance | test | ci-cd | design | ba | research | flutter-decision | ai-system
+- Always provide all 3:
+  - clear requirement
+  - real code snippet or related code file
+  - expected result
+- If one is missing, ask one short clarification question and wait.
 
-## Requested Route
+## Context Control
 
-- auto
-- flutter-framework-decision
-- design-screen
-- design-system
-- widget-decision
-- state-management-decision
-- package-selection
-- custom-vs-package
-- code-organization-decision
-- class-split-decision
-- module-design-decision
-- pattern-selection
-- architecture-decision
-- architecture-review
-- code-implement
-- code-refactor
-- code-review
-- security-audit
-- security-implement
-- performance-audit
-- performance-optimize
-- test-plan
-- test-implement
-- debug-triage
-- pipeline-change
-- add-to-app
-- offline-sync-strategy
-- web-desktop-strategy
-- plugin-authoring
-- ai-mcp-workflow
-- ba-refinement
-- research-brief
-- prompt-system-roadmap
-- agent-system-roadmap
-- eval-system-roadmap
+- include only relevant code or files
+- do not dump the whole project unless explicitly requested
+- keep context to minimum sufficient scope
 
-## Desired Output Contract
+## Few-shot Usage
 
-- auto
-- design-spec-v1
-- architecture-decision-v1
-- decision-matrix-v1
-- implementation-plan-v1
-- review-report-v1
-- test-plan-v1
-- pipeline-change-v1
-- research-brief-v1
-- improvement-roadmap-v1
-
-## Goal
-
-- <state the primary outcome>
-
-## Scope
-
-- <state the boundary of work>
-
-## Related Files Or Modules
-
-- <list file paths or modules when relevant>
-
-## Constraints
-
-- <list hard constraints, policies, or non-goals>
-
-## Design Brief Addendum
-
-- user goal:
-- primary action:
-- critical content:
-- important states:
-- device classes:
-- input modes:
-- accessibility constraints:
-- brand or design-system constraints:
-
-## Definition Of Done
-
-- <list completion checks>
-
-## Memory Selection
-
-- none | decisions | patterns | mistakes | all
-
-## Extra Context Files
-
-- <optional extra file paths>
-
-## Flags
-
-- skip_project_context: false
-- include_references: false
-
-## Original Query
-
-- <paste the raw user request>
+- add examples only for repetitive tasks (for example API or widget generation)
+- keep examples minimal and aligned to the same output format
