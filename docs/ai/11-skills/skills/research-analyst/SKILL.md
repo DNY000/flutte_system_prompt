@@ -20,6 +20,22 @@ Package and API research with versioned facts for Flutter ecosystem.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Research brief fragment:**
+
+| Question | Answer | Confidence |
+| --- | --- | --- |
+| Minimum Flutter SDK for `go_router` 14.x? | See pub.dev “Environment” for 14.x | high |
+| Breaking change vs 13.x? | Redirect signature changes — see changelog | medium until lockfile read |
+
+**Pinned fact line:** “Project uses `go_router: ^14.2.0` per `pubspec.lock` line 412.”
+
+## Anti-patterns
+
+- Recommending a package without checking null-safety and discontinued status on pub.dev.
+- Quoting blog benchmarks as proof of correctness.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

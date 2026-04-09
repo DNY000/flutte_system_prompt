@@ -15,8 +15,28 @@ Propose durable memory updates after architecture, package, or CI decisions sett
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Proposal block** to append under `patterns.md` after team agrees on repository pattern:
+
+```markdown
+### Auth token storage (2026-Q2)
+
+- **Decision:** Use `flutter_secure_storage` for refresh tokens; never `SharedPreferences` for secrets.
+- **Scope:** mobile apps; review when adding desktop.
+- **Evidence:** security-audit route + PR #120
+```
+
+Use the full incident structure when the change came from production: `docs/ai/04-templates/resolved-issue-memory.md`.
+
+## Anti-patterns
+
+- Writing to memory before the decision is merged or validated in code.
+- Duplicating the same pattern under both `decisions.md` and `patterns.md` without cross-links.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Governance: `docs/ai/03-memory/memory-governance.md`

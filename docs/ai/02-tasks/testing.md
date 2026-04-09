@@ -18,6 +18,18 @@ Use this prompt for test planning, test implementation, regression coverage, wid
 - plugin usage
 - device or platform coverage needs
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter test guides:
+  - `docs/ai/08-guides/flutter/testing-and-debugging/test-scope-selection.md`
+  - `docs/ai/08-guides/flutter/testing-and-debugging/widget-golden-and-accessibility.md`
+  - `docs/ai/08-guides/flutter/testing-and-debugging/images-channels-and-security-tests.md` (images/channels/security)
+
 ## Core Rules
 
 - prefer many unit and widget tests, plus enough integration tests for critical use cases
@@ -48,6 +60,36 @@ Use this prompt for test planning, test implementation, regression coverage, wid
 - mocking everything so aggressively that the test has no real signal
 - golden tests for fast-changing screens without clear value
 - shipping accessibility-sensitive UI without semantic or guideline checks
+
+## Steps
+
+1. Confirm intended output:
+   - plan → `test-plan-v1`
+   - implement → `implementation-plan-v1`
+2. Identify the critical flows and acceptance criteria.
+3. Build a test matrix by level:
+   - unit (domain/application)
+   - widget (UI states)
+   - integration (end-to-end critical paths)
+   - golden (only if stable)
+4. Define fixtures/fakes and how plugins are isolated (adapters, fake channels).
+5. Define which tests are release blockers vs follow-ups.
+
+## Validation
+
+- Tests are deterministic (no real network/time/random unless controlled).
+- At least one automated test covers each critical acceptance criterion.
+- If golden tests exist: theme/device sizes are pinned; diffs are reviewed intentionally.
+- Accessibility checks included when UI changes or when desktop/web in scope.
+
+## Example
+
+**Example request:** “Add tests for login failure state and prevent regressions on resume-from-background.”
+
+**Expected output fragment (`test-plan-v1`):**
+
+- `Test Matrix`: widget tests for loading/error; unit tests for repository mapping; integration test for resume path.
+- `Fixtures`: fake auth repo; controlled clock; fake platform channel if needed.
 
 ## Output Behavior
 

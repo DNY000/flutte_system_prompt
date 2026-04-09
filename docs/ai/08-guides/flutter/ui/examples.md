@@ -118,6 +118,45 @@ Default decision:
 
 - load `widget-by-widget-cases-and-examples`
 
+## Example 7: Error UI + Retry
+
+Context:
+
+- screen loads remote data on open
+- failures are expected (offline, timeout)
+- user needs a clear retry path
+
+Default decision:
+
+- render a dedicated error state widget with a retry action; do not show raw exception text
+
+Why:
+
+- keeps UI predictable and makes recovery explicit
+
+Load:
+
+- `flutter/domains/error-handling.md`
+
+## Example 8: Multi-language UI (vi/en)
+
+Context:
+
+- product needs Vietnamese and English
+- strings are currently hard-coded in widgets
+
+Default decision:
+
+- use generated localizations (gen-l10n) + ARB; avoid string concatenation
+
+Why:
+
+- consistent translations and correct plural/placeholder handling
+
+Load:
+
+- `flutter/domains/accessibility-localization.md`
+
 Why:
 
 - the request is about concrete widget situations one by one

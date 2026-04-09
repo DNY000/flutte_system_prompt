@@ -4,7 +4,7 @@
 
 ## Goal
 
-Folder structure, class/widget split, ownership in Flutter codebases.
+Folder structure, class split, and ownership decisions for Flutter codebases.
 
 ## Input
 
@@ -15,8 +15,32 @@ Folder structure, class/widget split, ownership in Flutter codebases.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Feature-first layout** with clear boundaries:
+
+```text
+lib/features/orders/
+  application/
+    place_order_use_case.dart
+  domain/
+    order.dart
+    order_repository.dart
+  presentation/
+    order_screen.dart
+    order_controller.dart
+```
+
+**Split rule:** move `OrderDto` mapping out of `presentation/` into `data/` mappers when the screen file exceeds ~200 lines or handles HTTP shapes.
+
+## Anti-patterns
+
+- God files mixing UI, JSON, and repository calls in one widget class.
+- Circular imports between `features/checkout` and `features/orders` — extract shared types to `lib/shared/`.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Guide: `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`

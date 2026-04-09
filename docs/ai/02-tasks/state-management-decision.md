@@ -20,6 +20,15 @@ Use this prompt when the user asks how to manage state in Flutter, when to use o
 - team familiarity
 - existing project stack
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter state guides (when needed): `docs/ai/08-guides/flutter/domains/state-management.md`
+
 ## Decision Order
 
 1. decide whether the state is ephemeral, shared, persisted, remote, or streamed
@@ -57,6 +66,31 @@ Use this prompt when the user asks how to manage state in Flutter, when to use o
 - mixing immutable event-driven flows and mutable shared objects without clear boundaries
 - choosing a library because it is popular without matching it to state shape
 - migrating state management across the app without a staged plan
+
+## Steps
+
+1. Classify the state: ephemeral UI vs shared feature state vs persisted local vs remote cache vs stream.
+2. Determine ownership: widget subtree, screen, feature module, or app-wide session.
+3. Choose the simplest viable approach (SDK-first):
+   - `setState`, `ValueNotifier`, `InheritedWidget` where appropriate
+4. Escalate to a library only if needed (async graph, testability, auditing, large-scale consistency).
+5. Produce a decision matrix with context signals that would change the answer.
+6. If the app already uses a solution, call out migration cost and propose a staged plan only when justified.
+
+## Validation
+
+- Recommendation names one default path and the conditions under which it changes.
+- Migration advice is staged and reversible where possible.
+- Output matches `decision-matrix-v1` sections exactly.
+
+## Example
+
+**Example request:** “Login + profile cache across many screens; async invalidation; need testability.”
+
+**Expected output fragment (`decision-matrix-v1`):**
+
+- `Recommendation`: Riverpod for shared async graph + invalidation; keep `setState` for local UI-only toggles.
+- `Risks`: migration cost if existing Provider; mitigate with feature-by-feature porting.
 
 ## Output Behavior
 

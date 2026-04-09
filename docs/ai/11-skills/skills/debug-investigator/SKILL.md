@@ -4,7 +4,7 @@
 
 ## Goal
 
-Crash and flaky triage across debug/profile/release on iOS and Android.
+Runtime failures, flaky tests, crashes, and ambiguous logs — form hypotheses and validation steps.
 
 ## Input
 
@@ -15,8 +15,31 @@ Crash and flaky triage across debug/profile/release on iOS and Android.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Stack excerpt** (sanitized):
+
+```text
+#0      State.setState (package:flutter/src/widgets/framework.dart:...)
+#1      _LoginScreenState._onTap (package:myapp/features/auth/login_screen.dart:42)
+```
+
+**Hypothesis:** `setState` after dispose — `_onTap` not cancelled when route popped.
+
+**Validation steps:**
+
+1. Add `if (!mounted) return;` before async gap in `_onTap`.
+2. Reproduce with slow network; confirm no setState after `dispose`.
+3. Add widget test that pops route during in-flight login.
+
+## Anti-patterns
+
+- Changing random lines without repro steps or log line anchors.
+- Ignoring platform-specific logs when the issue is iOS-only JNI/embedding.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Guide: `docs/ai/08-guides/flutter/testing-and-debugging/examples.md`

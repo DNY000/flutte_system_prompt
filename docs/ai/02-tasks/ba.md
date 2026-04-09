@@ -18,6 +18,15 @@ Use this prompt to convert business requests into implementation-ready requireme
 - success criteria
 - constraints or deadline
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Testing prompt (when acceptance criteria must map to tests): `docs/ai/02-tasks/testing.md`
+
 ## Core Rules
 
 - turn vague requests into testable requirements
@@ -39,6 +48,31 @@ Use this prompt to convert business requests into implementation-ready requireme
 - acceptance criteria that cannot be tested
 - ignoring failure states or empty states
 - mixing confirmed facts with guesses
+
+## Steps
+
+1. Restate the business goal and define measurable success.
+2. Define the primary user flow (entry → happy path → exit).
+3. List edge/failure states (validation, offline, timeouts, empty states).
+4. Write acceptance criteria as observable behavior (Given/When/Then is acceptable).
+5. Identify dependencies/blockers (backend, feature flags, analytics, legal/privacy).
+6. Map acceptance criteria to tests (unit/widget/integration) where feasible.
+
+## Validation
+
+- Every acceptance criterion is testable.
+- Assumptions are explicit and separated from facts.
+- Non-functional constraints are captured when they affect delivery (security/perf/a11y).
+
+## Example
+
+**Example request:** “Add ‘Forgot password’ flow; must work with offline messaging; measure completion rate.”
+
+**Expected output fragment (`implementation-plan-v1`):**
+
+- `Assumptions`: reset endpoint exists; rate limits defined.
+- `Implementation Steps`: add entry point; email submit; offline/error UI; analytics events.
+- `Tests`: widget tests for validation/offline; integration test for end-to-end reset.
 
 ## Output Behavior
 

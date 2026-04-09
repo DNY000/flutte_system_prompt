@@ -12,8 +12,12 @@ Examples:
 | `storage` | preferences, secure storage, files, cache, database choices | `flutter/domains/storage.md` |
 | `api-network` | API clients, DTO mapping, repositories, retries, interceptors | `flutter/domains/api-network.md` |
 | `async-concurrency` | futures, streams, isolates, background work, async safety | `flutter/domains/async-concurrency.md` |
+| `debounce-throttle` | debounce and throttle patterns for data-driven UI and network calls | `flutter/domains/debounce-throttle.md` |
+| `lazy-loading-pagination` | pagination, load-more, guards, refresh/cancellation | `flutter/domains/lazy-loading-pagination.md` |
+| `caching` | cache policy, invalidation, stale-while-revalidate | `flutter/domains/caching.md` |
 | `modeling-and-mappers` | DTO, domain, and UI model boundaries, mapper ownership, model-generation libraries | `flutter/data-and-backend/modeling-and-mappers.md` |
 | `result-and-error-modeling` | app-owned result types, failure mapping, repository error boundaries, UI error translation | `flutter/data-and-backend/result-and-error-modeling.md` |
+| `error-handling` | end-to-end error handling: mapping, UI states, retry, global capture | `flutter/domains/error-handling.md` |
 
 ## Retrieval Rules
 

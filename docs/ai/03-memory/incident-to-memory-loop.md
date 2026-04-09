@@ -10,6 +10,8 @@ Turn repeated failures into durable memory and guardrails.
 
 ## Workflow
 
+Use the structured template `docs/ai/04-templates/resolved-issue-memory.md` so every incident has comparable fields and can be promoted to memory without losing evidence links.
+
 1. capture incident summary and evidence
 2. classify root cause category
 3. map to memory target:

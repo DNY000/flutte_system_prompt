@@ -20,6 +20,18 @@ Use this prompt for authentication, token handling, local storage, networking, l
 - third-party SDKs
 - compliance or privacy requirements
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-rules.md`, `docs/ai/00-core/mcp-research-policy.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter security guides (choose only what matches the issue):
+  - `docs/ai/08-guides/flutter/security/release-hardening-and-privacy.md`
+  - `docs/ai/08-guides/flutter/security/file-input-and-upload-safety.md`
+  - `docs/ai/08-guides/flutter/security/network-links-and-webview.md`
+
 ## Core Rules
 
 - treat secrets, tokens, and personal data as high-risk by default
@@ -62,6 +74,37 @@ Use this prompt for authentication, token handling, local storage, networking, l
 - using WebViews for sensitive auth flows without clear constraints
 - storing user identifiers or tokens in logs
 - broad platform permissions without a concrete feature need
+
+## Steps
+
+1. Confirm scope: platforms, auth model, and data classification (PII, secrets, payment, health).
+2. Choose route behavior:
+   - audit → `review-report-v1`
+   - fix/implement → `implementation-plan-v1`
+3. Identify trust boundaries:
+   - data at rest (device storage, caches)
+   - data in transit (TLS, endpoints, pinning decisions)
+   - identity and session handling (tokens, refresh, re-auth)
+4. List findings (severity-first) with evidence and the smallest safe mitigation.
+5. Separate “must fix before release” from defense-in-depth.
+6. If relying on external guidance (OWASP, platform changes), cite versions/dates per `mcp-research-policy.md`.
+
+## Validation
+
+- No recommendation should require embedding secrets in the client.
+- Logging guidance must include redaction (tokens, identifiers).
+- Storage guidance must explicitly avoid plain preferences for secrets.
+- For fixes, specify verification: test, manual steps, or security checks.
+
+## Example
+
+**Example request:** “We store refresh token in SharedPreferences; move to secure storage; ensure logs don’t leak tokens.”
+
+**Expected output fragment (`implementation-plan-v1`):**
+
+- `Target Files`: token store wrapper; logout flow; analytics/logging wrapper.
+- `Implementation Steps`: migrate token to secure storage; clear on logout; add redaction; add regression test.
+- `Risks`: migration edge cases; token loss; plan rollback via feature flag.
 
 ## Output Behavior
 

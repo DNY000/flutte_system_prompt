@@ -1,6 +1,6 @@
 # prompt-architect
 
-**Scope:** Dart / Flutter **mobile** (iOS, Android) unless the task explicitly says otherwise.
+**Scope:** Dart / Flutter **mobile** prompt OS — layering, contracts, token policy, lifecycle.
 
 ## Goal
 
@@ -19,6 +19,24 @@ Prompt layering, contracts, token policy, prompt-system evolution.
 ## Output
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+
+## Example
+
+**Layer stack** for one answer:
+
+```text
+L0: system-prompt.md + output-rules.md (always)
+L1: 02-tasks/<route>.md (one file)
+L2: 01-context/project-context.md if non-placeholder
+L3: 08-guides/flutter/index.md + one domain leaf only if needed
+```
+
+**Change proposal:** add `output_contract` field to `routes.json` for route X when answers drift from `implementation-plan-v1`.
+
+## Anti-patterns
+
+- Duplicating full `system-prompt.md` inside every task file.
+- Loading all of `rules_4k.md` when `rules_1k.md` + task suffice.
 
 ## References
 

@@ -4,7 +4,7 @@
 
 ## Goal
 
-Flutter web/desktop only when tied to mobile product parity or shared codebase.
+Web, desktop, and mobile capability parity and conditional UX.
 
 ## Input
 
@@ -15,8 +15,29 @@ Flutter web/desktop only when tied to mobile product parity or shared codebase.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Platform branching** without scattering `kIsWeb` everywhere:
+
+```dart
+abstract class FilePickerPort {
+  Future<FileSelection?> pickImage();
+}
+
+class MobileFilePicker implements FilePickerPort { /* image_picker */ }
+class WebFilePicker implements FilePickerPort { /* html upload */ }
+```
+
+Register the correct implementation in the composition root per `defaultTargetPlatform` and compile modes.
+
+## Anti-patterns
+
+- Using mobile-only plugins on web without stubs or conditional imports.
+- Duplicating entire screens per platform instead of ports/adapters for differing capabilities.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Gap notes: `docs/ai/08-guides/mobile-gap-analysis.md`

@@ -18,6 +18,19 @@ Use this prompt for implementation, refactor, code cleanup, and code review prep
 - test expectations
 - performance or security sensitivity
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-rules.md`, `docs/ai/00-core/output-contracts.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter guides (load only when needed):
+  - `docs/ai/08-guides/flutter/app-architecture/index.md` (architecture-sensitive refactors)
+  - `docs/ai/08-guides/flutter/testing-and-debugging/test-scope-selection.md` (test strategy)
+  - `docs/ai/08-guides/flutter/performance/index.md` (perf-sensitive code)
+  - `docs/ai/08-guides/flutter/security/examples.md` (security-sensitive flows)
+
 ## Core Rules
 
 - follow project conventions first, then Effective Dart
@@ -60,6 +73,37 @@ Use this prompt for implementation, refactor, code cleanup, and code review prep
 - speculative abstractions for future use
 - copy-paste model classes with inconsistent semantics
 - exposing infrastructure models directly to the UI
+
+## Steps
+
+1. Confirm the intended route:
+   - implementation/refactor → `implementation-plan-v1`
+   - review/audit → `review-report-v1`
+2. Identify the **minimal change surface** (target files, owning module).
+3. Preserve architecture boundaries (presentation/application/domain/data) and avoid new coupling.
+4. Define the change in ordered steps, including:
+   - state changes and error paths
+   - null-safety and API boundary types
+5. Define tests by level (unit/widget/integration) and name at least one test target.
+6. Call out risks (perf, security, migration/rollback).
+
+## Validation
+
+- Output must match the chosen contract sections exactly (`output-contracts.md`).
+- For code changes, ensure at least one of:
+  - a test to add/update, or
+  - a reproduction/verification step if tests are not feasible
+- If recommending packages or version-sensitive APIs, route through `research-brief` or add `source-validator` output.
+
+## Example
+
+**Example request:** “Refactor login submit to avoid double-tap and add a widget test for the error state.”
+
+**Expected output fragment (`implementation-plan-v1`):**
+
+- `Target Files`: `lib/features/auth/presentation/login_controller.dart`, `test/features/auth/login_widget_test.dart`
+- `Implementation Steps`: add submit guard; map result to state; render error; add test.
+- `Tests`: widget test (failure), unit test (repository mapping) if applicable.
 
 ## Output Behavior
 

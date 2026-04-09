@@ -45,6 +45,11 @@ void dispose() {
 - `Decision`: use `go_router` for guarded nested routes.
 - `Context Signals`: deep links, redirect logic, and web parity requirement.
 
+## Anti-patterns
+
+- Subscribing to streams in `build()` instead of `initState` / provider scope.
+- Using `WidgetsBinding.instance.addPostFrameCallback` for one-off navigation without cancel on dispose.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

@@ -21,6 +21,29 @@ Auth, secure storage, secrets, permissions, WebView and link security on mobile.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Read token from secure storage** (pattern using `flutter_secure_storage`):
+
+```dart
+class AuthTokenStore {
+  AuthTokenStore(this._storage);
+  final FlutterSecureStorage _storage;
+
+  Future<String?> readAccessToken() => _storage.read(key: 'access_token');
+
+  Future<void> writeAccessToken(String value) =>
+      _storage.write(key: 'access_token', value: value);
+}
+```
+
+**Review finding example:** “Refresh token written to `SharedPreferences` — **high**; migrate to `FlutterSecureStorage` and clear on logout.”
+
+## Anti-patterns
+
+- Logging `Authorization` headers or query strings with secrets.
+- `WebView` loading arbitrary URLs from user text without allowlists.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

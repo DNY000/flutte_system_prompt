@@ -18,6 +18,18 @@ Use this prompt for jank, startup time, memory usage, rebuild scope, scrolling p
 - state management approach
 - list, image, and animation usage
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter performance guides (load only what matches the symptoms):
+  - `docs/ai/08-guides/flutter/performance/index.md`
+  - `docs/ai/08-guides/flutter/performance/lists-images-and-memory.md`
+  - `docs/ai/08-guides/flutter/performance/startup-async-and-isolates.md`
+
 ## Core Rules
 
 - measure first when possible
@@ -50,6 +62,35 @@ Use this prompt for jank, startup time, memory usage, rebuild scope, scrolling p
 - large `shrinkWrap` lists inside nested scroll views without need
 - unbounded image memory usage
 - performance claims without before and after evidence
+
+## Steps
+
+1. Confirm route behavior:
+   - audit → `review-report-v1`
+   - optimize/fix → `implementation-plan-v1`
+2. Restate symptoms and what “good” looks like (FPS, startup, memory ceiling).
+3. Identify the likely bottleneck category (rebuilds, UI-thread work, layout/paint, images/lists, startup).
+4. Define measurements:
+   - what to capture in DevTools (timeline, raster thread, memory)
+   - before/after criteria
+5. Recommend high-impact fixes first; keep changes localized and testable.
+6. Add verification steps and regressions to watch.
+
+## Validation
+
+- Every recommendation includes how to verify it (DevTools, benchmark, or reproducible measurement).
+- Avoid micro-optimizations unless a real hotspot exists.
+- Call out correctness risks (e.g., caching stale data, skipping semantics) when optimizing.
+
+## Example
+
+**Example request:** “Scroll jank in feed with many network images; memory spikes; need smooth placeholders.”
+
+**Expected output fragment (`review-report-v1`):**
+
+- `Findings` (high): image decode/caching; nested shrinkWrap list; evidence: memory spikes + raster thread busy.
+- `Recommendation`: use `ListView.builder`, add caching strategy, use placeholder/error widgets; prefetch carefully.
+- `Residual Risks`: disk cache growth; test on low-RAM devices.
 
 ## Output Behavior
 

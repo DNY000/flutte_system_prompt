@@ -24,6 +24,18 @@ Use this prompt for Flutter UI screen design, design-system alignment, responsiv
 - important states and failure cases
 - accessibility or localization constraints
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter UI guides (when needed):
+  - `docs/ai/08-guides/flutter/ui/examples.md`
+  - `docs/ai/08-guides/flutter/ui/widget-by-widget-cases-and-examples.md`
+  - `docs/ai/08-guides/flutter/domains/accessibility-localization.md`
+
 ## Core Rules
 
 - design for usability first, aesthetics second
@@ -68,6 +80,30 @@ Use this prompt for Flutter UI screen design, design-system alignment, responsiv
 - icon buttons without labels or semantics
 - loading states that shift layout unpredictably
 - design output that cannot be translated into concrete Flutter composition
+
+## Steps
+
+1. Clarify the user goal and the primary action (what “success” means on this screen).
+2. Define `Screen Structure` first (regions, hierarchy, navigation context).
+3. Build the state matrix: loading / empty / error / success / disabled / offline when relevant.
+4. Define adaptive rules (narrow/medium/wide) and input model (touch vs keyboard/mouse).
+5. Define accessibility requirements (touch targets, semantics, focus order).
+6. Map to Flutter composition (widgets + layout primitives + state ownership).
+
+## Validation
+
+- Output matches `design-spec-v1` sections exactly.
+- Every critical state has a UI treatment (at least loading + error).
+- Composition is implementable (concrete widget mapping, not only adjectives).
+
+## Example
+
+**Example request:** “Design a login screen for phone and tablet with offline retry and accessible form navigation.”
+
+**Expected output fragment (`design-spec-v1`):**
+
+- `Interaction States`: loading; invalid credentials; offline; disabled submit until valid.
+- `Flutter Composition`: `Scaffold` + `SafeArea` + constrained form width; focus traversal; error banner.
 
 ## Output Behavior
 

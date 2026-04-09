@@ -4,7 +4,7 @@
 
 ## Goal
 
-Add-to-app and host/native boundary for Flutter modules.
+Add-to-app, host ↔ Flutter boundaries, engine lifecycle, and embedding strategy.
 
 ## Input
 
@@ -15,8 +15,34 @@ Add-to-app and host/native boundary for Flutter modules.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Boundary contract** (conceptual):
+
+```text
+Host owns: navigation stack above Flutter entry, deep link dispatch, process lifecycle
+Flutter owns: feature UI below `FlutterFragment` / `FlutterViewController`
+IPC: MethodChannel `app.bridge` with versioned JSON schema { "v": 1, "action": "..." }
+```
+
+**Dart side:**
+
+```dart
+const channel = MethodChannel('app.bridge');
+
+Future<void> notifyHost(String action, Map<String, dynamic> payload) {
+  return channel.invokeMethod(action, payload);
+}
+```
+
+## Anti-patterns
+
+- Calling Flutter engine APIs from arbitrary host threads without synchronization.
+- Sharing mutable singletons across host and Flutter without a defined serialization boundary.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Task: `docs/ai/02-tasks/add-to-app.md`

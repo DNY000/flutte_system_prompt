@@ -19,6 +19,17 @@ Use this prompt for continuous integration, release automation, build hardening,
 - artifact destinations
 - release approval requirements
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-rules.md`, `docs/ai/00-core/prompt-release-checklist.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Guides:
+  - `docs/ai/08-guides/flutter/deployment/index.md`
+  - `docs/ai/08-guides/flutter/deployment/flavors-signing-and-secrets.md`
+
 ## Core Rules
 
 - build pipelines around fast feedback first, release second
@@ -58,6 +69,32 @@ Use this prompt for continuous integration, release automation, build hardening,
 - mixing staging and production secrets
 - release pipelines that skip tests
 - caches used as if they were release artifacts
+
+## Steps
+
+1. Restate current state (CI provider, platforms, environments) and target state.
+2. Define pipeline stages in order:
+   - PR: format → analyze → test → optional build smoke
+   - main: full validation + artifact build (unsigned unless policy says otherwise)
+   - release: protected secrets → signed artifacts → publish → record version/changelog
+3. Define caching boundaries (deps cache vs build outputs) and restore keys.
+4. Define secrets model (names only), environment separation, and approval gates.
+5. Define artifact naming, retention, symbol/mapping file retention, and rollback path.
+
+## Validation
+
+- PR jobs must not sign production artifacts.
+- Secrets never committed; only referenced by name and scope.
+- Release pipeline does not skip tests unless explicitly justified and risk-accepted.
+
+## Example
+
+**Example request:** “GitHub Actions pipeline for Flutter: PR validation + tagged release with signing.”
+
+**Expected output fragment (`pipeline-change-v1`):**
+
+- `Stages`: pr-validate (format/analyze/test) → main-build (unsigned) → release (signed AAB/IPA).
+- `Secrets`: `ANDROID_KEYSTORE_B64`, `IOS_SIGNING_CERT_P12` scoped to release environment.
 
 ## Output Behavior
 

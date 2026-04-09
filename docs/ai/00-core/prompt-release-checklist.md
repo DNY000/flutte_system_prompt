@@ -24,6 +24,24 @@ Run this checklist before promoting prompt-system changes.
 - at least one representative prompt package builds per changed route family
 - high-risk routes reviewed manually
 
+## How to run (reference commands)
+
+TypeScript runtime (cross-platform):
+
+```bash
+cd tools/prompt-runtime-ts
+npm ci
+npm test
+npm run validate-manifest
+npm run verify-artifacts
+```
+
+PowerShell eval suite:
+
+```powershell
+.\tools\prompt-cli\run-evals.ps1
+```
+
 ## Governance Checks
 
 - version classification is documented (major/minor/patch)

@@ -82,3 +82,63 @@ Why:
 Switch:
 
 - if there is only one tiny endpoint and zero reuse, a full use-case layer may still be unnecessary
+
+## Example 5: Debounced Search
+
+Context:
+
+- search field queries remote API
+- user types quickly and backspaces
+- you must avoid 10 requests per second
+
+Default decision:
+
+- debounce input (300–500ms) and cancel previous pending work
+
+Why:
+
+- improves UX and reduces load; prevents stale results racing new ones
+
+Load:
+
+- `flutter/domains/debounce-throttle.md`
+
+## Example 6: Pagination (infinite feed)
+
+Context:
+
+- feed is unbounded
+- “load more” should trigger near end of list
+- must prevent duplicate concurrent loads
+
+Default decision:
+
+- explicit pagination state (`cursor`, `isLoadingMore`, `hasMore`, `error`) + guarded load-more
+
+Why:
+
+- avoids duplicate requests and inconsistent list state
+
+Load:
+
+- `flutter/domains/lazy-loading-pagination.md`
+
+## Example 7: Cache + stale-while-revalidate
+
+Context:
+
+- profile screen should open fast
+- network is flaky
+- stale content is acceptable briefly if refreshed in background
+
+Default decision:
+
+- return cached value immediately; refresh in background; persist refreshed value
+
+Why:
+
+- reduces perceived latency while keeping data reasonably fresh
+
+Load:
+
+- `flutter/domains/caching.md`

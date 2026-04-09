@@ -4,7 +4,7 @@
 
 ## Goal
 
-Plugin API, federated packages, platform channel design.
+Plugin API design, federated packages, and platform implementations.
 
 ## Input
 
@@ -15,8 +15,29 @@ Plugin API, federated packages, platform channel design.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**MethodChannel API** (Dart):
+
+```dart
+class MyPlugin {
+  static const _channel = MethodChannel('com.example.myplugin');
+
+  Future<String?> getNativeVersion() =>
+      _channel.invokeMethod<String>('getVersion');
+}
+```
+
+**Kotlin sketch** (android): handle `getVersion` in `MethodCallHandler`, return `Build.VERSION.RELEASE` — keep mapping in one place per platform.
+
+## Anti-patterns
+
+- Breaking binary compatibility without semver major on the plugin package.
+- Main-thread blocking calls from platform code into Dart synchronously.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Guide: `docs/ai/08-guides/flutter/platform-integration/native-boundary-and-plugin-bridges.md`

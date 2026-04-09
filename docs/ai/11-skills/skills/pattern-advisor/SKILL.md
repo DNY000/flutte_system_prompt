@@ -4,7 +4,7 @@
 
 ## Goal
 
-Repository, use-case, adapter, mapper patterns appropriate to Flutter layers.
+Repository, use-case, adapter, mapper, facade, and strategy selection for Flutter apps.
 
 ## Input
 
@@ -15,8 +15,37 @@ Repository, use-case, adapter, mapper patterns appropriate to Flutter layers.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Repository port + adapter** (Dart):
+
+```dart
+abstract class ProfileRepository {
+  Future<Profile> fetch();
+}
+
+class ProfileRepositoryImpl implements ProfileRepository {
+  ProfileRepositoryImpl(this._client);
+  final ApiClient _client;
+
+  @override
+  Future<Profile> fetch() async {
+    final dto = await _client.getProfile();
+    return dto.toDomain();
+  }
+}
+```
+
+Use **strategy** when multiple algorithms are swappable (e.g. pricing rules); use **facade** when hiding a cluster of legacy APIs behind one call site.
+
+## Anti-patterns
+
+- “Repository” that returns `Map<String, dynamic>` to the UI.
+- Strategy objects recreated every build — inject or cache at scope boundary.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
+- Modeling: `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`

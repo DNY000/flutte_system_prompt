@@ -4,6 +4,35 @@ Operational catalog for onboarding and maintaining AI skills.
 
 **Flat index (all SKILL.md paths):** `agent/SKILLS.md`
 
+**Authoring (context + constraints + steps):** `SKILL-AUTHORING.md`  
+**End-to-end pipeline (hooks, loader, verification):** `skill-execution-pipeline.md`  
+**Registry and activation rules:** `../00-core/skill-registry.md`, `../00-core/skill-precedence-policy.md`, `../00-core/skill-contracts.md`
+
+## Full context stack (what must be “enough”)
+
+| Layer | Location | Purpose |
+| --- | --- | --- |
+| Routing | `../00-core/routing-rules.md`, `tools/prompt-cli/routes.json` | One `route_id`, contract id, risk |
+| Task behavior | `../02-tasks/<route>.md` | Required inputs, forbidden loads, answer shape |
+| Project facts | `../01-context/project-context.md` | SDK bounds, flavors, team conventions |
+| Skills | `skills/<skill_id>/SKILL.md` | Ordered steps, examples, anti-patterns |
+| Retrieval | `../08-guides/flutter/index.md` + one leaf | Version-sensitive API detail |
+| Memory | `../03-memory/*.md` | Durable decisions only when relevant |
+
+**Global constraints:** `../00-core/output-rules.md`, `../00-core/token-rules.md`, `../00-core/mcp-research-policy.md`, `../00-core/answer-policies.md`.
+
+## End-to-end steps (summary)
+
+1. **Normalize** request → `pre-route` hook.  
+2. **Route** → `intent-router` → `post-route` hook.  
+3. **Resolve skills** → `routes.json` + precedence policy.  
+4. **Load context** → `context-loader` per `context-loading-rules.md`.  
+5. **Execute** → specialist `SKILL.md` steps; add `source-validator` / `mcp-orchestrator` when needed.  
+6. **Verify** → tests, rubric, `post-execute` hook.  
+7. **Persist** → `memory-curator` + `04-templates/resolved-issue-memory.md` when durable.  
+
+Detail: `skill-execution-pipeline.md`.
+
 ## Levels
 
 - L1: baseline skill, can handle narrow tasks with explicit context

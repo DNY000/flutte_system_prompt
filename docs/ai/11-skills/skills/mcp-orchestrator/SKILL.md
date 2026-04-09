@@ -20,6 +20,27 @@ Plan MCP connector usage when filesystem, docs, or tool data is required.
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Connector usage plan** (YAML-style outline):
+
+```yaml
+goal: confirm breaking change in dio 5.x for interceptors
+connectors:
+  - id: filesystem
+    action: read pubspec.yaml and lockfile for exact dio version
+  - id: web_fetch
+    action: fetch dio changelog section for that major version
+fallback_if_unavailable:
+  - ask user for dio version from pubspec.lock
+  - cite official dio pub.dev changelog URL only after version is known
+```
+
+## Anti-patterns
+
+- Calling MCP for content already in `docs/ai/08-guides/flutter/` without checking the index first.
+- Pasting API keys or tokens into prompts when using MCP tools.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

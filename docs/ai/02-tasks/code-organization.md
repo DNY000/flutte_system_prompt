@@ -19,6 +19,17 @@ Use this prompt when the user asks how to organize Flutter code, folders, featur
 - testing strategy
 - release cadence
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/folder-standards.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Flutter guides (when needed):
+  - `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`
+  - `docs/ai/08-guides/flutter/domains/code-organization.md`
+
 ## Organization Rules
 
 - prefer feature-first organization for Flutter apps with multiple features
@@ -52,3 +63,27 @@ Use this prompt when the user asks how to organize Flutter code, folders, featur
 - recommend one organization shape
 - state when to keep it simpler
 - mention ownership, testability, and migration impact
+
+## Steps
+
+1. Determine scale (small/medium/large) and ownership needs (one team vs multiple teams).
+2. Choose baseline structure (feature-first by default for multi-feature apps).
+3. Define boundaries:
+   - what belongs in `shared/` (only stable, reused)
+   - what must remain feature-owned
+4. Define dependency direction rules and how features access shared core.
+5. Provide a migration plan from current layout (ordered steps) and identify risks.
+
+## Validation
+
+- Structure improves change isolation and testability, not only aesthetics.
+- Shared folders have explicit ownership; no dumping grounds.
+- Output matches `decision-matrix-v1` sections exactly.
+
+## Example
+
+**Example request:** “We have `screens/`, `services/`, `models/` at root; team is growing; what structure should we use?”
+
+**Expected output fragment (`decision-matrix-v1`):**
+
+- `Recommendation`: move to `lib/features/<feature>/...` with light layering; keep `lib/shared/core/` minimal.

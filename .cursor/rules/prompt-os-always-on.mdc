@@ -1,0 +1,35 @@
+---
+description: Always-on prompt OS for this Flutter repo
+alwaysApply: true
+---
+
+# Prompt OS Always-On
+
+Use this repository's prompt operating system for every request.
+
+## Required flow
+
+1. Resolve one primary route from `tools/prompt-cli/routes.json`.
+2. Load minimal context in this order:
+   - `docs/ai/00-core/system-prompt.md`
+   - `docs/ai/00-core/output-rules.md`
+   - one task prompt from `docs/ai/02-tasks/`
+   - matching contract from `docs/ai/00-core/output-contracts.md`
+   - optional targeted guide leaf packs from `docs/ai/08-guides/flutter/`
+3. Follow the selected output contract sections exactly.
+4. Keep responses actionable and concise; prefer concrete file targets and verification steps.
+
+## Guardrails
+
+- Do not load all task prompts or all memory files at once.
+- For version-sensitive guidance, follow `docs/ai/00-core/mcp-research-policy.md`:
+  - include source + version/date
+  - separate facts from inferences
+- For Flutter advice, prefer domain packs (state, error handling, debounce/throttle, pagination, caching, localization) over generic text.
+- When changing routes/contracts/skills, include regression/eval impact in recommendations.
+
+## Quick examples
+
+- If user asks "Provider vs Riverpod", use `state-management-decision` and `decision-matrix-v1`.
+- If user asks "design login screen", use `design-screen` and `design-spec-v1`.
+- If user asks "debug crash after dispose", use `debug-triage` and `review-report-v1`.

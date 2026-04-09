@@ -22,6 +22,23 @@ Trade-off matrices for Flutter engineering choices (widgets, state, packages, UI
 
 - Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
 
+## Example
+
+**Option matrix fragment** (`decision-matrix-v1`):
+
+| Option | Pros | Cons | Fits when |
+| --- | --- | --- | --- |
+| `setState` | minimal deps | poor for shared async | local ephemeral UI |
+| Riverpod | testable, scoped | learning curve | app-wide graph |
+| Bloc | explicit events | boilerplate | complex user-driven state machines |
+
+**Recommendation line:** “Choose Riverpod for shared auth/session with async invalidation; keep `setState` for purely local expand/collapse.”
+
+## Anti-patterns
+
+- Recommending a state library without team skill and CI test strategy.
+- Picking packages for demo polish that add native maintenance cost.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

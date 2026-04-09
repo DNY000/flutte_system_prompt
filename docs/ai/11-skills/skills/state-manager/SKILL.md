@@ -31,6 +31,11 @@ final profileProvider = FutureProvider.autoDispose((ref) async {
 - `Option Matrix`: `setState` (local), Riverpod (shared async graph), Bloc (event-heavy).
 - `Recommendation`: Riverpod for shared auth/profile state with async invalidation.
 
+## Anti-patterns
+
+- Global singletons for state that should be scoped to a route subtree.
+- Calling `notifyListeners` / invalidating providers inside synchronous `build` methods.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

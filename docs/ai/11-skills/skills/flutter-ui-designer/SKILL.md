@@ -46,6 +46,11 @@ Scaffold(
 - `Interaction States`: loading, invalid credentials, offline retry.
 - `Accessibility`: min touch target 48dp and semantic labels for fields/buttons.
 
+## Anti-patterns
+
+- Fixed pixel sizes that break large text and system font scaling.
+- Decorative-only `Image.network` without error/loading placeholders on slow networks.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

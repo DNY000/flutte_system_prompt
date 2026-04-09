@@ -34,6 +34,11 @@ testWidgets('shows error when login fails', (tester) async {
 - `Test Matrix`: happy-path widget test, failure widget test, repository unit test.
 - `Execution Notes`: run on Android emulator API 34 and iOS simulator iPhone 15.
 
+## Anti-patterns
+
+- Widget tests that depend on real network or unmocked platform channels.
+- Golden tests without pinned theme and device pixel ratio.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

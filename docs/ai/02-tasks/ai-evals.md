@@ -18,6 +18,16 @@ Use this prompt for prompt evals, route regression tests, benchmark dataset desi
 - acceptable regression tolerance
 - publishing workflow
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/prompt-release-checklist.md`
+- Task: this file
+- Tooling / eval docs:
+  - `docs/ai/08-guides/ai-systems/evals-and-regression.md`
+  - `tools/prompt-cli/evals/task-quality-rubric.md`
+
 ## Core Rules
 
 - do not optimize prompts without a measurable baseline
@@ -33,6 +43,34 @@ Use this prompt for prompt evals, route regression tests, benchmark dataset desi
 - keep a representative task-quality dataset
 - use trace grading for multi-agent workflows
 - track regressions before publishing prompt changes
+
+## Steps
+
+1. Define what you are evaluating:
+   - routing accuracy
+   - contract compliance
+   - task-quality rubric scores
+2. Create a minimal dataset first (small, high-signal, real queries).
+3. Define graders:
+   - deterministic checks (route id, contract sections)
+   - rubric-based grading (quality-grader)
+4. Add regression gates to the release process (pre-release-gate hook) and document thresholds.
+5. Iterate: run evals → inspect failures → adjust prompts/routes/contracts → re-run.
+
+## Validation
+
+- Separate route tests from content quality tests.
+- Ensure eval cases are stable (no time/random dependencies).
+- Every significant prompt/route change triggers a re-run before release.
+
+## Example
+
+**Example request:** “We changed routing patterns; ensure no regression in `package-selection` vs `custom-vs-package`.”
+
+**Expected output fragment (`improvement-roadmap-v1`):**
+
+- `Plan`: add route regression cases for ambiguous queries; add contract compliance checks for `decision-matrix-v1`.
+- `Gates`: require `run-evals.ps1` green before merging route changes.
 
 ## Output Behavior
 

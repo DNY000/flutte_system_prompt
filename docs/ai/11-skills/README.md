@@ -4,6 +4,16 @@
 
 This folder holds **content**: agents, commands, per-`skill_id` SKILL packs, plugins, hooks.
 
+## Canonical guides (read first)
+
+| Doc | Role |
+| --- | --- |
+| `SKILL-AUTHORING.md` | How to write skills with **enough context, constraints, numbered steps, validation loops** (aligned with common Agent Skills practice: progressive disclosure, concrete examples). |
+| `skill-execution-pipeline.md` | Full **request → route → skills → context → execute → verify → memory** chain. |
+| `skill-catalog.md` | L1–L3 levels, groups, minimum production set, promotion criteria. |
+
+Registry and wiring: `docs/ai/00-core/skill-registry.md`, `tools/prompt-cli/routes.json`.
+
 Thin operator-facing wrappers live at the repo root under:
 
 - `agents/`
@@ -24,7 +34,7 @@ Those wrappers should point back to this folder and other canonical docs rather 
 Per-skill folder layout under `skills/<skill-id>/`:
 
 - required: `SKILL.md`
-- optional: `tests.md`, `examples.md`, `CHANGELOG.md`
+- optional: `references.md`, `examples.md`, `tests.md`, `CHANGELOG.md` — use when `SKILL.md` would exceed ~500 lines; load on demand only
 
 ## Precedence
 

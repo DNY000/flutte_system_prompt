@@ -18,6 +18,14 @@ Use this prompt when the user asks which design pattern or architecture pattern 
 - reuse expectations
 - team familiarity
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Flutter guides (when needed): `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`
+
 ## Pattern Heuristics
 
 - `Repository`: use to abstract data source access and keep callers source-agnostic
@@ -49,3 +57,23 @@ Use this prompt when the user asks which design pattern or architecture pattern 
 - identify the real problem first
 - recommend one primary pattern
 - explain why simpler alternatives are insufficient or sufficient
+
+## Steps
+
+1. Identify the real problem (coupling, reuse, boundary crossing, state transitions).
+2. Choose the smallest pattern that solves it; reject ceremony-only patterns.
+3. Provide a decision matrix with context signals that would change the choice.
+4. Provide implementation notes: where the pattern lives in folders and how it’s tested.
+
+## Validation
+
+- Output matches `decision-matrix-v1` sections exactly.
+- The pattern reduces coupling or increases clarity measurably (not just “clean architecture” style).
+
+## Example
+
+**Example request:** “We keep mapping DTOs directly in widgets; what pattern should we use?”
+
+**Expected output fragment (`decision-matrix-v1`):**
+
+- `Decision`: introduce `Mapper` at data boundary + repository returning domain models; widgets only consume domain/UI models.

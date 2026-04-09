@@ -2,6 +2,8 @@
 
 Use this index to map common user requests to routes, skills, and output contracts.
 
+**How skills compose in order:** `docs/ai/11-skills/skill-execution-pipeline.md`. **How to extend skills with full steps/constraints:** `docs/ai/11-skills/SKILL-AUTHORING.md`.
+
 | user query pattern | route_id | output_contract | required task prompt | default skills |
 | --- | --- | --- | --- | --- |
 | `when to use initState didChangeDependencies didUpdateWidget dispose` | `flutter-framework-decision` | `decision-matrix-v1` | `02-tasks/flutter-framework-decision.md` | `intent-router`, `flutter-decision-analyst`, `framework-advisor`, `context-loader` |
@@ -17,6 +19,12 @@ Use this index to map common user requests to routes, skills, and output contrac
 | `when to use LayoutBuilder` | `widget-decision` | `decision-matrix-v1` | `02-tasks/flutter-widget-decision.md` | `intent-router`, `flutter-decision-analyst`, `widget-selector`, `context-loader` |
 | `when to use setState vs ValueNotifier Provider Riverpod BLoC` | `state-management-decision` | `decision-matrix-v1` | `02-tasks/state-management-decision.md` | `intent-router`, `flutter-decision-analyst`, `state-manager`, `context-loader` |
 | `should I use Provider or Riverpod` | `state-management-decision` | `decision-matrix-v1` | `02-tasks/state-management-decision.md` | `intent-router`, `flutter-decision-analyst`, `state-manager`, `context-loader` |
+| `how to debounce search TextField` | `flutter-framework-decision` | `decision-matrix-v1` | `02-tasks/flutter-framework-decision.md` | `intent-router`, `flutter-decision-analyst`, `framework-advisor`, `context-loader` |
+| `prevent double tap submit` | `flutter-framework-decision` | `decision-matrix-v1` | `02-tasks/flutter-framework-decision.md` | `intent-router`, `flutter-decision-analyst`, `framework-advisor`, `context-loader` |
+| `lazy load list pagination` | `widget-decision` | `decision-matrix-v1` | `02-tasks/flutter-widget-decision.md` | `intent-router`, `flutter-decision-analyst`, `widget-selector`, `context-loader` |
+| `infinite scroll load more` | `widget-decision` | `decision-matrix-v1` | `02-tasks/flutter-widget-decision.md` | `intent-router`, `flutter-decision-analyst`, `widget-selector`, `context-loader` |
+| `Flutter localization i18n l10n ARB` | `flutter-framework-decision` | `decision-matrix-v1` | `02-tasks/flutter-framework-decision.md` | `intent-router`, `flutter-decision-analyst`, `framework-advisor`, `context-loader` |
+| `error state retry UI` | `flutter-framework-decision` | `decision-matrix-v1` | `02-tasks/flutter-framework-decision.md` | `intent-router`, `flutter-decision-analyst`, `framework-advisor`, `context-loader` |
 | `which package should I use for deep links` | `package-selection` | `decision-matrix-v1` | `02-tasks/package-selection.md` | `intent-router`, `flutter-decision-analyst`, `package-selector`, `context-loader` |
 | `when to build custom widgets instead of a package` | `custom-vs-package` | `decision-matrix-v1` | `02-tasks/custom-vs-package.md` | `intent-router`, `flutter-decision-analyst`, `package-selector`, `context-loader` |
 | `how to organize Flutter code by feature` | `code-organization-decision` | `decision-matrix-v1` | `02-tasks/code-organization.md` | `intent-router`, `flutter-decision-analyst`, `code-organizer`, `context-loader` |

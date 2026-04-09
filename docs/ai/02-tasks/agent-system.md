@@ -18,6 +18,16 @@ Use this prompt for AI agent architecture, specialist roles, tool boundaries, MC
 - current bottlenecks
 - traceability needs
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/mcp-research-policy.md`
+- Task: this file
+- Skills: `docs/ai/00-core/skill-registry.md`, `docs/ai/00-core/skill-precedence-policy.md`
+- Skill pipeline: `docs/ai/11-skills/skill-execution-pipeline.md`
+- Guides: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`
+
 ## Core Rules
 
 - start with one strong main agent
@@ -33,6 +43,35 @@ Use this prompt for AI agent architecture, specialist roles, tool boundaries, MC
 - define tool ownership by agent role
 - keep MCP access intentional, not global by default
 - build traces and evals into the design from the start
+
+## Steps
+
+1. Define the primary workflow(s): ask/plan/execute/review; single-turn vs multi-turn.
+2. Start with a single main agent; identify failure points (accuracy, latency, tool misuse, safety).
+3. Split only along real boundaries:
+   - research vs implementation vs review
+   - UI design vs coding
+   - security/perf audits as separate reviewers
+4. Define handoffs:
+   - what artifact is passed (contract-aligned sections)
+   - what is forbidden to change downstream without a “change request”
+5. Define tool boundaries per agent (shell vs read-only vs MCP connectors).
+6. Add verification gates: evals, rubric, route regression, release gate hooks.
+
+## Validation
+
+- Multi-agent overhead is justified by independent work streams.
+- Final output is merged into one artifact that matches the chosen contract.
+- Tool access is least-privilege; MCP scope is narrow and explicit.
+
+## Example
+
+**Example request:** “Design an agent setup for Flutter UI + code changes with safe review gates.”
+
+**Expected output fragment (`improvement-roadmap-v1`):**
+
+- `Topology`: UI designer agent → coder agent → reviewer agent (security/perf as needed).
+- `Gates`: contract compliance + targeted tests + route regression before merge.
 
 ## Output Behavior
 

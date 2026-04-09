@@ -229,3 +229,5 @@ node dist/index.js --command plan --query "design auth module architecture Flutt
 - Prefer retrieval fixes before adding more prompt text.
 - Do not load all task prompts together.
 - Do not promote temporary facts into memory.
+
+**Skills (full context + constraints + steps):** when adding or changing a skill, follow `docs/ai/11-skills/SKILL-AUTHORING.md` and keep the end-to-end chain in mind: `docs/ai/11-skills/skill-execution-pipeline.md`. Catalog and levels: `docs/ai/11-skills/skill-catalog.md`.

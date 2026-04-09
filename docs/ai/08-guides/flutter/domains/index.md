@@ -16,10 +16,14 @@ Primary entry point:
 | `navigation` | `Navigator`, `go_router`, `Router`, dialogs, sheets, flow ownership | `flutter/domains/navigation.md` |
 | `forms-input` | `TextField`, `TextFormField`, controllers, validators, `FocusNode` | `flutter/domains/forms-input.md` |
 | `async-concurrency` | `FutureBuilder`, `StreamBuilder`, isolates, `compute`, async safety | `flutter/domains/async-concurrency.md` |
+| `debounce-throttle` | debounce search, throttle taps, prevent duplicate submits | `flutter/domains/debounce-throttle.md` |
 | `animation` | implicit vs explicit animation, `AnimationController`, `AnimatedBuilder` | `flutter/domains/animation.md` |
 | `theming-adaptive` | `MaterialApp`, `CupertinoApp`, theme ownership, adaptive UI | `flutter/domains/theming-adaptive.md` |
 | `accessibility-localization` | semantics, focus order, localization ownership, ARB strategy | `flutter/domains/accessibility-localization.md` |
 | `assets-media` | `Image.asset`, `Image.network`, `AssetBundle`, placeholders, sizing | `flutter/domains/assets-media.md` |
+| `lazy-loading-pagination` | infinite scroll, load-more, pagination state and guards | `flutter/domains/lazy-loading-pagination.md` |
+| `caching` | TTL/ETag, stale-while-revalidate, cache storage choices | `flutter/domains/caching.md` |
+| `error-handling` | failure modeling, repository boundaries, error UI + retry | `flutter/domains/error-handling.md` |
 | `platform-integration` | package vs channel vs FFI, `MethodChannel`, `EventChannel`, adapters | `flutter/domains/platform-integration.md` |
 | `package-governance` | SDK-first, package selection, custom vs package, wrapper strategy | `flutter/domains/package-governance.md` |
 | `code-organization` | folder structure, feature-first, class split, module ownership | `flutter/domains/code-organization.md` |

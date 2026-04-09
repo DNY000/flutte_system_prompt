@@ -19,6 +19,15 @@ Use this prompt when the user asks how to design a feature module, shared module
 - data boundaries
 - testing needs
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/folder-standards.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Guides: `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`
+
 ## Design Rules
 
 - every module needs a clear owner and API surface
@@ -46,3 +55,27 @@ Use this prompt when the user asks how to design a feature module, shared module
 - choose one module shape
 - define responsibilities and dependency direction
 - include migration steps if the current structure is different
+
+## Steps
+
+1. Define the module purpose and who consumes it (features, shared UI, shared infra, multi-app).
+2. Choose module shape (feature module vs shared module vs internal package) and justify.
+3. Define API surface and ownership:
+   - what’s public vs internal
+   - versioning/deprecation if reused broadly
+4. Define dependency direction rules and banned imports (no lateral feature deps).
+5. Provide migration plan as ordered steps and list test impact.
+
+## Validation
+
+- Module has a clear owner and stable API surface.
+- No lateral feature dependencies without explicit boundary review.
+- Output matches `architecture-decision-v1` sections exactly.
+
+## Example
+
+**Example request:** “Design `checkout` and `payment` modules; payment should be swappable.”
+
+**Expected output fragment (`architecture-decision-v1`):**
+
+- `Decision`: `payment` exposes domain port; `checkout` depends on port only; implementations live in `data/` and are wired at composition root.

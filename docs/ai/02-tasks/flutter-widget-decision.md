@@ -18,6 +18,16 @@ Use this prompt when the user asks which Flutter widget, builder, layout primiti
 - target platforms and screen sizes
 - performance sensitivity
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Flutter UI guides (when needed):
+  - `docs/ai/08-guides/flutter/ui/widget-by-widget-cases-and-examples.md`
+  - `docs/ai/08-guides/flutter/domains/layout.md`
+
 ## Decision Rules
 
 - prefer the simplest SDK widget that satisfies the requirement
@@ -62,3 +72,23 @@ Use this prompt when the user asks which Flutter widget, builder, layout primiti
 - explain the context signals that make it correct
 - compare only the alternatives the user is likely considering
 - mention performance and testability impact if relevant
+
+## Steps
+
+1. Identify the UI goal and whether the content is bounded or unbounded.
+2. Choose the simplest widget/primitive that satisfies scrolling/layout/state ownership.
+3. Compare 1–2 alternatives only if realistic.
+4. Call out performance and testability implications (rebuild scope, keys, scroll behavior).
+
+## Validation
+
+- Output matches `decision-matrix-v1` sections exactly.
+- The recommendation does not introduce nested scrollables without explicit constraints.
+
+## Example
+
+**Example request:** “Should I use `SingleChildScrollView` or `ListView.builder` for a feed?”
+
+**Expected output fragment (`decision-matrix-v1`):**
+
+- `Decision`: `ListView.builder` for long/unbounded feeds; `SingleChildScrollView` for small static content.

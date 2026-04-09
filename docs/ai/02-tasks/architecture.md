@@ -20,6 +20,19 @@ Use this prompt for feature architecture, module boundaries, dependency directio
 - non-functional requirements
 - migration tolerance
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-rules.md`, `docs/ai/00-core/output-contracts.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Memory (only if relevant): `docs/ai/03-memory/decisions.md`, `docs/ai/03-memory/modules.md`
+- Flutter guides (load only what matches the question):
+  - `docs/ai/08-guides/flutter/app-architecture/index.md`
+  - `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`
+  - `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md` (DTO/domain mapping)
+
 ## Core Rules
 
 - prioritize separation of concerns first
@@ -53,6 +66,35 @@ Use this prompt for feature architecture, module boundaries, dependency directio
 - creating use-cases for every trivial pass-through call
 - mixing DTO, domain logic, and presentation formatting in one model
 - architecture diagrams that do not map to real files and modules
+
+## Steps
+
+1. Confirm whether the task is a **proposal** (`architecture-decision-v1`) or a **review** (`review-report-v1`).
+2. Restate the problem and constraints (platforms, team capacity, migrations, perf/security).
+3. Propose at most 3 options; each option must map to real modules/folders.
+4. Choose one decision and specify:
+   - module boundaries and ownership
+   - dependency direction rules
+   - state ownership scope
+5. Provide a migration plan as ordered steps with rollback safety.
+6. Specify tests (unit/widget/integration) and what to verify during migration.
+
+## Validation
+
+- The chosen option does not introduce circular dependencies between features.
+- File/module mapping is explicit (no “box-and-arrow only” architecture).
+- Migration includes incremental steps and identifies “stop points” for rollback.
+- If recommending new packages or version-sensitive APIs, link to `research.md` route or cite versions/dates.
+
+## Example
+
+**Example request:** “Split checkout into feature modules; keep payment behind an interface; migrate with low risk.”
+
+**Expected output fragment (`architecture-decision-v1`):**
+
+- `Decision`: checkout orchestration in application; payment gateway behind domain port; data adapters in `data/`.
+- `Migration Plan`: extract interfaces → add adapters → move presentation → remove old dependencies.
+- `Tests`: integration test for checkout; unit tests for mapper and pricing rules.
 
 ## Output Behavior
 

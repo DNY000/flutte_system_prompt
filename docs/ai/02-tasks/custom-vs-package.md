@@ -19,6 +19,15 @@ Use this prompt when the user asks whether a component, feature, service, or int
 - team maintenance capacity
 - delivery timeline
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/mcp-research-policy.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- Package guide: `docs/ai/08-guides/flutter/packages-and-plugins/practical-package-selection.md`
+
 ## Decision Rules
 
 - choose custom when product differentiation or control is the core requirement
@@ -53,3 +62,27 @@ Use this prompt when the user asks whether a component, feature, service, or int
 - choose one default path: custom, package, or wrapper-plus-package
 - explain ownership and maintenance implications
 - mention exit strategy if a package is adopted
+
+## Steps
+
+1. Determine whether the problem is product differentiation (custom) or commodity infrastructure (package).
+2. Decide between:
+   - custom build
+   - add package directly
+   - wrapper-plus-package (preferred when you want to prevent leakage)
+3. Compare realistic options (at most 3) using: maintenance cost, platform complexity, security implications, and migration/exit strategy.
+4. Choose one default path and state what would change the decision.
+
+## Validation
+
+- If using a package, specify how it will be wrapped/adapted to avoid coupling.
+- If custom, ensure the team can maintain it and test it (scope/effort called out).
+- If decision depends on current package versions, route through `research.md` and include versions/dates.
+
+## Example
+
+**Example request:** “Should we build our own image caching layer or use a package?”
+
+**Expected output fragment (`decision-matrix-v1`):**
+
+- `Recommendation`: wrapper-plus-package (`cached_network_image`) for caching + placeholders; keep app API stable.

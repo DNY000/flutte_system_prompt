@@ -39,6 +39,11 @@ lib/shared/core/
 - `Decision`: keep checkout orchestration in application layer; payment gateway behind domain interface.
 - `Migration Plan`: extract interfaces first, then move implementations feature-by-feature.
 
+## Anti-patterns
+
+- Features importing each other’s `data` implementations instead of domain ports.
+- “Shared” folders that accumulate business rules and become a hidden monolith.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

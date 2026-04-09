@@ -43,6 +43,11 @@ Future<void> submit() async {
 - `Target Files`: `lib/features/auth/presentation/login_controller.dart`
 - `Implementation Steps`: add submit guard, map result to success/error state, add tests.
 
+## Anti-patterns
+
+- Suggesting `BuildContext` usage across async gaps without `mounted` checks.
+- Leaking concrete `Dio` or plugin types into `presentation` or `domain` layers.
+
 ## References
 
 - Registry: `docs/ai/00-core/skill-registry.md`

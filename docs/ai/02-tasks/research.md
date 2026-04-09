@@ -17,6 +17,15 @@ Use this prompt when the answer depends on current external documentation, packa
 - acceptable trade-offs
 - comparison criteria
 
+## Context to load
+
+Always follow `docs/ai/00-core/context-loading-rules.md` and load **one** task prompt only.
+
+- Core: `docs/ai/00-core/mcp-research-policy.md`, `docs/ai/00-core/output-rules.md`
+- Task: this file
+- Stable facts (when non-placeholder): `docs/ai/01-context/project-context.md`
+- If the research is about prompt OS behavior: `docs/ai/00-core/answer-policies.md`, `docs/ai/00-core/output-contracts.md`
+
 ## Source Policy
 
 - prioritize official docs and primary sources
@@ -46,6 +55,30 @@ Use this prompt when the answer depends on current external documentation, packa
 - mixing outdated and current guidance
 - recommending packages with no maintenance or poor fit without stating the risk
 - presenting inference as fact
+
+## Steps
+
+1. Restate the research question and the downstream decision it supports.
+2. Define criteria (what “better” means) and constraints (platforms, SDK bounds, compliance).
+3. Collect sources in the default order (local → MCP → official → primary → secondary) per `mcp-research-policy.md`.
+4. Extract **facts** with citations (version/date) and list **unknowns** explicitly.
+5. Compare options using a consistent table and produce a decision-oriented conclusion.
+6. If the conclusion will matter again, propose a memory entry (`memory-curator`) after it’s validated in real work.
+
+## Validation
+
+- Every external-facing claim that affects correctness must have a source and “as of” date/version.
+- Facts vs inferences are separated.
+- Recommendation ties directly to the decision, not to generic best practices.
+
+## Example
+
+**Example request:** “Is `go_router` the best choice for guarded routes in Flutter in 2026? What are the risks vs Navigator 2.0 direct?”
+
+**Expected output fragment (`research-brief-v1`):**
+
+- `Findings`: go_router version X supports redirects; official docs show pattern; risks include migration cost and deep-link edge cases.
+- `Conclusion`: choose go_router if guarded nested routing + deep links are core; otherwise keep Navigator with a thin routing layer.
 
 ## Output Behavior
 
