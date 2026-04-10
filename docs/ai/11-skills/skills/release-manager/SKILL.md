@@ -13,7 +13,7 @@ Release risk, rollout, rollback, store submission, and promotion gates.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -34,7 +34,7 @@ Rollback: prior artifact 1.4.9+299 tagged in store; hotfix branch procedure docu
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Guide: `docs/ai/08-guides/flutter/deployment/flavors-signing-and-secrets.md`

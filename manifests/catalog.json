@@ -51,8 +51,8 @@
       "path": "agents/architect.md",
       "description": "High-risk architecture and module-boundary planning.",
       "canonicalRefs": [
-        "docs/ai/02-tasks/architecture.md",
-        "docs/ai/02-tasks/module-design.md"
+        "docs/ai/02-tasks/architecture/architecture.md",
+        "docs/ai/02-tasks/architecture/module-design.md"
       ],
       "routeBias": ["architecture-decision", "module-design-decision", "add-to-app", "offline-sync-strategy", "web-desktop-strategy"],
       "skills": ["flutter-architect", "module-designer", "hybrid-integrator", "sync-architect", "multiplatform-strategist"]
@@ -62,9 +62,9 @@
       "path": "agents/prompt-architect.md",
       "description": "Prompt, agent, and eval system evolution.",
       "canonicalRefs": [
-        "docs/ai/02-tasks/prompt-system.md",
-        "docs/ai/02-tasks/agent-system.md",
-        "docs/ai/02-tasks/ai-evals.md"
+        "docs/ai/02-tasks/ai/prompt-system.md",
+        "docs/ai/02-tasks/ai/agent-system.md",
+        "docs/ai/02-tasks/ai/ai-evals.md"
       ],
       "routeBias": ["prompt-system-roadmap", "agent-system-roadmap", "eval-system-roadmap"],
       "skills": ["prompt-architect", "agent-architect", "eval-designer", "quality-grader", "context-loader"]
@@ -128,8 +128,8 @@
       "path": "contexts/core-runtime.md",
       "description": "Minimum runtime context for most requests.",
       "canonicalRefs": [
-        "docs/ai/00-core/system-prompt.md",
-        "docs/ai/00-core/execution-flow.md",
+        "docs/ai/00-core/system/system-prompt.md",
+        "docs/ai/00-core/system/execution-flow.md",
         "docs/ai/01-context/project-context.md"
       ]
     },
@@ -138,8 +138,8 @@
       "path": "contexts/flutter-engineering.md",
       "description": "Curated Flutter decision and implementation context.",
       "canonicalRefs": [
-        "docs/ai/00-core/decision-engine.md",
-        "docs/ai/00-core/self-analysis-protocol.md",
+        "docs/ai/00-core/routing/decision-engine.md",
+        "docs/ai/00-core/system/self-analysis-protocol.md",
         "docs/ai/08-guides/flutter/index.md"
       ]
     },
@@ -149,8 +149,8 @@
       "description": "Prompt, agent, and eval system context bundle.",
       "canonicalRefs": [
         "docs/ai/08-guides/ai-systems/index.md",
-        "docs/ai/02-tasks/prompt-system.md",
-        "docs/ai/02-tasks/ai-evals.md"
+        "docs/ai/02-tasks/ai/prompt-system.md",
+        "docs/ai/02-tasks/ai/ai-evals.md"
       ]
     },
     {
@@ -160,7 +160,7 @@
       "canonicalRefs": [
         "docs/ai/03-memory/memory-governance.md",
         "docs/ai/03-memory/incident-to-memory-loop.md",
-        "docs/ai/00-core/prompt-release-checklist.md"
+        "docs/ai/00-core/policies/prompt-release-checklist.md"
       ]
     }
   ]

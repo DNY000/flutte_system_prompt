@@ -24,6 +24,18 @@
 - if callers repeatedly check raw exception strings, the failure boundary is too weak
 - if the app is tiny, a small `Result<T, Failure>` pattern may be enough without extra abstraction
 
+## Deep Network Architecture Constraints
+
+### 1. The Token Resurrection Engine (Interceptors)
+A production app must never randomly kick a user to the Login screen because an Access Token expired.
+*   **Mandate:** When implementing HTTP/Dio, the AI MUST construct an `Interceptor`.
+*   **Protocol:** If the server returns `401 Unauthorized`, the Interceptor must PAUSE outgoing requests, fire a background `RefreshToken` API call, save the new tokens to Secure Storage, and then RETRY the paused requests seamlessly.
+
+### 2. Exponential Backoff (The Elevator Rule)
+If a user clicks "Submit" right as they enter an elevator, the app should not instantly crash the flow.
+*   **Mandate:** Repository layers MUST wrap critical POST/PUT requests in an Exponential Backoff retry mechanism (e.g., using the `retry` package or a custom wrapper).
+*   **Matrix:** Try 1, wait 1s. Try 2, wait 2s. Try 3, wait 4s. Only surface the failure to the UI after all retries are exhausted.
+
 ## Example 1: App-Owned Result Type
 
 ```dart

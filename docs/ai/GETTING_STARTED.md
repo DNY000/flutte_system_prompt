@@ -61,8 +61,8 @@ request
 
 Reference:
 
-- `00-core/operating-model.md`
-- `00-core/execution-flow.md`
+- `00-core/system/operating-model.md`
+- `00-core/system/execution-flow.md`
 
 ## 4. Resolve A Query
 
@@ -122,12 +122,12 @@ Use the full output of `build` as a single prompt.
 
 Do not paste every file blindly. Load in this order:
 
-1. `00-core/system-prompt.md`
-2. `00-core/output-rules.md`
+1. `00-core/system/system-prompt.md`
+2. `00-core/contracts/output-rules.md`
 3. `01-context/project-context.md`
 4. route-specific context files
 5. one task prompt from `02-tasks/`
-6. the matching section from `00-core/output-contracts.md`
+6. the matching section from `00-core/contracts/output-contracts.md`
 7. the matching shell from `04-templates/contract-shells.md`
 8. the user request as the user message
 
@@ -201,7 +201,7 @@ Do not add a route if an existing task prompt already covers the request family.
 - Put reusable shells and assembly aids in `04-templates/`.
 - Put retrieval packs in `08-guides/`.
 
-Detailed standards: `00-core/folder-standards.md`
+Detailed standards: `00-core/system/folder-standards.md`
 
 ## 10. Validation Commands
 

@@ -13,7 +13,7 @@ Pipelines, build validation, and release automation for Flutter projects.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -42,7 +42,7 @@ Pin the Flutter SDK channel or version to match `pubspec.yaml` environment const
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Guide: `docs/ai/08-guides/ai-systems/evals-and-regression.md`

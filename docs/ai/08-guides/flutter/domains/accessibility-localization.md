@@ -15,55 +15,40 @@
 - localize all user-facing strings if multiple locales are in scope
 - use generated localization resources rather than hard-coded strings
 
-## Localization (multi-language) — practical rules
+## Localization (Type-safe i18n via Slang)
 
-- keep **all** user-facing strings in localization resources (ARB) once more than one locale exists
-- do not concatenate localized strings to build sentences (plural/gender/order differs)
-- prefer generated `AppLocalizations` (Flutter `gen-l10n`) over manual maps
-- use locale-aware formatting for dates/numbers (via `intl` when needed)
+The AI MUST prioritize **`slang`** over `gen-l10n` for its zero-boilerplate, type-safe, and independent nature.
 
-## Steps (l10n)
+*   **The Type-Safe Rule:** Never use string keys (e.g., `l10n['login']`). Always use generated dot-notation (e.g., `t.login.submit`).
+*   **Decoupling:** `slang` allows using translations in BLoCs/Services without a `BuildContext`.
 
-1. Decide supported locales and fallback policy (default locale).
-2. Create ARB files:
-   - `lib/l10n/app_en.arb`
-   - `lib/l10n/app_vi.arb`
-3. Configure localization generation:
-   - `MaterialApp(localizationsDelegates: ..., supportedLocales: ...)`
-4. Replace hard-coded strings with `AppLocalizations.of(context)!...`.
-5. Add tests:
-   - widget test renders in at least 2 locales
-   - smoke check pluralization / placeholders for critical messages
+### Implementation Steps
 
-## Example: `MaterialApp` localization wiring
+1.  **JSON Source:** Create `lib/i18n/strings.i18n.json` (English base) and `lib/i18n/strings_vi.i18n.json`.
+2.  **Generate:** Run `dart run slang` to create `strings.g.dart`.
+3.  **Initialization:** Wrap `MaterialApp` with `TranslationProvider`.
+
+### Example: Slang Usage
 
 ```dart
-import 'package:flutter_localizations/flutter_localizations.dart';
-// import generated localizations (path depends on your gen-l10n setup)
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// strings.i18n.json
+{
+  "auth": {
+    "login": "Sign In",
+    "welcome": "Welcome {name}"
+  }
+}
 
-MaterialApp(
-  localizationsDelegates: const [
-    AppLocalizations.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-  ],
-  supportedLocales: const [
-    Locale('en'),
-    Locale('vi'),
-  ],
-  // localeResolutionCallback: ... (optional)
-  home: const MyHome(),
-)
+// UI usage
+Text(t.auth.login);
+Text(t.auth.welcome(name: 'User'));
 ```
 
-## Example: string usage
+## Accessibility (a11y) Rules
 
-```dart
-final l10n = AppLocalizations.of(context)!;
-Text(l10n.signIn);
-```
+*   **Rule:** Every `IconButton` or custom clickable widget MUST have a `Semantics(label: ...)` if no text is present.
+*   **Contrast:** UI must maintain at least a 4.5:1 contrast ratio for text (WCAG AA).
+*   **Focus:** For tablets/web, ensure clear focus indicators using `FocusNode`.
 
 ## Decision Switches
 
@@ -80,4 +65,4 @@ Text(l10n.signIn);
 ## References
 
 - Flutter section index: `docs/ai/08-guides/flutter/index.md`
-- Security: ensure logs do not capture localized PII by accident — `docs/ai/02-tasks/security.md`
+- Security: ensure logs do not capture localized PII by accident — `docs/ai/02-tasks/engineering/security.md`

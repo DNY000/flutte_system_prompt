@@ -6,13 +6,12 @@
 - concrete per-widget scenarios with code instead of only abstract guidance
 - common base widgets used in app screens, forms, lists, and actions
 
-## Quick Rule
+## Core Constraints & Performance Rules
 
-- choose the simplest widget that matches the ownership of the UI problem
-- if the widget needs to solve layout, use a layout widget
-- if the widget needs to solve spacing, use a spacing widget
-- if the widget needs to solve interaction, use an interaction widget
-- do not ask one widget to solve styling, layout, scrolling, and state all at once
+- **The Memory Bound:** OOM (Out of Memory) crashes are primarily caused by raw image decoding and eager list building. `ListView(...)` without `.builder` renders everything synchronously into memory. **Never use standard ListView or SingleChildScrollView for lists exceeding 20 items.**
+- **The Nested Layout Trap:** Do not nest multi-pass layout containers unnecessarily. `shrinkWrap: true` physically forces Flutter to measure every element in the unbounded direction before it can paint the first one, causing an `O(N)` layout cost per frame. Instead of nesting lists, use `SliverList` inside a `CustomScrollView`.
+- **BuildContext Purity:** `Theme.of(context)` and `MediaQuery.of(context)` trigger a rebuild over the *exact widget* that called them whenever the value changes. Never call these inside tight loops like an `itemBuilder`. Pass them down as cached variables or extract the item into a `const` Widget.
+- **Micro-Widgets over mega-builds:** If a `build()` method has more than 5 indentations, it is causing unnecessary UI rendering computation. Break it down into smaller `StatelessWidget`s. Do not use helper methods (like `Widget _buildHeader()`), as they inherit the parent's `BuildContext` and invalidate localized Element sub-tree caching.
 
 ## `Container`
 
@@ -475,8 +474,10 @@ Concrete situation:
 
 ## Anti-Patterns
 
-- using `Container` when only padding or spacing is needed
-- putting a large list inside `SingleChildScrollView`
-- using `TextField` for a validated submit form
-- forcing `ListTile` into layouts that are not tile-shaped
-- adding custom tap surfaces when `FilledButton`, `TextButton`, or `IconButton` already match the action
+- **Using `Container` for padding:** Using `Container(padding: X, child: Y)` allocates more render objects than `Padding(padding: X, child: Y)`.
+- **The Memory Bomb:** Putting a large list inside `SingleChildScrollView`.
+- **Layout Explosions:** Using `shrinkWrap: true` on `ListView` deep inside a widget tree.
+- **Bloated BuildContext:** Extracting complex widgets into `Widget _buildX()` methods instead of `class X extends StatelessWidget`.
+- **Raw Network Images:** Using `Image.network` in production code without an explicit `cacheWidth` or a package like `cached_network_image`.
+- **Form Violations:** Using `TextField` for a validated submit form instead of `TextFormField`.
+- **Reinventing the Wheel:** Adding custom `GestureDetector` tap surfaces when `FilledButton`, `TextButton`, or `InkWell` already match the required material action.

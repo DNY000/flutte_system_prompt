@@ -34,14 +34,14 @@ npm run verify-artifacts
 `run-evals.ps1` is the operator script that:
 
 - runs route regression using the PowerShell CLI router
-- checks contract mappings against `docs/ai/00-core/output-contracts.md`
+- checks contract mappings against `docs/ai/00-core/contracts/output-contracts.md`
 - calls this runtime for artifact verification (`npm run verify-artifacts`)
 
 If you change any of these, re-run evals:
 
 - `tools/prompt-cli/routes.json`
 - `docs/ai/02-tasks/*.md`
-- `docs/ai/00-core/output-contracts.md`
+- `docs/ai/00-core/contracts/output-contracts.md`
 - runtime code under `tools/prompt-runtime-ts/src/`
 
 ## Release gate (recommended)

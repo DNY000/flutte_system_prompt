@@ -4,7 +4,13 @@
 
 ## Goal
 
-State scope and state-management approach (setState through Riverpod/Bloc, etc.).
+Determine the optimal state scope and state-management approach (`setState`, `ValueNotifier`, `Riverpod`, `Bloc`, etc.) to maximize testability and minimize unnecessary UI rebuilds.
+
+## Other Common Requests This Skill Should Cover
+
+- Decide if a local `setState` should be promoted to a shared state architecture.
+- Structure error handling and loading states inside of Riverpod/Bloc.
+- Prevent infinite rebuild loops caused by mutating state during the `build` phase.
 
 ## Input
 
@@ -13,31 +19,54 @@ State scope and state-management approach (setState through Riverpod/Bloc, etc.)
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
-## Example
+## Technical Constraints
 
-**Example request:** choose state approach for login and profile cache.
+- **Minimal Scope:** Always favor the most localized state management possible. Default to `setState` or `ValueNotifier` for single-widget UI logic (e.g., hover effects, simple form toggles). Only escalate to Riverpod/Bloc if the state is shared across multiple screen boundaries or requires complex asynchronous graphs.
+- **No Mid-Build Mutations:** You cannot call `ProviderContainer.read`, `setState`, or `Cubit.emit` inside a widget's `build()` function. State mutation must occur inside event handlers (e.g., `onPressed`, `onChange`), `initState()`, or `ref.listen`.
+- **Immutable State:** When using Riverpod, Provider, or Bloc, the state objects MUST be immutable. Use `freezed`, `equatable`, or native Dart records to enforce immutability. Never mutate an object and emit it again.
 
-**Example Flutter code (Riverpod):**
+## Example 1: Riverpod - Async Data Fetching & UI Handling
+
+**Example request:** "Choose a state approach for a profile view that fetches data and displays it."
+
+**Example snippet:**
 ```dart
-final profileProvider = FutureProvider.autoDispose((ref) async {
+// 1. Immutable State Definition (using Freezed or plain classes)
+// 2. Provider Definition
+final profileProvider = FutureProvider.autoDispose.family<UserProfile, String>((ref, userId) async {
   final repo = ref.watch(profileRepositoryProvider);
-  return repo.fetchProfile();
+  return repo.fetchProfile(userId);
 });
-```
 
-**Example expected output fragment (`decision-matrix-v1`):**
-- `Option Matrix`: `setState` (local), Riverpod (shared async graph), Bloc (event-heavy).
-- `Recommendation`: Riverpod for shared auth/profile state with async invalidation.
+// 3. UI Consumption
+class ProfileScreen extends ConsumerWidget {
+  final String userId;
+  const ProfileScreen(this.userId, {super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profileAsyncValue = ref.watch(profileProvider(userId));
+
+    return profileAsyncValue.when(
+      data: (profile) => Text('Name: ${profile.name}'),
+      loading: () => const CircularProgressIndicator.adaptive(),
+      error: (err, stack) => Center(child: Text('Error: $err')),
+    );
+  }
+}
+```
 
 ## Anti-patterns
 
 - Global singletons for state that should be scoped to a route subtree.
 - Calling `notifyListeners` / invalidating providers inside synchronous `build` methods.
+- Using `ChangeNotifier` and mutating properties directly when a pure immutable state class + `StateNotifier`/`Notifier` would eliminate race conditions.
+- Wrapping the entire `MaterialApp` in a `StatefulBuilder` just to pass a theme toggle.
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`

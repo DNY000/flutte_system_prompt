@@ -19,8 +19,8 @@ Route Resolution
 - memory_write:
 
 Required Context
-- docs/ai/00-core/system-prompt.md
-- docs/ai/00-core/output-rules.md
+- docs/ai/00-core/system/system-prompt.md
+- docs/ai/00-core/contracts/output-rules.md
 - docs/ai/01-context/project-context.md
 - docs/ai/02-tasks/<task-prompt>.md
 
@@ -31,11 +31,11 @@ Required Skills
 
 ## System Prompt
 
-<paste docs/ai/00-core/system-prompt.md>
+<paste docs/ai/00-core/system/system-prompt.md>
 
 ## Output Rules
 
-<paste docs/ai/00-core/output-rules.md>
+<paste docs/ai/00-core/contracts/output-rules.md>
 
 ## Project Context
 
@@ -51,7 +51,7 @@ Required Skills
 
 ## Output Contract
 
-<paste the matching contract section from docs/ai/00-core/output-contracts.md>
+<paste the matching contract section from docs/ai/00-core/contracts/output-contracts.md>
 
 ## Output Shell
 

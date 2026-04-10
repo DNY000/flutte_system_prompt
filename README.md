@@ -2,51 +2,61 @@
 
 ### *Kỷ luật thép dành cho ứng dụng Flutter chuẩn Enterprise*
 
-Flutter Prompt OS là một bộ khung prompt có độ chính xác cao và nền tảng kiến thức được thiết kế để biến bất kỳ AI nào (Cursor, Claude, GPT) thành một **Chuyên gia Kiến trúc sư Flutter (Senior Lead Flutter Architect)**. Hệ thống này đúc kết nhiều năm kinh nghiệm phát triển các hệ thống lớn thành một quy chuẩn hoạt động rõ ràng.
+## 📖 1. Giới thiệu
+
+Flutter Prompt OS (FPOS) là một bộ khung prompt có độ chính xác cao và hệ thống tri thức (knowledge base) chuyên biệt. Nó được thiết kế với mục đích **biến mọi AI (Cursor, Claude, ChatGPT...) thành một Chuyên gia Kiến trúc sư Flutter (Senior Lead Flutter Architect)**.
+
+Hệ thống này không chỉ cung cấp những câu lệnh đơn giản, mà là một quy chuẩn làm việc (Operating System cho AI), chứa đựng những năm kinh nghiệm triển khai các dự án quy mô lớn. Đặc biệt tập trung vào:
+*   **Bảo mật**: SSL Pinning, kiến trúc xác thực PKCE.
+*   **Kiến trúc**: Phân tầng rạch ròi, kết hợp lưu trữ và khôi phục trạng thái.
+*   **Hiệu suất**: Tối ưu engine Impeller và WebAssembly Wasm.
 
 ---
 
-## 🚀 Kiến trúc Cốt lõi (Steel Core)
+## ⚙️ 2. Hướng dẫn Cài đặt
 
-Hệ thống này không chỉ là một tập hợp các câu lệnh (prompt); nó là một **Hệ điều hành (Operating System)** dành riêng cho lập trình với AI, đảm bảo các tiêu chuẩn:
+Để hệ thống hoạt động, bạn chỉ cần đưa kho kiến thức của repository này vào nền tảng AI mà bạn dùng. 
 
-*   **🛡️ Bảo mật Cấp cao nhất**: Chi tiết triển khai SSL Pinning, luồng xác thực PKCE, và ngăn chặn vượt rào RLS.
-*   **🏗️ Kiến trúc Phân tầng**: Tách biệt hoàn toàn UI/Domain/Data đi kèm cơ chế lưu trữ trạng thái bằng Hydrated.
-*   **⚡ Hiệu suất Tối ưu**: Tối ưu hóa mạnh mẽ cho engine Impeller và nền tảng web WebAssembly (Wasm).
-*   **🤖 Mô hình AI-First**: Tích hợp các pattern thiết kế như Agentic function calling và Generative UI.
-*   **🌍 Công nghệ Mới nhất**: Chuẩn hóa để dùng với **Supabase 2.0+**, **Firebase 2026 Ready**, và thư viện đa ngôn ngữ **Slang i18n**.
+### Dành cho Cursor IDE (Khuyên dùng và tự động nhất)
+1. Hãy chắc chắn bạn đã cài đặt phần mềm **Cursor**.
+2. **Clone** repository này hoặc di chuyển toàn bộ file này vào thư mục dự án Flutter của bạn.
+3. Mở thư mục dự án của bạn (đã chứa nội dung của thư mục này) bằng Cursor IDE.
+4. Xong! File ẩn `.cursorrules` sẽ tự động thực thi cài đặt quy tắc vào nội bộ AI. Từ giờ, mọi câu hỏi hay lệnh tạo code trong Cursor sẽ tự động tuân thủ kiến trúc chuẩn.
+
+### Dành cho công cụ chat như ChatGPT, Claude, Gemini...
+1. Truy cập vào file [MASTER_PROMPT.md](./MASTER_PROMPT.md) trong mã nguồn này.
+2. Sao chép (Copy) toàn bộ văn bản trong đó.
+3. Bạn đã "cài đặt" thành công. (Xem phần cách dùng để biết tiếp theo phải làm gì).
 
 ---
 
-## 🛠️ Hướng dẫn Cài đặt & Cách sử dụng
+## 🛠️ 3. Cách Sử dụng
 
-### Cách 1: Tích hợp Tự động (Dành cho Cursor IDE)
-Cách này phù hợp và khuyên dùng khi bạn đang sử dụng **Cursor IDE** để lập trình.
-1. Khởi động **Cursor** và Mở thư mục (`Open Folder`) chứa mã nguồn này.
-2. File cấu hình `.cursorrules` có sẵn sẽ tự động thực thi. AI của Cursor sẽ lập tức học được mọi quy tắc và kỷ luật kiến trúc chuẩn mực của repo này mà không cần bạn phải làm thêm gì.
+Cách dùng cực kỳ đơn giản sau khi bạn đã thiết lập (cài đặt) thành công ở mục trên.
 
-### Cách 2: Tích hợp Thủ công (Dành cho Claude / ChatGPT / v.v...)
-Sử dụng khi bạn thao tác trên giao diện web hoặc các IDE khác không hỗ trợ `.cursorrules`.
-1. Mở file [MASTER_PROMPT.md](./MASTER_PROMPT.md) trong thư mục gốc.
-2. Sao chép toàn bộ nội dung trong file.
-3. Dán nội dung đó vào **System Prompt** của AI (nếu hỗ trợ) hoặc dùng chính nội dung đó làm tín hiệu khởi động (câu lệnh mở đầu) trong khung chat với AI trước khi bạn yêu cầu tạo code/sửa tính năng.
+### Với Cursor IDE
+Bạn sử dụng công cụ chat (`Cmd/Ctrl + L` hoặc `Cmd/Ctrl + K`) và yêu cầu lập trình chức năng như bình thường. Chẳng hạn: 
+- *"Tạo một màn hình đăng nhập với chuẩn FPOS."*
+- Hệ thống sẽ tự tra cứu kho tài liệu ở thư mục `/docs/ai/` để viết code.
+
+### Với AI Web (ChatGPT, Claude...)
+1. Khởi tạo đoạn chat mới.
+2. Tại tin nhắn đầu tiên hoặc ô thiết lập **System Prompt**, dán (paste) toàn bộ nội dung của [MASTER_PROMPT.md](./MASTER_PROMPT.md) mà bạn vừa copy ở mục Cài đặt.
+3. Ở tin nhắn thứ hai, đưa ra yêu cầu của bạn (ví dụ: *"Hãy viết giúp tôi luồng xác thực sử dụng Supabase theo chuẩn trên"*).
+4. AI sẽ lập tức đóng vai **Flutter Architect** để phục vụ dự án của bạn.
 
 ---
 
 ## 📂 Danh mục Hệ thống (System Inventory)
 
-| Phân hệ (Module) | Vị trí thư mục | Trọng tâm |
-| :--- | :--- | :--- |
-| **Data & Backend** | `docs/ai/08-guides/flutter/data-and-backend/` | Tích hợp Firebase, Supabase, Kiến trúc Offline-First. |
-| **Security** | `docs/ai/08-guides/flutter/security/` | SSL Pinning, Xác thực Sinh trắc học, Hardening. |
-| **Architecture** | `docs/ai/08-guides/flutter/app-architecture/` | Kiến trúc BLoC, Riverpod, Bảo toàn dữ liệu (Persistence). |
-| **Performance** | `docs/ai/08-guides/flutter/performance/` | Wasm, Impeller, Tối ưu DevTools. |
-| **Monetization** | `docs/ai/08-guides/flutter/domains/` | Nền tảng thanh toán Stripe, RevenueCat. |
+Các tài liệu hướng dẫn chuyên sâu để AI tham khảo khi làm việc đã được phân loại trong mục `docs`:
+- **Data & Backend**: `docs/ai/08-guides/flutter/data-and-backend/` (Firebase, Supabase...)
+- **Security**: `docs/ai/08-guides/flutter/security/` (Bảo mật, SSL Pinning...)
+- **Architecture**: `docs/ai/08-guides/flutter/app-architecture/` (BLoC, Riverpod...)
 
 ---
 
 ## 🛡️ Giấy phép
-Mã nguồn được phân phối dưới giấy phép **MIT License**. Bạn có toàn quyền sử dụng, chỉnh sửa để xây dựng các dự án Flutter tốt, bảo mật và nhanh hơn.
+Mã nguồn FPOS được phân phối dưới giấy phép **MIT License**. Bạn có toàn quyền sử dụng và điều chỉnh.
 
----
-*Phát triển và bảo trì bởi Agentic Coding Team.*
+*Phát triển bởi Agentic Coding Team.*

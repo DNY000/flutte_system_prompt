@@ -12,9 +12,9 @@ Use this bundle for prompt-system, agent-system, and eval-system work.
 
 ## Add When Needed
 
-- `docs/ai/02-tasks/prompt-system.md`
-- `docs/ai/02-tasks/agent-system.md`
-- `docs/ai/02-tasks/ai-evals.md`
+- `docs/ai/02-tasks/ai/prompt-system.md`
+- `docs/ai/02-tasks/ai/agent-system.md`
+- `docs/ai/02-tasks/ai/ai-evals.md`
 - `docs/ai/09-roadmap/completion-master-plan.md`
 
 ## Best For

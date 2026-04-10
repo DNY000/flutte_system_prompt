@@ -6,20 +6,20 @@ Operational catalog for onboarding and maintaining AI skills.
 
 **Authoring (context + constraints + steps):** `SKILL-AUTHORING.md`  
 **End-to-end pipeline (hooks, loader, verification):** `skill-execution-pipeline.md`  
-**Registry and activation rules:** `../00-core/skill-registry.md`, `../00-core/skill-precedence-policy.md`, `../00-core/skill-contracts.md`
+**Registry and activation rules:** `../00-core/contracts/skill-registry.md`, `../00-core/policies/skill-precedence-policy.md`, `../00-core/contracts/skill-contracts.md`
 
 ## Full context stack (what must be “enough”)
 
 | Layer | Location | Purpose |
 | --- | --- | --- |
-| Routing | `../00-core/routing-rules.md`, `tools/prompt-cli/routes.json` | One `route_id`, contract id, risk |
+| Routing | `../00-core/routing/routing-rules.md`, `tools/prompt-cli/routes.json` | One `route_id`, contract id, risk |
 | Task behavior | `../02-tasks/<route>.md` | Required inputs, forbidden loads, answer shape |
 | Project facts | `../01-context/project-context.md` | SDK bounds, flavors, team conventions |
 | Skills | `skills/<skill_id>/SKILL.md` | Ordered steps, examples, anti-patterns |
 | Retrieval | `../08-guides/flutter/index.md` + one leaf | Version-sensitive API detail |
 | Memory | `../03-memory/*.md` | Durable decisions only when relevant |
 
-**Global constraints:** `../00-core/output-rules.md`, `../00-core/token-rules.md`, `../00-core/mcp-research-policy.md`, `../00-core/answer-policies.md`.
+**Global constraints:** `../00-core/contracts/output-rules.md`, `../00-core/policies/token-rules.md`, `../00-core/policies/mcp-research-policy.md`, `../00-core/policies/answer-policies.md`.
 
 ## End-to-end steps (summary)
 
@@ -71,4 +71,4 @@ Detail: `skill-execution-pipeline.md`.
 
 ## Optional / draft skills
 
-Rare or team-only skills can live as drafts under `skills/<skill-id>/` (for example on a branch) until you promote them through `docs/ai/00-core/skill-registry.md`, `tools/prompt-cli/routes.json`, and eval updates.
+Rare or team-only skills can live as drafts under `skills/<skill-id>/` (for example on a branch) until you promote them through `docs/ai/00-core/contracts/skill-registry.md`, `tools/prompt-cli/routes.json`, and eval updates.

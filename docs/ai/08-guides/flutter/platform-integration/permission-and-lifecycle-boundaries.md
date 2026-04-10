@@ -1,133 +1,90 @@
-# Permission And Lifecycle Boundaries
+# Permission And Lifecycle Boundaries Pack
 
-## Use For
+## Context
 
-- permission requests for camera, photos, location, notifications, and similar native capabilities
-- deciding where lifecycle re-checks belong when native state can change outside the app
-- separating permission policy from platform bridge code
+Mobile Operating Systems (iOS and Android) aggressively manage battery and memory. When a user pushes a Flutter application to the background to answer a phone call or reply to a message, the OS is highly likely to kill the application process to reclaim RAM. When the user returns, the application restarts. Without deliberate programming, all in-memory UI state (like nested navigation, unsubmitted forms, and wizard steps) vanishes, resulting in unacceptable user experiences.
 
-## Default Decisions
+## Core Constraints
 
-- `permission_handler`
-  Use when the app needs a maintained cross-platform permission API.
-- just-in-time requests
-  Ask for permission as close as practical to the user action that needs it.
-- separate permission service
-  Keep permission state and rationale logic outside widgets and outside low-level native bridges.
-- app lifecycle re-check
-  Re-evaluate permission-dependent state on resume when the user may have changed system settings.
+- **Process Death Protection:** When engineering a complex form, a payment flow, or a multi-page registration process, you MUST consider State Restoration. `setState`, standard Riverpod providers, and standard Flutter `TextEditingController`s do not survive process death. Use `RestorationMixin` on `StatefulWidget` or persist critical session bounds into stable local storage (`Hive`/`SharedPreferences`).
+- **The OS Suspension Rule (App Lifecycle):** You MUST NOT assume Dart code runs continuously in the background. The AI must assume the OS will freeze the application memory within seconds of entering the `paused` state.
+- **Mandatory Lifecycle Binding:** For screens with active streams (WebSockets, Video uploading, polling, or heavy isolates), the AI MUST initialize an `AppLifecycleListener` (Flutter 3.13+) or `WidgetsBindingObserver` in the `initState`.
+- **The State Contract:**
+  - `paused` / `hidden` -> The AI MUST explicitly `disconnect()` sockets, `pause()` heavy isolates, and `cancel()` timers. If left running, the OS will flag the app for excessive background CPU and terminate it permanently.
+  - `resumed` -> The AI MUST explicitly `reconnect()` sockets and fetch a fresh diff from the remote server. Never assume the UI data is perfectly synced after the app wakes from a deep sleep.
+  - `detached` -> The Engine is being torn down. The AI MUST immediately commit any final unsaved local state to the Isar/Hive database before the thread evaporates.
+- **Biometric Prompt Timing:** Do not fire biometric or pin-code authentication immediately when `AppLifecycleState.resumed` hits without a slight delay, or it may crash the system UI queue.
 
-## Decision Switches
+## Execution Steps for the Agent
 
-- if the app can function partially without the permission, defer the request until the feature is entered
-- if the user permanently denies the permission, route to settings guidance instead of spamming prompts
-- if the bridge depends on both permission and service state, model both states explicitly
-- if the feature is sensitive, review platform-specific manifest and `Info.plist` declarations along with Dart code
+1. **Ask for the Lifecycle Context:** If requested to build a long wizard, proactively build it with `RestorationMixin` built-in.
+2. **Bind the Controllers:** Convert `TextEditingController` to `RestorableTextEditingController`.
+3. **Handle Permissions Elegantly:** If standard permissions are denied permanently, guide the user to OS Settings. Never retry a permanently denied permission on loop.
 
-## Example 1: Permission Service
+## Code Examples
 
+### CORRECT: Defending against Process Death
 ```dart
-import 'package:permission_handler/permission_handler.dart';
+class CheckoutFormState extends State<CheckoutForm> with RestorationMixin {
+  // Instead of a normal controller, use Restorable variables
+  final RestorableString _shippingAddress = RestorableString('');
 
-class CameraPermissionService {
-  Future<PermissionStatus> ensureGranted() async {
-    final status = await Permission.camera.status;
-    if (status.isGranted) return status;
-    return Permission.camera.request();
-  }
-}
-```
+  @override
+  String get restorationId => 'checkout_form';
 
-Why:
-
-- permission policy stays in one place
-- feature code does not own OS-specific checks directly
-
-## Example 2: Screen Flow Using The Service
-
-```dart
-class ReceiptPhoto {
-  const ReceiptPhoto(this.path);
-
-  final String path;
-}
-
-abstract interface class ReceiptCaptureBridge {
-  Future<Result<ReceiptPhoto>> capturePhoto();
-}
-
-class ReceiptCaptureController {
-  ReceiptCaptureController({
-    required CameraPermissionService permissionService,
-    required ReceiptCaptureBridge bridge,
-  })  : _permissionService = permissionService,
-        _bridge = bridge;
-
-  final CameraPermissionService _permissionService;
-  final ReceiptCaptureBridge _bridge;
-
-  Future<Result<ReceiptPhoto>> capture() async {
-    final status = await _permissionService.ensureGranted();
-    if (!status.isGranted) {
-      return const FailureResult(PermissionFailure());
-    }
-
-    return _bridge.capturePhoto();
-  }
-}
-```
-
-Why:
-
-- permission and native capture stay as separate responsibilities
-- the controller owns user flow, not platform details
-
-## Example 3: Resume-Time Recheck
-
-```dart
-class PhotoPermissionService {
-  Future<PermissionStatus> currentStatus() {
-    return Permission.photos.status;
-  }
-}
-
-class PhotoAccessWatcher with WidgetsBindingObserver {
-  PhotoAccessWatcher(this._permissionService);
-
-  final PhotoPermissionService _permissionService;
-  final ValueNotifier<PermissionStatus?> status = ValueNotifier(null);
-
-  void start() {
-    WidgetsBinding.instance.addObserver(this);
-    _refresh();
-  }
-
-  Future<void> _refresh() async {
-    status.value = await _permissionService.currentStatus();
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    // Registers the property with the OS. If the OS kills the app in the
+    // background, it will serialize _shippingAddress and hydrate it upon return.
+    registerForRestoration(_shippingAddress, 'address_field');
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _refresh();
-    }
-  }
-
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    status.dispose();
+    _shippingAddress.dispose();
+    super.dispose();
   }
 }
 ```
 
-Why:
+### ANTI-PATTERN: Battery drain via missing AppLifecycle handler
+```dart
+// WRONG: A video player or heavy websocket pinging the server unconditionally,
+// even when the user minimizes the app. The OS will kill this app.
+@override
+void initState() {
+  super.initState();
+  _startHeavyVideoStream(); 
+  // No AppLifecycleListener attached to pause the video when paused!
+}
+```
 
-- system settings may change while the app is backgrounded
-- permission-dependent UI stays synchronized with the real device state
+### CORRECT: Respecting OS Memory Boundaries
+```dart
+  late final AppLifecycleListener _listener;
 
-## Anti-Patterns
+  @override
+  void initState() {
+    super.initState();
+    _startHeavyVideoStream();
+    
+    _listener = AppLifecycleListener(
+      onStateChange: (state) {
+        if (state == AppLifecycleState.paused) {
+           _pauseVideoStream(); // Save background CPU!
+           _socket.disconnect();
+        } else if (state == AppLifecycleState.resumed) {
+           _resumeVideoStream();
+           _socket.reconnect();
+           _fetchLatestServerDiff(); // Data might be stale after waking up
+        }
+      },
+    );
+  }
 
-- requesting permissions in `build()` or during app startup without feature context
-- mixing permission requests into `MethodChannel` or plugin wrappers
-- treating `denied`, `permanentlyDenied`, and `restricted` as the same user flow
-- forgetting platform declaration files after adding runtime permission code
+  @override
+  void dispose() {
+    _listener.dispose(); // Always clear the C++ binding
+    super.dispose();
+  }
+```

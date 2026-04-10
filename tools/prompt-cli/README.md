@@ -107,7 +107,7 @@ This script runs:
 - additional routing checks from `tools/prompt-cli/evals/multilingual-routing-benchmark.json`
 - contract compliance checks from `tools/prompt-cli/evals/contract-compliance.json`
 - generated output artifact verification from `tools/prompt-cli/evals/output-artifact-regression.json`
-- route-to-contract doc sync checks against `docs/ai/00-core/output-contracts.md`
+- route-to-contract doc sync checks against `docs/ai/00-core/contracts/output-contracts.md`
 - threshold and trend baseline sanity checks from `quality-thresholds.json` and `trend-baseline.json`
 
 Quality scoring references:
@@ -149,7 +149,7 @@ npm --prefix tools/prompt-runtime-ts run verify-artifacts
 
 A TypeScript runtime is available at `tools/prompt-runtime-ts` for command-driven routing and skill-precedence resolution.
 
-- **Routing spec:** `docs/ai/00-core/routing-algorithm.md`
+- **Routing spec:** `docs/ai/00-core/routing/routing-algorithm.md`
 - **Manifest gate:** from `tools/prompt-runtime-ts`: `npm run validate-manifest` (tasks, skills on disk, contract sections + doc table vs `routes.json`)
 
 ```bash

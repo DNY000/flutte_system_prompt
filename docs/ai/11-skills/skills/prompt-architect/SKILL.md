@@ -18,7 +18,7 @@ Prompt layering, contracts, token policy, prompt-system evolution.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -40,9 +40,9 @@ L3: 08-guides/flutter/index.md + one domain leaf only if needed
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
-- Answer policies: `docs/ai/00-core/answer-policies.md`
+- Answer policies: `docs/ai/00-core/policies/answer-policies.md`
 - AI systems MCP guidance: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`
 - Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/ai-rules-and-editor-workflows.md`

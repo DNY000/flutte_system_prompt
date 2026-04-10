@@ -20,7 +20,7 @@ Lifecycle, layout, navigation, forms, gestures, focus, animation, theming, a11y,
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -52,8 +52,8 @@ void dispose() {
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Layout guidance: `docs/ai/08-guides/flutter/domains/layout.md`
 - Navigation guidance: `docs/ai/08-guides/flutter/domains/navigation.md`

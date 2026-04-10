@@ -8,7 +8,7 @@ const sampleRoute: RouteDef = {
   taskType: "code",
   primaryIntent: "code.implement",
   outputContract: "implementation-plan-v1",
-  taskPrompt: "docs/ai/02-tasks/code.md",
+  taskPrompt: "docs/ai/02-tasks/engineering/code.md",
   skills: ["intent-router", "flutter-coder", "context-loader"],
   riskLevel: "medium",
   queryPatterns: []

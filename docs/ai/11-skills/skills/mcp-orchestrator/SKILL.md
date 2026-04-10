@@ -18,7 +18,7 @@ Plan MCP connector usage when filesystem, docs, or tool data is required.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -43,8 +43,8 @@ fallback_if_unavailable:
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - AI systems MCP guidance: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`
 - Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/index.md`

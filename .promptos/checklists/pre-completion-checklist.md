@@ -15,8 +15,8 @@ Use alongside the plan file in `plans/item-*.md`. Mark **done** only when each i
 
 ## Prompt system (route, contract, or eval changes)
 
-- [ ] `tools/prompt-cli/routes.json` (and tables in `docs/ai/00-core/routing-rules.md` if applicable) are in sync
-- [ ] `docs/ai/00-core/output-contracts.md` updated if contract mapping changed
+- [ ] `tools/prompt-cli/routes.json` (and tables in `docs/ai/00-core/routing/routing-rules.md` if applicable) are in sync
+- [ ] `docs/ai/00-core/contracts/output-contracts.md` updated if contract mapping changed
 - [ ] `run-evals` or prompt-eval CI is green
 
 ## Mobile / Flutter (app or native touchpoints)

@@ -15,7 +15,7 @@ route_id: design-screen
 output_contract: design-spec-v1
 required_context:
   - 01-context/project-context.md
-  - 02-tasks/design.md
+  - 02-tasks/engineering/design.md
 required_skills:
   - intent-router
   - flutter-ui-designer
@@ -58,7 +58,7 @@ route_id: architecture-decision
 output_contract: architecture-decision-v1
 required_context:
   - 01-context/project-context.md
-  - 02-tasks/architecture.md
+  - 02-tasks/architecture/architecture.md
 required_skills:
   - intent-router
   - flutter-architect
@@ -84,8 +84,8 @@ secondary_intents: security.audit
 route_id: research-brief
 output_contract: research-brief-v1
 required_context:
-  - 02-tasks/research.md
-  - 02-tasks/security.md
+  - 02-tasks/engineering/research.md
+  - 02-tasks/engineering/security.md
 required_skills:
   - intent-router
   - research-analyst
@@ -116,10 +116,10 @@ secondary_intents: architecture.solution
 route_id: state-management-decision
 output_contract: decision-matrix-v1
 required_context:
-  - 00-core/self-analysis-protocol.md
+  - 00-core/system/self-analysis-protocol.md
   - 01-context/project-context.md
-  - 02-tasks/state-management-decision.md
-  - 00-core/decision-engine.md
+  - 02-tasks/flutter/state-management-decision.md
+  - 00-core/routing/decision-engine.md
   - 08-guides/flutter/index.md
   - 08-guides/flutter/data-and-backend/index.md
   - 08-guides/flutter/domains/state-management.md
@@ -159,9 +159,9 @@ secondary_intents: performance.audit
 route_id: widget-decision
 output_contract: decision-matrix-v1
 required_context:
-  - 00-core/self-analysis-protocol.md
-  - 02-tasks/flutter-widget-decision.md
-  - 00-core/decision-engine.md
+  - 00-core/system/self-analysis-protocol.md
+  - 02-tasks/flutter/flutter-widget-decision.md
+  - 00-core/routing/decision-engine.md
   - 08-guides/flutter/index.md
   - 08-guides/flutter/ui/index.md
   - 08-guides/flutter/domains/layout.md
@@ -196,9 +196,9 @@ secondary_intents: flutter.state_management
 route_id: flutter-framework-decision
 output_contract: decision-matrix-v1
 required_context:
-  - 00-core/self-analysis-protocol.md
-  - 02-tasks/flutter-framework-decision.md
-  - 00-core/decision-engine.md
+  - 00-core/system/self-analysis-protocol.md
+  - 02-tasks/flutter/flutter-framework-decision.md
+  - 00-core/routing/decision-engine.md
   - 08-guides/flutter/index.md
   - 08-guides/flutter/ui/index.md
   - 08-guides/flutter/domains/lifecycle.md
@@ -228,9 +228,9 @@ secondary_intents: none
 route_id: performance-optimize
 output_contract: implementation-plan-v1
 required_context:
-  - 00-core/self-analysis-protocol.md
-  - 02-tasks/performance.md
-  - 00-core/decision-engine.md
+  - 00-core/system/self-analysis-protocol.md
+  - 02-tasks/engineering/performance.md
+  - 00-core/routing/decision-engine.md
   - 08-guides/flutter/index.md
   - 08-guides/flutter/performance/index.md
   - 08-guides/flutter/performance/lists-images-and-memory.md
@@ -260,7 +260,7 @@ secondary_intents: none
 route_id: prompt-system-roadmap
 output_contract: improvement-roadmap-v1
 required_context:
-  - 02-tasks/prompt-system.md
+  - 02-tasks/ai/prompt-system.md
   - 08-guides/ai-systems/index.md
   - 08-guides/ai-systems/prompt-optimization.md
   - 08-guides/ai-systems/context-memory-and-mcp.md
@@ -290,7 +290,7 @@ secondary_intents: research.external
 route_id: ai-mcp-workflow
 output_contract: decision-matrix-v1
 required_context:
-  - 02-tasks/ai-mcp-workflow.md
+  - 02-tasks/ai/ai-mcp-workflow.md
   - 08-guides/flutter/ai-and-mcp/index.md
   - 08-guides/flutter/ai-and-mcp/ai-rules-and-editor-workflows.md
   - 08-guides/flutter/ai-and-mcp/dart-flutter-mcp-server-and-tooling.md
@@ -323,7 +323,7 @@ secondary_intents: none
 route_id: design-screen
 output_contract: design-spec-v1
 required_context:
-  - 02-tasks/design.md
+  - 02-tasks/engineering/design.md
   - 04-templates/design-prompt-templates.md
   - 08-guides/flutter/index.md
   - 08-guides/flutter/ui/index.md

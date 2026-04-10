@@ -15,7 +15,7 @@ Orchestration for the Flutter / mobile prompt operating system: resolve route, a
 ## Skill System
 
 - definitions: `docs/ai/11-skills/skills/<skill_id>/SKILL.md`
-- registry and rules: `docs/ai/00-core/skill-registry.md`, `docs/ai/00-core/skill-contracts.md`, `docs/ai/00-core/skill-precedence-policy.md`
+- registry and rules: `docs/ai/00-core/contracts/skill-registry.md`, `docs/ai/00-core/contracts/skill-contracts.md`, `docs/ai/00-core/policies/skill-precedence-policy.md`
 - human-readable table of contents: `agent/SKILLS.md`
 
 Do not duplicate long skill definitions under `agent/`.

@@ -118,6 +118,6 @@ Widget build(BuildContext context) {
 ## References
 
 - Result modeling: `docs/ai/08-guides/flutter/data-and-backend/result-and-error-modeling.md`
-- Debug triage: `docs/ai/02-tasks/debug-triage.md`
-- Security logging/redaction: `docs/ai/02-tasks/security.md`
+- Debug triage: `docs/ai/02-tasks/engineering/debug-triage.md`
+- Security logging/redaction: `docs/ai/02-tasks/engineering/security.md`
 

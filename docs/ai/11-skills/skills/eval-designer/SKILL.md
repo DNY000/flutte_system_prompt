@@ -13,7 +13,7 @@ Design eval cases and harnesses so routing and output quality do not regress.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -41,8 +41,8 @@ Pair with CLI / TS router tests under `tools/prompt-cli` and `tools/prompt-runti
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Guide: `docs/ai/08-guides/ai-systems/evals-and-regression.md`
-- Task: `docs/ai/02-tasks/ai-evals.md`
+- Task: `docs/ai/02-tasks/ai/ai-evals.md`

@@ -20,38 +20,59 @@ Implementation, refactor, and code-review preparation with Effective Dart alignm
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
-## Example
+## Technical Constraints
 
-**Example request:** implement login submit with loading and error state.
+- **Dependency Injection Boundaries:** Never instantiate high-level services inside Widget classes (e.g., `final repo = AuthRepository();` inside a `build` method). Always accept them via constructor, `Provider`, or `Riverpod` ref.
+- **Async Gap Safety:** Any code executed after an asynchronous operation (e.g., `await`) inside a `StatefulWidget` MUST check `if (!mounted) return;` before calling `setState` or using `context`.
+- **Pure Domain:** Dart business logic (`domain/`) must never import `package:flutter/material.dart` or any Flutter-specific UI libraries.
+- **Null Safety:** Do not use the `!` ("bang") operator to force unwrap nulls unless the compiler is unable to trace local variable assignments. Prefer `if (val != null)` or `?.` operators.
+
+## Example 1: Async Gap & Error Handling
+
+**Example request:** "Implement a login submit function with a repository call, loading state, and error handling."
+
+**Example Implementation Plan (fragment):**
+- `Target Files`: `login_controller.dart`
+- `Implementation Steps`: Ensure async gap safety when context is used for navigation, map the Result type.
 
 **Example Flutter code:**
 ```dart
-Future<void> submit() async {
+Future<void> submit(BuildContext context) async {
   if (state.isSubmitting) return;
   state = state.copyWith(isSubmitting: true, error: null);
+  
   final result = await _authRepository.login(email, password);
-  state = result.when(
-    ok: (user) => state.copyWith(isSubmitting: false, user: user),
-    err: (message) => state.copyWith(isSubmitting: false, error: message),
+  
+  // CRITICAL: Check mounted before using context or setState.
+  if (!context.mounted) return;
+  
+  result.when(
+    ok: (user) {
+      state = state.copyWith(isSubmitting: false, user: user);
+      // Navigation is safe because of the mounted check
+      Navigator.of(context).pushReplacementNamed('/home');
+    },
+    err: (message) {
+      state = state.copyWith(isSubmitting: false, error: message);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    },
   );
 }
 ```
-
-**Example expected output fragment (`implementation-plan-v1`):**
-- `Target Files`: `lib/features/auth/presentation/login_controller.dart`
-- `Implementation Steps`: add submit guard, map result to success/error state, add tests.
 
 ## Anti-patterns
 
 - Suggesting `BuildContext` usage across async gaps without `mounted` checks.
 - Leaking concrete `Dio` or plugin types into `presentation` or `domain` layers.
+- Using `setState` to rebuild the entire screen when only a tiny component (like a favorite button icon) needs to change.
+- Writing massive 500-line `build()` methods instead of extracting StatelessWidgets.
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Design-system guidance: `docs/ai/08-guides/flutter/ui/design-system-and-base-widgets.md`
 - Gesture and focus guidance: `docs/ai/08-guides/flutter/ui/gestures-shortcuts-and-focus.md`

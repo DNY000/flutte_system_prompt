@@ -13,7 +13,7 @@ Add-to-app, host ↔ Flutter boundaries, engine lifecycle, and embedding strateg
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -42,7 +42,7 @@ Future<void> notifyHost(String action, Map<String, dynamic> payload) {
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
-- Task: `docs/ai/02-tasks/add-to-app.md`
+- Task: `docs/ai/02-tasks/architecture/add-to-app.md`

@@ -10,7 +10,7 @@ const miniManifest: RoutesManifest = {
       taskType: "test",
       primaryIntent: "t.a",
       outputContract: "review-report-v1",
-      taskPrompt: "docs/ai/02-tasks/testing.md",
+      taskPrompt: "docs/ai/02-tasks/engineering/testing.md",
       skills: ["intent-router"],
       riskLevel: "low",
       queryPatterns: ["unlikely phrase one", "x"]
@@ -20,7 +20,7 @@ const miniManifest: RoutesManifest = {
       taskType: "test",
       primaryIntent: "t.b",
       outputContract: "review-report-v1",
-      taskPrompt: "docs/ai/02-tasks/testing.md",
+      taskPrompt: "docs/ai/02-tasks/engineering/testing.md",
       skills: ["intent-router"],
       riskLevel: "low",
       queryPatterns: ["unlikely phrase two", "x"]

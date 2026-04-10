@@ -27,7 +27,7 @@
 ## Example 1: Keep Stable Guidance In Rules
 
 ```text
-docs/ai/00-core/rules.md
+docs/ai/00-core/system/rules.md
 - default output contracts
 - source trust rules
 - file reference rules
@@ -42,9 +42,9 @@ Why:
 ## Example 2: Compact Variants For Tighter Editors
 
 ```text
-docs/ai/00-core/rules_10k.md
-docs/ai/00-core/rules_4k.md
-docs/ai/00-core/rules_1k.md
+docs/ai/00-core/system/rules_10k.md
+docs/ai/00-core/system/rules_4k.md
+docs/ai/00-core/system/rules_1k.md
 ```
 
 Why:

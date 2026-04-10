@@ -7,13 +7,13 @@ Use this tree for prompt rules, route definitions, task prompts, templates, guid
 ## Start Here
 
 1. `GETTING_STARTED.md`
-2. `00-core/folder-standards.md`
-3. `00-core/operating-model.md`
-4. `00-core/execution-flow.md`
-5. `00-core/system-prompt.md`
-6. `00-core/routing-rules.md`
-7. `00-core/output-contracts.md`
-8. `00-core/context-loading-rules.md`
+2. `00-core/system/folder-standards.md`
+3. `00-core/system/operating-model.md`
+4. `00-core/system/execution-flow.md`
+5. `00-core/system/system-prompt.md`
+6. `00-core/routing/routing-rules.md`
+7. `00-core/contracts/output-contracts.md`
+8. `00-core/policies/context-loading-rules.md`
 9. `01-context/project-context.md`
 10. one task prompt from `02-tasks/`
 11. one output shell from `04-templates/contract-shells.md`
@@ -31,7 +31,7 @@ Use this tree for prompt rules, route definitions, task prompts, templates, guid
 8. Run quality checks.
 9. Persist durable knowledge only when needed.
 
-Detailed flow: `00-core/execution-flow.md`
+Detailed flow: `00-core/system/execution-flow.md`
 
 ## Prompt Package Assembly Order
 
@@ -69,7 +69,7 @@ Reference template: `04-templates/master-prompt-template.md`
 | `10-releases/` | Release baselines and changelog |
 | `11-skills/` | Skill definitions, command docs, and agent role profiles |
 
-Detailed responsibilities: `00-core/folder-standards.md`
+Detailed responsibilities: `00-core/system/folder-standards.md`
 
 ## Runtime Entry Points
 
@@ -83,16 +83,25 @@ Detailed responsibilities: `00-core/folder-standards.md`
 
 For one request, load:
 
-1. `00-core/system-prompt.md`
-2. `00-core/output-rules.md`
-3. `00-core/routing-rules.md`
-4. `00-core/output-contracts.md`
+1. `00-core/system/system-prompt.md`
+2. `00-core/contracts/output-rules.md`
+3. `00-core/routing/routing-rules.md`
+4. `00-core/contracts/output-contracts.md`
 5. `01-context/project-context.md`
 6. exactly one task prompt
 7. zero or more route context files
 8. one output shell
 
-Add `decision-engine.md` and `self-analysis-protocol.md` for decision-sensitive or high-risk work.
+### Context-Aware Rules
+
+The `00-core/` directory contains several variants of `rules.md` to support different model constraints:
+
+- `rules.md` (Full)
+- `rules_10k.md`
+- `rules_4k.md`
+- `rules_1k.md`
+
+Use `decision-engine.md` and `self-analysis-protocol.md` for decision-sensitive or high-risk work.
 
 ## Examples
 
@@ -107,8 +116,8 @@ Typical route:
 
 Primary files:
 
-- `00-core/system-prompt.md`
-- `02-tasks/design.md`
+- `00-core/system/system-prompt.md`
+- `02-tasks/engineering/design.md`
 - `04-templates/contract-shells.md`
 
 Query:
@@ -122,9 +131,9 @@ Typical route:
 
 Primary files:
 
-- `00-core/system-prompt.md`
-- `00-core/decision-engine.md`
-- `02-tasks/state-management-decision.md`
+- `00-core/system/system-prompt.md`
+- `00-core/routing/decision-engine.md`
+- `02-tasks/flutter/state-management-decision.md`
 - `08-guides/flutter/domains/state-management.md`
 
 ## CLI Quick Start

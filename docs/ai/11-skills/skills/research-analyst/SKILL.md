@@ -18,7 +18,7 @@ Package and API research with versioned facts for Flutter ecosystem.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -38,8 +38,8 @@ Package and API research with versioned facts for Flutter ecosystem.
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
-- Research prompt: `docs/ai/02-tasks/research.md`
+- Research prompt: `docs/ai/02-tasks/engineering/research.md`
 - Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/mcp-assisted-debugging-and-package-research.md`

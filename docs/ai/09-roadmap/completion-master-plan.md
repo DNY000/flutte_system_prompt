@@ -44,8 +44,8 @@ Finish the prompt operating system for:
 ## Artifacts
 
 - `09-roadmap/task-backlog.md`
-- `09-roadmap/pass-01.md`
-- `09-roadmap/pass-02.md`
-- `09-roadmap/pass-03.md`
-- `09-roadmap/pass-04.md`
-- `09-roadmap/pass-05.md`
+- `09-roadmap/passes/pass-01.md`
+- `09-roadmap/passes/pass-02.md`
+- `09-roadmap/passes/pass-03.md`
+- `09-roadmap/passes/pass-04.md`
+- `09-roadmap/passes/pass-05.md`

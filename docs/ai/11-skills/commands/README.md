@@ -31,5 +31,5 @@ Map a high-level operator command to the route families and response bias it sho
 ## References
 
 - `command-routing-map.md`
-- `docs/ai/00-core/routing-rules.md`
+- `docs/ai/00-core/routing/routing-rules.md`
 - `tools/prompt-runtime-ts/src/commands.ts`

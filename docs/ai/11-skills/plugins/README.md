@@ -15,7 +15,7 @@ Physical location of a plugin package is workspace-specific; the **schema** in t
 
 ## Constraints (non-negotiable)
 
-- Plugins **must not** bypass output-contract enforcement (`00-core/output-contracts.md`).
+- Plugins **must not** bypass output-contract enforcement (`00-core/contracts/output-contracts.md`).
 - Plugins **must not** weaken security policies (`08-guides/flutter/security/`, `security-auditor` skill).
 - Plugins **must not** inject secrets into prompts or logs.
 
@@ -55,4 +55,4 @@ Physical location of a plugin package is workspace-specific; the **schema** in t
 
 - Hooks: `../hooks/README.md`
 - Skill authoring: `../SKILL-AUTHORING.md`
-- Precedence (how overrides stack): `../../00-core/skill-precedence-policy.md`
+- Precedence (how overrides stack): `../../00-core/policies/skill-precedence-policy.md`

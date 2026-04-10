@@ -4,13 +4,14 @@
 
 ## Goal
 
-Feature and module boundaries, dependency direction, Flutter app architecture.
+Feature and module boundaries, dependency direction, Flutter app architecture, and scaling.
 
 ## Other Common Requests This Skill Should Cover
 
 - split DTO, domain, and UI models without leaking transport concerns
 - place mappers at the correct boundary and keep folder ownership clear
 - decide when code generation is justified for models
+- orchestrate global app services (Navigation, Analytics, Crashlytics) without tightly coupling them to UI.
 
 ## Input
 
@@ -19,35 +20,46 @@ Feature and module boundaries, dependency direction, Flutter app architecture.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
-## Example
+## Technical Constraints
 
-**Example request:** split checkout into feature modules with clear boundaries.
+- **The Dependency Rule:** Source code dependencies must only point inward toward higher-level policies (Domain). Data and Presentation layers depend on Domain, never the other way around.
+- **Port and Adapter Implementation:** The Domain layer defines Interfaces (`Repositories`, `Services`). The Data layer implements them. Never let the Domain layer import `package:dio` or `package:firebase_core`.
+- **Feature Modules over Monolith:** Group files by feature (`features/profile/`), not by layer (`controllers/`, `views/`). 
+- **Lateral Boundaries:** A feature (`features/checkout`) cannot import the `presentation` or `data` layer of another feature (`features/cart`). It can only import the other feature's `domain` layer if absolutely necessary, or interact via shared core services.
 
-**Example module layout:**
+## Example 1: Boundary Isolation & Routing
+
+**Example request:** "Design the checkout and payment module architecture, allowing the payment gateway to be easily swapped."
+
+**Example Implementation Plan (fragment):**
+- `Decision`: Use Clean Architecture. Define a `PaymentGateway` interface in the `checkout/domain/ports/` directory. Implement it in `payment/data/`.
+- `Module Layout`:
 ```text
-lib/features/checkout/
-  domain/
-  application/
-  presentation/
-lib/features/payment/
-lib/shared/core/
+lib/
+├── features/
+│   ├── checkout/
+│   │   ├── domain/
+│   │   │   └── ports/payment_gateway_port.dart (abstract class)
+│   │   └── presentation/checkout_controller.dart (depends on port)
+│   ├── payment/
+│   │   ├── data/stripe_payment_gateway.dart (implements port)
+│   │   └── data/paypal_payment_gateway.dart (implements port)
 ```
-
-**Example expected output fragment (`architecture-decision-v1`):**
-- `Decision`: keep checkout orchestration in application layer; payment gateway behind domain interface.
-- `Migration Plan`: extract interfaces first, then move implementations feature-by-feature.
+- `ServiceLocator/Provider injection`: At the root of the app, bind `PaymentGatewayPort` to `StripePaymentGateway`.
 
 ## Anti-patterns
 
-- Features importing each other’s `data` implementations instead of domain ports.
-- “Shared” folders that accumulate business rules and become a hidden monolith.
+- **Leaky DTOs:** Returning raw JSON maps or HTTP-specific DTOs directly to the UI layer instead of running them through a Mapper into a pure Domain Entity.
+- **Lateral Feature Coupling:** `lib/features/auth/presentation/login_screen.dart` importing `lib/features/feed/presentation/feed_controller.dart`.
+- **God Classes:** Having a single `AppLocator` or `GlobalState` that holds 50 mixed-purpose managers.
+- **Framework inside Domain:** An entity in `domain/entities/user.dart` importing `package:flutter/material.dart` just to use `Color`.
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Feature organization guidance: `docs/ai/08-guides/flutter/app-architecture/feature-model-organization.md`
 - Modeling guidance: `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`

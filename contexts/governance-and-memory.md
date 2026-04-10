@@ -7,8 +7,8 @@ Use this bundle when the task changes durable policy, memory, release flow, or i
 - `docs/ai/03-memory/memory-governance.md`
 - `docs/ai/03-memory/incident-to-memory-loop.md`
 - `docs/ai/03-memory/decisions.md`
-- `docs/ai/00-core/prompt-release-checklist.md`
-- `docs/ai/00-core/prompt-versioning-policy.md`
+- `docs/ai/00-core/policies/prompt-release-checklist.md`
+- `docs/ai/00-core/policies/prompt-versioning-policy.md`
 
 ## Add When Needed
 

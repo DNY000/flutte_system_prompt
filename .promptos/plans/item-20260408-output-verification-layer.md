@@ -21,7 +21,7 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/00-core/execution-flow.md`, `docs/ai/00-core/operating-model.md`, `docs/ai/00-core/output-contracts.md`, `docs/ai/00-core/prompt-release-checklist.md`, `tools/prompt-cli/evals/task-quality-rubric.md`
+- **Docs / policy:** `docs/ai/00-core/system/execution-flow.md`, `docs/ai/00-core/system/operating-model.md`, `docs/ai/00-core/contracts/output-contracts.md`, `docs/ai/00-core/policies/prompt-release-checklist.md`, `tools/prompt-cli/evals/task-quality-rubric.md`
 - **Tools:** `tools/prompt-cli/run-evals.ps1`, `tools/prompt-runtime-ts`, GitHub Actions workflow
 - **Access:** repo write access only
 - **People / team dependencies:** none

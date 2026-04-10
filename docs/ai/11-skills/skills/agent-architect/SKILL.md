@@ -13,7 +13,7 @@ Design agent graphs (planner, coder, reviewer) with clear ownership and mergeabl
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -32,8 +32,8 @@ Merge rule: single PR; Agent B must not contradict tokens in Agent A without exp
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
-- Task: `docs/ai/02-tasks/agent-system.md`
+- Task: `docs/ai/02-tasks/ai/agent-system.md`
 - Guide: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`

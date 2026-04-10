@@ -37,3 +37,5 @@ __pycache__/
 # plans/*
 # !plans/README.md
 # !plans/approved-plan-template.md
+# Generated Prompt Bundles
+FPOS_MASTER_BUNDLE.md

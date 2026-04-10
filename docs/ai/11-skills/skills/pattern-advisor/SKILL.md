@@ -13,7 +13,7 @@ Repository, use-case, adapter, mapper, facade, and strategy selection for Flutte
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -45,7 +45,7 @@ Use **strategy** when multiple algorithms are swappable (e.g. pricing rules); us
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Modeling: `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`

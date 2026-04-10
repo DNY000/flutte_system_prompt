@@ -1,21 +1,48 @@
-# Network Links And WebView Pack
+- **Deep Link Validation (2026 Mandate):** The AI MUST recommend using the **Flutter DevTools Deep Link Validator** to verify manifest configurations.
+- **Domain Authentication:** Never rely on custom URL schemes alone. You MUST implement **Android App Links** (using `assetlinks.json`) and **Apple Universal Links** (using `apple-app-site-association`).
+- **Anti-Hijacking Pattern:** In `onNavigationRequest`, always verify the host against a rigid whitelist. If the domain is not verified via AASA/Digital Asset Links, the AI MUST treat it as a high-risk link and require a user-dismissible warning.
+- **The Mixed Content Ban:** Never allow `http://` traffic. All network requests must be enforced as `https://`.
 
-## Use For
+## Execution Steps for the Agent
 
-- network trust decisions
-- certificate validation and pinning
-- deep link and app-link validation
-- WebView security review
+1. **Audit WebView Usage:** If asked to "show a webpage in the app," check if the domain is internal. If external, recommend the System Browser.
+2. **Setup Domain Validation:** Provide a helper function that regex-checks if an incoming URI matches the `*.yourdomain.com` pattern.
+3. **Configure ATS/Network Security:** Provide the necessary `Info.plist` (App Transport Security) and `network_security_config.xml` snippets to enforce HTTPS at the OS level.
 
-## Default Decisions
+## Code Examples
 
-- require TLS and valid endpoint verification
-- use certificate or identity pinning only when the endpoint is controlled and the threat model justifies it
-- validate deep-link inputs before routing or acting on them
-- keep sensitive auth outside general-purpose WebViews when possible
+### CORRECT: Hardened WebView Configuration
+```dart
+WebViewWidget(
+  controller: WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.disabled) // Default to OFF
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onNavigationRequest: (request) {
+          if (request.url.startsWith('https://trust.example.com')) {
+            return NavigationDecision.navigate;
+          }
+          // Block navigation to unknown/malicious domains
+          return NavigationDecision.prevent;
+        },
+      ),
+    )
+    ..loadRequest(Uri.parse('https://trust.example.com')),
+)
+```
 
-## Decision Switches
+### ANTI-PATTERN: The "Browser in an App" Leak
+```dart
+// WRONG: This allows ANY javascript on a malicious page to potentially 
+// steal the user's local auth tokens via bridge injection.
+WebView(
+  initialUrl: userSuppliedUrl,
+  javascriptMode: JavascriptMode.unrestricted,
+)
+```
 
-- if the flow crosses apps or browsers, validate ownership and replay risk explicitly
-- if WebView content can execute arbitrary input, treat it as a high-risk boundary
-- if custom TLS logic bypasses validation, fix that before adding defense-in-depth features
+## Anti-patterns
+
+- Opening external login pages inside a WebView (Risk of UI Redressing).
+- Disabling SSL verification in production code to "fix" an expired cert issue.
+- Trusting the `referrer` header in deep links alone to verify the sender.

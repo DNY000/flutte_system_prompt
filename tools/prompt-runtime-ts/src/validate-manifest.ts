@@ -123,7 +123,7 @@ function main(): void {
   }
 
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as RoutesManifest;
-  const contractsPath = join(repoRoot, "docs/ai/00-core/output-contracts.md");
+  const contractsPath = join(repoRoot, "docs/ai/00-core/contracts/output-contracts.md");
   const contractsMd = readFileSync(contractsPath, "utf8");
   const docRouteTable = parseContractDocTable(contractsMd);
   const contractSections = parseContractSectionNames(contractsMd);

@@ -16,8 +16,8 @@ This document audits the current Dart/Flutter prompt operating system against or
 
 ### 2.1 Strengths
 
-- **Single responsibility per folder** is explicit in `00-core/folder-standards.md`: core rules vs tasks vs memory vs guides vs skills.
-- **Layered loading** (`00-core/context-loading-rules.md`) reduces token waste: always-load core, load one task, optional guides and domain packs.
+- **Single responsibility per folder** is explicit in `00-core/system/folder-standards.md`: core rules vs tasks vs memory vs guides vs skills.
+- **Layered loading** (`00-core/policies/context-loading-rules.md`) reduces token waste: always-load core, load one task, optional guides and domain packs.
 - **Stable vs volatile split:** `01-context/` for slow-changing project facts; `03-memory/` for durable decisions, patterns, mistakes, glossary, modules.
 - **Operational tooling:** `tools/prompt-cli/` (routes, evals), `tools/prompt-runtime-ts/` (router, manifest validation) support deterministic routing regression.
 - **Roadmap program:** `09-roadmap/completion-master-plan.md` defines five passes and completion criteria.
@@ -25,7 +25,7 @@ This document audits the current Dart/Flutter prompt operating system against or
 ### 2.2 Gaps
 
 - **Enforcement gap:** Markdown policies are strong; not every change path is gated by CI (depends on repo setup). Risk of drift between `routes.json`, task prompts, and contracts.
-- **Index vs body:** Guides under `08-guides/flutter/` are extensive but may lag `flutter.dev`; `08-guides/mobile-gap-analysis.md` tracks known gaps.
+- **Index vs body:** Guides under `08-guides/flutter/` are extensive but may lag `flutter.dev`; `08-guides/flutter/mobile-gap-analysis.md` tracks known gaps.
 - **`.promptos/` usage:** Valuable for plans/runs/metrics if adopted consistently; otherwise observability is documentation-only.
 
 ---
@@ -83,18 +83,18 @@ This maps desired capabilities to what the repo already encodes and what to impr
 
 ## 5. Skill-topic mapping
 
-The table below maps topics you listed to **`skill_id`** entries in `00-core/skill-registry.md` and/or primary doc locations. Items without a dedicated `SKILL.md` may still be covered by guides or task prompts.
+The table below maps topics you listed to **`skill_id`** entries in `00-core/contracts/skill-registry.md` and/or primary doc locations. Items without a dedicated `SKILL.md` may still be covered by guides or task prompts.
 
 | Topic | Registry / location | Notes |
 | --- | --- | --- |
 | Skill config / precedence | `skill-registry.md`, `skill-precedence-policy.md` | Activation rules are explicit. |
 | Skill schema | `11-skills/plugins/plugin-schema.json`, hooks | Plugins require `id`, `version`, `description`, `hookPoints`. |
 | Skill examples | `11-skills/skills/*/SKILL.md`, `08-guides/.../examples.md` | Expand minimal examples where stubs remain. |
-| MCP server | `mcp-orchestrator`, `08-guides/flutter/ai-and-mcp/`, `00-core/mcp-research-policy.md` | Host-dependent; document discovery and auth. |
+| MCP server | `mcp-orchestrator`, `08-guides/flutter/ai-and-mcp/`, `00-core/policies/mcp-research-policy.md` | Host-dependent; document discovery and auth. |
 | Automation | Hooks (`pre-route` … `pre-release-gate`), `.promptos/` | Define what runs in CI vs manual. |
 | Validate | `tools/prompt-runtime-ts` validate-manifest, eval packs | Extend coverage for manifest and route JSON. |
 | Hook | `11-skills/hooks/README.md` | Reference validators per hook if tooling allows. |
-| Agent | `agent-architect`, `11-skills/agents/*.md`, `02-tasks/agent-system.md` | Multi-agent rules in registry. |
+| Agent | `agent-architect`, `11-skills/agents/*.md`, `02-tasks/ai/agent-system.md` | Multi-agent rules in registry. |
 | Flutter | `framework-advisor`, `flutter-*` skills, `08-guides/flutter/` | Main domain; prioritize guide completeness. |
 | Template | `04-templates/` | Route resolution template exists. |
 | Widgets | `widget-selector`, `08-guides/flutter/ui/` | Widget-by-widget examples available. |
@@ -105,7 +105,7 @@ The table below maps topics you listed to **`skill_id`** entries in `00-core/ski
 | Long memory | `memory-curator`, `03-memory/` | Governance + incident loop; optional episodic note. |
 | Performance | `performance-analyst`, `08-guides/flutter/performance/` | Startup, lists, images, memory. |
 | Dart | Implicit in `flutter-coder`, framework guides | Could add explicit `dart-style` pointer in registry if needed. |
-| Mobile | `08-guides/mobile-gap-analysis.md`, platform integration | Gap analysis drives backlog. |
+| Mobile | `08-guides/flutter/mobile-gap-analysis.md`, platform integration | Gap analysis drives backlog. |
 | Deploy mobile app | `release-manager`, `08-guides/flutter/deployment/` | Flavors, signing, secrets. |
 | Test case | `test-engineer`, `08-guides/flutter/testing-and-debugging/` | Widget, golden, integration scope selection. |
 | BA (business analysis) | `business-analyst` | Acceptance criteria and scope refinement. |

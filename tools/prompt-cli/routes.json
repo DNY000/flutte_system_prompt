@@ -5,7 +5,7 @@
       "taskType": "design",
       "primaryIntent": "design.ui_screen",
       "outputContract": "design-spec-v1",
-      "taskPrompt": "docs/ai/02-tasks/design.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/design.md",
       "skills": ["intent-router", "flutter-ui-designer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -25,7 +25,7 @@
       "taskType": "design",
       "primaryIntent": "design.design_system",
       "outputContract": "design-spec-v1",
-      "taskPrompt": "docs/ai/02-tasks/design.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/design.md",
       "skills": ["intent-router", "flutter-ui-designer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -41,7 +41,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "flutter.framework_api",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/flutter-framework-decision.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/flutter-framework-decision.md",
       "skills": ["intent-router", "flutter-decision-analyst", "framework-advisor", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -69,7 +69,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "flutter.widget_selection",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/flutter-widget-decision.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/flutter-widget-decision.md",
       "skills": ["intent-router", "flutter-decision-analyst", "widget-selector", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -85,7 +85,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "flutter.state_management",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/state-management-decision.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/state-management-decision.md",
       "skills": ["intent-router", "flutter-decision-analyst", "state-manager", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -104,7 +104,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "flutter.package_selection",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/package-selection.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/package-selection.md",
       "skills": ["intent-router", "flutter-decision-analyst", "package-selector", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -122,7 +122,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "flutter.customization_strategy",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/custom-vs-package.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/custom-vs-package.md",
       "skills": ["intent-router", "flutter-decision-analyst", "package-selector", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -137,7 +137,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "architecture.code_organization",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/code-organization.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/code-organization.md",
       "skills": ["intent-router", "flutter-decision-analyst", "code-organizer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -152,7 +152,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "architecture.class_split",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/class-split-decision.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/class-split-decision.md",
       "skills": ["intent-router", "flutter-decision-analyst", "code-organizer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -167,7 +167,7 @@
       "taskType": "architecture",
       "primaryIntent": "architecture.module_design",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/module-design.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/module-design.md",
       "skills": ["intent-router", "flutter-architect", "module-designer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -185,7 +185,7 @@
       "taskType": "flutter-decision",
       "primaryIntent": "architecture.pattern_selection",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/pattern-selection.md",
+      "taskPrompt": "docs/ai/02-tasks/flutter/pattern-selection.md",
       "skills": ["intent-router", "flutter-decision-analyst", "pattern-advisor", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -201,7 +201,7 @@
       "taskType": "architecture",
       "primaryIntent": "architecture.solution",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/architecture.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/architecture.md",
       "skills": ["intent-router", "flutter-architect", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -223,7 +223,7 @@
       "taskType": "architecture",
       "primaryIntent": "architecture.review",
       "outputContract": "review-report-v1",
-      "taskPrompt": "docs/ai/02-tasks/architecture.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/architecture.md",
       "skills": ["intent-router", "flutter-architect", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -240,7 +240,7 @@
       "taskType": "code",
       "primaryIntent": "code.implement",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/code.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/code.md",
       "skills": ["intent-router", "flutter-coder", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -256,7 +256,7 @@
       "taskType": "code",
       "primaryIntent": "code.refactor",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/code.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/code.md",
       "skills": ["intent-router", "flutter-coder", "flutter-architect", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -272,7 +272,7 @@
       "taskType": "review",
       "primaryIntent": "code.review",
       "outputContract": "review-report-v1",
-      "taskPrompt": "docs/ai/02-tasks/code.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/code.md",
       "skills": ["intent-router", "flutter-coder", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -287,7 +287,7 @@
       "taskType": "security",
       "primaryIntent": "security.audit",
       "outputContract": "review-report-v1",
-      "taskPrompt": "docs/ai/02-tasks/security.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/security.md",
       "skills": ["intent-router", "security-auditor", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -307,7 +307,7 @@
       "taskType": "security",
       "primaryIntent": "security.implementation",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/security.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/security.md",
       "skills": ["intent-router", "security-auditor", "flutter-coder", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -326,7 +326,7 @@
       "taskType": "performance",
       "primaryIntent": "performance.audit",
       "outputContract": "review-report-v1",
-      "taskPrompt": "docs/ai/02-tasks/performance.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/performance.md",
       "skills": ["intent-router", "performance-analyst", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -344,7 +344,7 @@
       "taskType": "performance",
       "primaryIntent": "performance.optimization",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/performance.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/performance.md",
       "skills": ["intent-router", "performance-analyst", "flutter-coder", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -363,7 +363,7 @@
       "taskType": "test",
       "primaryIntent": "test.plan",
       "outputContract": "test-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/testing.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/testing.md",
       "skills": ["intent-router", "test-engineer", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -381,7 +381,7 @@
       "taskType": "test",
       "primaryIntent": "test.implement",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/testing.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/testing.md",
       "skills": ["intent-router", "test-engineer", "flutter-coder", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -399,7 +399,7 @@
       "taskType": "test",
       "primaryIntent": "debug.triage",
       "outputContract": "review-report-v1",
-      "taskPrompt": "docs/ai/02-tasks/debug-triage.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/debug-triage.md",
       "skills": ["intent-router", "debug-investigator", "test-engineer", "flutter-coder", "observability-engineer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -420,7 +420,7 @@
       "taskType": "ci-cd",
       "primaryIntent": "ci.pipeline",
       "outputContract": "pipeline-change-v1",
-      "taskPrompt": "docs/ai/02-tasks/ci-cd.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/ci-cd.md",
       "skills": ["intent-router", "ci-engineer", "release-manager", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -440,7 +440,7 @@
       "taskType": "architecture",
       "primaryIntent": "platform.add_to_app",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/add-to-app.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/add-to-app.md",
       "skills": ["intent-router", "hybrid-integrator", "flutter-architect", "module-designer", "release-manager", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -456,7 +456,7 @@
       "taskType": "architecture",
       "primaryIntent": "data.offline_sync",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/offline-sync.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/offline-sync.md",
       "skills": ["intent-router", "sync-architect", "flutter-architect", "performance-analyst", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -472,7 +472,7 @@
       "taskType": "architecture",
       "primaryIntent": "platform.web_desktop",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/web-desktop-strategy.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/web-desktop-strategy.md",
       "skills": ["intent-router", "multiplatform-strategist", "flutter-architect", "performance-analyst", "test-engineer", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -490,7 +490,7 @@
       "taskType": "architecture",
       "primaryIntent": "platform.plugin_authoring",
       "outputContract": "architecture-decision-v1",
-      "taskPrompt": "docs/ai/02-tasks/plugin-authoring.md",
+      "taskPrompt": "docs/ai/02-tasks/architecture/plugin-authoring.md",
       "skills": ["intent-router", "plugin-engineer", "flutter-architect", "mcp-orchestrator", "security-auditor", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [
@@ -506,7 +506,7 @@
       "taskType": "ai-system",
       "primaryIntent": "ai.mcp_workflow",
       "outputContract": "decision-matrix-v1",
-      "taskPrompt": "docs/ai/02-tasks/ai-mcp-workflow.md",
+      "taskPrompt": "docs/ai/02-tasks/ai/ai-mcp-workflow.md",
       "skills": ["intent-router", "prompt-architect", "mcp-orchestrator", "research-analyst", "source-validator", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
@@ -532,7 +532,7 @@
       "taskType": "ba",
       "primaryIntent": "ba.refinement",
       "outputContract": "implementation-plan-v1",
-      "taskPrompt": "docs/ai/02-tasks/ba.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/ba.md",
       "skills": ["intent-router", "business-analyst", "context-loader"],
       "riskLevel": "medium",
       "queryPatterns": [
@@ -548,7 +548,7 @@
       "taskType": "ai-system",
       "primaryIntent": "ai.prompt_system",
       "outputContract": "improvement-roadmap-v1",
-      "taskPrompt": "docs/ai/02-tasks/prompt-system.md",
+      "taskPrompt": "docs/ai/02-tasks/ai/prompt-system.md",
       "skills": ["intent-router", "prompt-architect", "quality-grader", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
@@ -575,7 +575,7 @@
       "taskType": "ai-system",
       "primaryIntent": "ai.agent_system",
       "outputContract": "improvement-roadmap-v1",
-      "taskPrompt": "docs/ai/02-tasks/agent-system.md",
+      "taskPrompt": "docs/ai/02-tasks/ai/agent-system.md",
       "skills": ["intent-router", "agent-architect", "mcp-orchestrator", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
@@ -599,7 +599,7 @@
       "taskType": "ai-system",
       "primaryIntent": "ai.prompt_evals",
       "outputContract": "improvement-roadmap-v1",
-      "taskPrompt": "docs/ai/02-tasks/ai-evals.md",
+      "taskPrompt": "docs/ai/02-tasks/ai/ai-evals.md",
       "skills": ["intent-router", "eval-designer", "quality-grader", "context-loader"],
       "riskLevel": "high",
       "contextFiles": [
@@ -622,7 +622,7 @@
       "taskType": "research",
       "primaryIntent": "research.external",
       "outputContract": "research-brief-v1",
-      "taskPrompt": "docs/ai/02-tasks/research.md",
+      "taskPrompt": "docs/ai/02-tasks/engineering/research.md",
       "skills": ["intent-router", "research-analyst", "source-validator", "context-loader"],
       "riskLevel": "high",
       "queryPatterns": [

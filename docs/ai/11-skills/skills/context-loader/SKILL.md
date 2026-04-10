@@ -22,8 +22,8 @@ For `route_id: code` with a feature under `lib/features/auth/`:
 
 **Load (ordered):**
 
-1. `docs/ai/00-core/output-rules.md`
-2. `docs/ai/02-tasks/code.md`
+1. `docs/ai/00-core/contracts/output-rules.md`
+2. `docs/ai/02-tasks/engineering/code.md`
 3. `docs/ai/01-context/project-context.md` (if present and non-placeholder)
 4. `docs/ai/08-guides/flutter/index.md` — index only
 5. One leaf: `docs/ai/08-guides/flutter/data-and-backend/result-and-error-modeling.md` if the task mentions `Result` / errors
@@ -41,4 +41,4 @@ For `route_id: code` with a feature under `lib/features/auth/`:
 ## References
 
 - Agent skill index: `agent/SKILLS.md`
-- Rules: `docs/ai/00-core/context-loading-rules.md`
+- Rules: `docs/ai/00-core/policies/context-loading-rules.md`

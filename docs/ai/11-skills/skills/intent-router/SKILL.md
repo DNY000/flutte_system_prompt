@@ -1,6 +1,6 @@
 # intent-router
 
-**Scope:** Dart / Flutter **mobile** prompt OS (`docs/ai/00-core/routing-rules.md`).
+**Scope:** Dart / Flutter **mobile** prompt OS (`docs/ai/00-core/routing/routing-rules.md`).
 
 ## Goal
 
@@ -42,4 +42,4 @@ Resolve one primary route with explicit risk level.
 ## References
 
 - Agent skill index: `agent/SKILLS.md`
-- Registry: `docs/ai/00-core/skill-registry.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`

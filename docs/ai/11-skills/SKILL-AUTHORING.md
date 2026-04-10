@@ -1,6 +1,6 @@
 # Skill authoring guide (context, constraints, steps)
 
-This repository keeps **executable skill definitions** under `docs/ai/11-skills/skills/<skill_id>/SKILL.md`, registered in `docs/ai/00-core/skill-registry.md` and wired per route in `tools/prompt-cli/routes.json`. This page defines **how full** a skill should be so agents get **enough context, constraints, and ordered steps** without wasting the context window.
+This repository keeps **executable skill definitions** under `docs/ai/11-skills/skills/<skill_id>/SKILL.md`, registered in `docs/ai/00-core/contracts/skill-registry.md` and wired per route in `tools/prompt-cli/routes.json`. This page defines **how full** a skill should be so agents get **enough context, constraints, and ordered steps** without wasting the context window.
 
 ## External references (how the industry structures skills)
 
@@ -80,8 +80,8 @@ Optional sibling files (same directory):
 ## Alignment with route + CLI
 
 - **Source of truth for which skills run:** `tools/prompt-cli/routes.json` field `skills`.
-- **Precedence:** `docs/ai/00-core/skill-precedence-policy.md` (project > global > built-in).
-- **Contracts:** `docs/ai/00-core/skill-contracts.md` — each skill should map to contract shape where listed.
+- **Precedence:** `docs/ai/00-core/policies/skill-precedence-policy.md` (project > global > built-in).
+- **Contracts:** `docs/ai/00-core/contracts/skill-contracts.md` — each skill should map to contract shape where listed.
 
 When you add a skill:
 

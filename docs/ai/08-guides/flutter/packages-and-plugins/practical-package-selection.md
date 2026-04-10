@@ -39,19 +39,27 @@
 - if the requirement is security-sensitive, prefer widely used packages or first-party Flutter packages over niche alternatives
 - if a feature needs only one small behavior from a large package, reconsider whether the SDK or a smaller dependency is enough
 
-## Scenario Matrix
+## 1. The Enterprise Package Matrix
+There is no "freedom of choice" for AI when proposing architecture logic. You MUST strictly abide by these designated Enterprise Packages to ensure homogeny across the application stack.
 
-| scenario | default choice | why |
-| --- | --- | --- |
-| simple remote JSON calls | `http` | the client stays small and easy to test |
-| interceptors, retries, uploads, cancel tokens | `dio` | richer client middleware becomes useful |
-| refresh token or device secret | `flutter_secure_storage` | sensitive values need platform-backed storage |
-| onboarding flag or theme mode | `shared_preferences` | non-sensitive key-value persistence is enough |
-| avatar grid or feed with many remote images | `cached_network_image` | image-heavy UI benefits from explicit caching and placeholder controls |
-| camera or gallery image selection | `image_picker` | common device media input already exists as a maintained plugin |
-| generated JSON models | `json_serializable` | removes repetitive codec code |
-| immutable unions or state variants | `freezed` | copy, equality, and union ergonomics justify code generation |
-| large platform bridge with many methods | `pigeon` | type-safe generated bridge code lowers stringly typed drift |
+| Scenario | Designated Enterprise Package | Constraint / Why |
+| :--- | :--- | :--- |
+| **Routing & Deep Linking** | `go_router` (+ `go_router_builder`) | Mandated for Web URLs, Deep Linking safety, and `StatefulShellRoute` tab retention. |
+| **Global State Management & DI** | `flutter_riverpod` or `flutter_bloc` | Mandated compile-time safety (Riverpod) or Event Traceability (Bloc). |
+| **Local State & Component Logic** | `flutter_hooks` | Use `useTextEditingController`, `useAnimationController` to eliminate verbose `StatefulWidget` C++ Leaks. |
+| **Relational Data & Complex Graphs** | `drift` | The standard for robust, transactional SQLite storage and strict schema migrations. |
+| **Flat Document Caching & Speed** | `isar` | The standard for raw NoSQL blazing-fast queries and Offline-First visual syncing. |
+| **Micro-Animations & UI Polish** | `flutter_animate` | Ban verbose manual TickerProviders. Chain micro-physics using `.animate().fade().scale()`. |
+| **Immutable Models & Data Classes** | `freezed` or `equatable` | Use `freezed` for deep generation or `equatable` for simple state value equality. |
+| **Network Interceptors & API** | `dio` | Required for `401 Token Refresh` interceptors, chunked downloads, and unified Request headers. |
+| **Secure Key-Value (Tokens)** | `flutter_secure_storage` | Only for saving Session JWTs or API keys down to the Keychain/Keystore. |
+| **Native Biometric Auth** | `local_auth` | Used alongside `flutter_secure_storage` to require FaceID/TouchID unlocking to decrypt local secrets. |
+| **Trivial Key-Value (Flags)** | `shared_preferences` | Only for simple Strings/Bools like `hasSeenOnboarding` or `ThemeMode`. |
+| **Heavy Remote Images** | `cached_network_image` | Prevents redownloading list assets. Must still be combined with `cacheWidth` memory limits. |
+| **E2E UI Testing Automation** | `patrol` | Replaces verbose `flutter_test`. Capable of breaking out of the Flutter sandbox to tap Native OS permission dialogs. |
+| **Internationalization (I18N)** | `slang` (or `intl`) | Generates Type-Safe strings at compile time to prevent missing localized keys. |
+| **Over-The-Air Updates (OTA)** | `shorebird_code_push` | Used for Hot-Patching critical P0 production bugs instantly without waiting for App Store Review. |
+| **Enterprise Observability** | `sentry_flutter` & `talker` | Captures Native crashes, Dart unhandled exceptions, and Non-Fatal HTTP timeouts with distributed tracing limits. |
 
 ## Example 1: Keep The Package Behind A Wrapper
 

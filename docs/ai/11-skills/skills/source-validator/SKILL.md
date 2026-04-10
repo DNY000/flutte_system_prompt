@@ -13,7 +13,7 @@ Rank and validate sources; separate facts from inference for research outputs.
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -33,7 +33,7 @@ Rank and validate sources; separate facts from inference for research outputs.
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
-- Policy: `docs/ai/00-core/mcp-research-policy.md`
+- Policy: `docs/ai/00-core/policies/mcp-research-policy.md`

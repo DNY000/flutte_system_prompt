@@ -20,7 +20,7 @@ Trade-off matrices for Flutter engineering choices (widgets, state, packages, UI
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/output-contracts.md`)
+- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -41,8 +41,8 @@ Trade-off matrices for Flutter engineering choices (widgets, state, packages, UI
 
 ## References
 
-- Registry: `docs/ai/00-core/skill-registry.md`
-- Contracts (when present): `docs/ai/00-core/skill-contracts.md`
+- Registry: `docs/ai/00-core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
 - Agent index: `agent/SKILLS.md`
 - Design-system guidance: `docs/ai/08-guides/flutter/ui/design-system-and-base-widgets.md`
 - Gesture and focus guidance: `docs/ai/08-guides/flutter/ui/gestures-shortcuts-and-focus.md`

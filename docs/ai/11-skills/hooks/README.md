@@ -48,7 +48,7 @@ Full ordering with skills: `../skill-execution-pipeline.md`.
 ### `pre-release-gate`
 
 - **Inputs:** branch, version, changelog pointer.
-- **Steps:** `npm run validate-manifest` in `tools/prompt-runtime-ts`; `run-evals.ps1` if routing changed; human checklist from `00-core/prompt-release-checklist.md`.
+- **Steps:** `npm run validate-manifest` in `tools/prompt-runtime-ts`; `run-evals.ps1` if routing changed; human checklist from `00-core/policies/prompt-release-checklist.md`.
 - **On failure:** no release tag.
 
 ---
@@ -67,4 +67,4 @@ Action: set risk_level = high; ensure security-auditor or security task consulte
 
 - Pipeline: `../skill-execution-pipeline.md`
 - Plugin schema (hook enum): `../plugins/plugin-schema.json`
-- Operating model: `../../00-core/operating-model.md`
+- Operating model: `../../00-core/system/operating-model.md`

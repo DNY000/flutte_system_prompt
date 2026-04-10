@@ -1,6 +1,6 @@
 # Agent — skill index (Flutter / mobile prompt OS)
 
-**Single navigation page** for all logical skills. Executable definitions live under `docs/ai/11-skills/skills/<skill_id>/SKILL.md`. Registry and activation rules: `docs/ai/00-core/skill-registry.md`.
+**Single navigation page** for all logical skills. Executable definitions live under `docs/ai/11-skills/skills/<skill_id>/SKILL.md`. Registry and activation rules: `docs/ai/00-core/contracts/skill-registry.md`.
 
 ## Core skills
 
@@ -56,8 +56,8 @@ Active skill sets per route: `tools/prompt-cli/routes.json` field `skills` (sour
 
 ## Related
 
-- Contracts (detailed): `docs/ai/00-core/skill-contracts.md`
-- Precedence: `docs/ai/00-core/skill-precedence-policy.md`
+- Contracts (detailed): `docs/ai/00-core/contracts/skill-contracts.md`
+- Precedence: `docs/ai/00-core/policies/skill-precedence-policy.md`
 - Catalog (L1–L3): `docs/ai/11-skills/skill-catalog.md`
 - Agent roles: `docs/ai/11-skills/agents/`
 - Commands: `docs/ai/11-skills/commands/`

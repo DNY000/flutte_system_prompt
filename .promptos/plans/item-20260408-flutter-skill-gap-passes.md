@@ -21,7 +21,7 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/08-guides/flutter/`, `docs/ai/11-skills/skills/`, `docs/ai/02-tasks/`, `docs/ai/00-core/context-loading-rules.md`
+- **Docs / policy:** `docs/ai/08-guides/flutter/`, `docs/ai/11-skills/skills/`, `docs/ai/02-tasks/`, `docs/ai/00-core/policies/context-loading-rules.md`
 - **Tools:** repo docs, TypeScript manifest validation, prompt evals
 - **Access:** repo write access only
 - **People / team dependencies:** none

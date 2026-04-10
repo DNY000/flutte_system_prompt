@@ -8,7 +8,7 @@ Canonical sources:
 
 - role profiles: `docs/ai/11-skills/agents/`
 - skill definitions: `docs/ai/11-skills/skills/`
-- route rules: `docs/ai/00-core/routing-rules.md`
+- route rules: `docs/ai/00-core/routing/routing-rules.md`
 
 ## Included Agents
 

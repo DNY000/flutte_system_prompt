@@ -8,7 +8,7 @@ const architectureRoute: RouteDef = {
   taskType: "architecture",
   primaryIntent: "architecture.solution",
   outputContract: "architecture-decision-v1",
-  taskPrompt: "docs/ai/02-tasks/architecture.md",
+  taskPrompt: "docs/ai/02-tasks/architecture/architecture.md",
   skills: ["intent-router", "flutter-architect", "context-loader"],
   riskLevel: "high",
   queryPatterns: ["architecture proposal flutter"]
@@ -19,7 +19,7 @@ const researchRoute: RouteDef = {
   taskType: "research",
   primaryIntent: "research.external",
   outputContract: "research-brief-v1",
-  taskPrompt: "docs/ai/02-tasks/research.md",
+  taskPrompt: "docs/ai/02-tasks/engineering/research.md",
   skills: ["intent-router", "research-analyst", "source-validator", "context-loader"],
   riskLevel: "high",
   queryPatterns: ["research"]
