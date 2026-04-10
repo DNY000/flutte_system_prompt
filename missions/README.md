@@ -4,6 +4,6 @@ Scoped task definitions: goal, constraints, route hint, success criteria, and op
 
 Put one mission per file under `missions/` (for example `missions/<mission-id>.yaml`).
 
-Canonical routing and contracts still live in `docs/ai` and `tools/prompt-cli/routes.json`.
+Canonical routing and contracts still live in `docs/ai` and `tools/prompt-powershell/routes.json`.
 
 See example: `missions/example-mission.yaml`.

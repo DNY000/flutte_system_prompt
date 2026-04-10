@@ -4,17 +4,17 @@ Use this bundle for Flutter implementation, decisions, reviews, and architecture
 
 ## Load First
 
-- `docs/ai/00-core/routing/decision-engine.md`
-- `docs/ai/00-core/system/self-analysis-protocol.md`
-- `docs/ai/08-guides/flutter/index.md`
-- one matching section index from `docs/ai/08-guides/flutter/`
-- one or two matching leaf packs from `docs/ai/08-guides/flutter/domains/` or section subfolders
+- `docs/ai/core/routing/decision-engine.md`
+- `docs/ai/core/system/self-analysis-protocol.md`
+- `docs/ai/guides/flutter/index.md`
+- one matching section index from `docs/ai/guides/flutter/`
+- one or two matching leaf packs from `docs/ai/guides/flutter/domains/` or section subfolders
 
 ## Add When Needed
 
-- `docs/ai/08-guides/flutter/flutter-decision-handbook.md`
-- `docs/ai/08-guides/flutter/flutter-complete-rulebook.md`
-- one task prompt from `docs/ai/02-tasks/`
+- `docs/ai/guides/flutter/flutter-decision-handbook.md`
+- `docs/ai/guides/flutter/flutter-complete-rulebook.md`
+- one task prompt from `docs/ai/tasks/`
 
 ## Best For
 

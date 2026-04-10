@@ -4,17 +4,17 @@ Use this bundle when the task changes durable policy, memory, release flow, or i
 
 ## Load First
 
-- `docs/ai/03-memory/memory-governance.md`
-- `docs/ai/03-memory/incident-to-memory-loop.md`
-- `docs/ai/03-memory/decisions.md`
-- `docs/ai/00-core/policies/prompt-release-checklist.md`
-- `docs/ai/00-core/policies/prompt-versioning-policy.md`
+- `docs/ai/memory/memory-governance.md`
+- `docs/ai/memory/incident-to-memory-loop.md`
+- `docs/ai/memory/decisions.md`
+- `docs/ai/core/policies/prompt-release-checklist.md`
+- `docs/ai/core/policies/prompt-versioning-policy.md`
 
 ## Add When Needed
 
-- `docs/ai/10-releases/release-baseline-template.md`
-- `tools/prompt-cli/evals/task-quality-rubric.md`
-- `tools/prompt-cli/evals/quality-thresholds.json`
+- `docs/ai/releases/release-baseline-template.md`
+- `tools/prompt-powershell/evals/task-quality-rubric.md`
+- `tools/prompt-powershell/evals/quality-thresholds.json`
 
 ## Best For
 

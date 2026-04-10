@@ -21,7 +21,7 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/02-tasks/`, `docs/ai/08-guides/flutter/`, `docs/ai/00-core/`
+- **Docs / policy:** `docs/ai/tasks/`, `docs/ai/guides/flutter/`, `docs/ai/core/`
 - **Tools:** routing docs, eval suites, manifest validation
 - **Access:** repo write access only
 - **People / team dependencies:** none

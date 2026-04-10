@@ -15,8 +15,8 @@ Use alongside the plan file in `plans/item-*.md`. Mark **done** only when each i
 
 ## Prompt system (route, contract, or eval changes)
 
-- [ ] `tools/prompt-cli/routes.json` (and tables in `docs/ai/00-core/routing/routing-rules.md` if applicable) are in sync
-- [ ] `docs/ai/00-core/contracts/output-contracts.md` updated if contract mapping changed
+- [ ] `tools/prompt-powershell/routes.json` (and tables in `docs/ai/core/routing/routing-rules.md` if applicable) are in sync
+- [ ] `docs/ai/core/contracts/output-contracts.md` updated if contract mapping changed
 - [ ] `run-evals` or prompt-eval CI is green
 
 ## Mobile / Flutter (app or native touchpoints)
@@ -27,4 +27,4 @@ Use alongside the plan file in `plans/item-*.md`. Mark **done** only when each i
 ## Knowledge durable capture
 
 - [ ] For lasting decisions: memory draft + merge per `memory-governance.md`
-- [ ] For prompt releases: `prompt-release-checklist.md` + `docs/ai/10-releases/` when needed
+- [ ] For prompt releases: `prompt-release-checklist.md` + `docs/ai/releases/` when needed

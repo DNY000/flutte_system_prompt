@@ -8,4 +8,4 @@ definition_of_done:
   - Output uses contract design-spec-v1 only
   - Risks section is non-empty if accessibility is unspecified
 optional_eval_cases:
-  - tools/prompt-cli/evals/route-regression.json
+  - tools/prompt-powershell/evals/route-regression.json

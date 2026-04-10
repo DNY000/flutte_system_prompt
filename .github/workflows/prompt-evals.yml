@@ -4,14 +4,14 @@ on:
   push:
     paths:
       - "docs/ai/**"
-      - "tools/prompt-cli/**"
-      - "tools/prompt-runtime-ts/**"
+      - "tools/prompt-powershell/**"
+      - "tools/prompt-runtime-typescript/**"
       - ".github/workflows/prompt-evals.yml"
   pull_request:
     paths:
       - "docs/ai/**"
-      - "tools/prompt-cli/**"
-      - "tools/prompt-runtime-ts/**"
+      - "tools/prompt-powershell/**"
+      - "tools/prompt-runtime-typescript/**"
       - ".github/workflows/prompt-evals.yml"
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: tools/prompt-runtime-ts
+        working-directory: tools/prompt-runtime-typescript
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: tools/prompt-runtime-ts/package-lock.json
+          cache-dependency-path: tools/prompt-runtime-typescript/package-lock.json
 
       - name: Install and build
         run: |
@@ -54,12 +54,12 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: tools/prompt-runtime-ts/package-lock.json
+          cache-dependency-path: tools/prompt-runtime-typescript/package-lock.json
 
       - name: Install runtime dependencies
-        working-directory: tools/prompt-runtime-ts
+        working-directory: tools/prompt-runtime-typescript
         run: npm ci
 
       - name: Run Prompt Evals
         shell: pwsh
-        run: ./tools/prompt-cli/run-evals.ps1
+        run: ./tools/prompt-powershell/run-evals.ps1

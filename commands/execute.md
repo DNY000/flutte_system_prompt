@@ -20,10 +20,10 @@ Bias toward concrete implementation output with target files, ordered steps, and
 ## Example
 
 ```bash
-node tools/prompt-runtime-ts/dist/index.js --command execute --query "implement secure token storage in Flutter"
+node tools/prompt-runtime-typescript/dist/index.js --command execute --query "implement secure token storage in Flutter"
 ```
 
 ## Canonical References
 
-- `docs/ai/11-skills/commands/README.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/commands/README.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

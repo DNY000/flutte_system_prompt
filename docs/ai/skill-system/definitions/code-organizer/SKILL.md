@@ -1,0 +1,47 @@
+# code-organizer
+
+**Scope:** Dart / Flutter **mobile** (iOS, Android) unless the task explicitly says otherwise.
+
+## Goal
+
+Folder structure, class split, and ownership decisions for Flutter codebases.
+
+## Input
+
+- Resolved or inferred `route_id` and task context
+- Relevant `docs/ai` prompts and project constraints
+
+## Output
+
+- Artifact matching the active **output contract** (see `docs/ai/core/contracts/output-contracts.md`)
+- When the runtime supports structured outputs, emit the matching schema from `docs/ai/core/contracts/structured-output-schemas.json` and render the same data back into the markdown contract or route-state shape required by the runtime.
+
+## Example
+
+**Feature-first layout** with clear boundaries:
+
+```text
+lib/features/orders/
+  application/
+    place_order_use_case.dart
+  domain/
+    order.dart
+    order_repository.dart
+  presentation/
+    order_screen.dart
+    order_controller.dart
+```
+
+**Split rule:** move `OrderDto` mapping out of `presentation/` into `data/` mappers when the screen file exceeds ~200 lines or handles HTTP shapes.
+
+## Anti-patterns
+
+- God files mixing UI, JSON, and repository calls in one widget class.
+- Circular imports between `features/checkout` and `features/orders` — extract shared types to `lib/shared/`.
+
+## References
+
+- Registry: `docs/ai/core/contracts/skill-registry.md`
+- Contracts (when present): `docs/ai/core/contracts/skill-contracts.md`
+- Agent index: `agents/SKILLS.md`
+- Guide: `docs/ai/guides/flutter/app-architecture/feature-model-organization.md`

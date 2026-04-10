@@ -21,8 +21,8 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/00-core/system/execution-flow.md`, `docs/ai/00-core/system/operating-model.md`, `docs/ai/00-core/contracts/output-contracts.md`, `docs/ai/00-core/policies/prompt-release-checklist.md`, `tools/prompt-cli/evals/task-quality-rubric.md`
-- **Tools:** `tools/prompt-cli/run-evals.ps1`, `tools/prompt-runtime-ts`, GitHub Actions workflow
+- **Docs / policy:** `docs/ai/core/system/execution-flow.md`, `docs/ai/core/system/operating-model.md`, `docs/ai/core/contracts/output-contracts.md`, `docs/ai/core/policies/prompt-release-checklist.md`, `tools/prompt-powershell/evals/task-quality-rubric.md`
+- **Tools:** `tools/prompt-powershell/run-evals.ps1`, `tools/prompt-runtime-typescript`, GitHub Actions workflow
 - **Access:** repo write access only
 - **People / team dependencies:** none
 
@@ -47,7 +47,7 @@
 - [x] Eval / checklist items under Verify are passing
 - [x] Memory / changelog (if needed) has owner and reviewer
 
-Memory note: durable release guidance was recorded in `docs/ai/03-memory/decisions.md`; final reviewer remains the repository maintainer.
+Memory note: durable release guidance was recorded in `docs/ai/memory/decisions.md`; final reviewer remains the repository maintainer.
 
 ## 6. Verify
 

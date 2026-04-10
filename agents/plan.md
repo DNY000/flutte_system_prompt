@@ -34,5 +34,5 @@ Design phased implementation plans, migration sequences, and review gates before
 
 ## Canonical References
 
-- `docs/ai/11-skills/agents/plan-agent.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/agents/plan-agent.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

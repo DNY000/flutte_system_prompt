@@ -34,8 +34,8 @@ Shape solution boundaries, module impact, migration order, and high-risk technic
 
 ## Canonical References
 
-- `docs/ai/02-tasks/architecture/architecture.md`
-- `docs/ai/02-tasks/architecture/module-design.md`
-- `docs/ai/02-tasks/architecture/add-to-app.md`
-- `docs/ai/02-tasks/architecture/offline-sync.md`
-- `docs/ai/02-tasks/architecture/web-desktop-strategy.md`
+- `docs/ai/tasks/architecture/architecture.md`
+- `docs/ai/tasks/architecture/module-design.md`
+- `docs/ai/tasks/architecture/add-to-app.md`
+- `docs/ai/tasks/architecture/offline-sync.md`
+- `docs/ai/tasks/architecture/web-desktop-strategy.md`

@@ -1,0 +1,292 @@
+{
+  "domains": [
+    {
+      "domainId": "lifecycle",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["initstate", "didchangedependencies", "didupdatewidget", "dispose", "mounted", "postframe", "buildcontext"],
+      "files": ["docs/ai/guides/flutter/domains/lifecycle.md"]
+    },
+    {
+      "domainId": "layout",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": ["widget-decision", "flutter-framework-decision"],
+      "queryPatterns": ["layoutbuilder", "singlechildscrollview", "listview", "customscrollview", "sliver", "expanded", "flexible", "row", "column", "wrap", "stack", "safearea"],
+      "files": ["docs/ai/guides/flutter/domains/layout.md"]
+    },
+    {
+      "domainId": "state-management",
+      "sectionId": "data-and-backend",
+      "sectionIndex": "docs/ai/guides/flutter/data-and-backend/index.md",
+      "routeHints": ["state-management-decision"],
+      "queryPatterns": ["setstate", "valuenotifier", "changenotifier", "provider", "riverpod", "bloc", "cubit", "state management"],
+      "files": ["docs/ai/guides/flutter/domains/state-management.md"]
+    },
+    {
+      "domainId": "storage",
+      "sectionId": "data-and-backend",
+      "sectionIndex": "docs/ai/guides/flutter/data-and-backend/index.md",
+      "routeHints": [],
+      "queryPatterns": ["storage", "secure storage", "sharedpreferences", "preferences", "database", "sqlite", "isar", "hive", "drift", "cache", "token storage"],
+      "files": ["docs/ai/guides/flutter/domains/storage.md"]
+    },
+    {
+      "domainId": "api-network",
+      "sectionId": "data-and-backend",
+      "sectionIndex": "docs/ai/guides/flutter/data-and-backend/index.md",
+      "routeHints": [],
+      "queryPatterns": ["api", "network", "http", "dio", "repository", "dto", "retry", "interceptor", "serialization"],
+      "files": ["docs/ai/guides/flutter/domains/api-network.md"]
+    },
+    {
+      "domainId": "navigation",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["navigator", "go router", "gorouter", "router", "route", "deeplink", "dialog", "bottom sheet"],
+      "files": ["docs/ai/guides/flutter/domains/navigation.md"]
+    },
+    {
+      "domainId": "forms-input",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["textfield", "textformfield", "form", "validator", "focusnode", "initialvalue", "controller", "input"],
+      "files": ["docs/ai/guides/flutter/domains/forms-input.md"]
+    },
+    {
+      "domainId": "async-concurrency",
+      "sectionId": "data-and-backend",
+      "sectionIndex": "docs/ai/guides/flutter/data-and-backend/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["futurebuilder", "streambuilder", "future", "stream", "compute", "isolate", "async", "await", "background"],
+      "files": ["docs/ai/guides/flutter/domains/async-concurrency.md"]
+    },
+    {
+      "domainId": "animation",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["animation", "animationcontroller", "animatedcontainer", "animatedbuilder", "implicit animation"],
+      "files": ["docs/ai/guides/flutter/domains/animation.md"]
+    },
+    {
+      "domainId": "theming-adaptive",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": [],
+      "queryPatterns": ["theme", "materialapp", "cupertinoapp", "adaptive", "responsive", "theming"],
+      "files": ["docs/ai/guides/flutter/domains/theming-adaptive.md"]
+    },
+    {
+      "domainId": "accessibility-localization",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": [],
+      "queryPatterns": ["semantics", "accessibility", "localization", "arb", "keyboard", "focus order", "screen reader"],
+      "files": ["docs/ai/guides/flutter/domains/accessibility-localization.md"]
+    },
+    {
+      "domainId": "assets-media",
+      "sectionId": "ui",
+      "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
+      "routeHints": [],
+      "queryPatterns": ["image asset", "image network", "assetbundle", "asset", "media", "placeholder"],
+      "files": ["docs/ai/guides/flutter/domains/assets-media.md"]
+    },
+    {
+      "domainId": "platform-integration",
+      "sectionId": "platform-integration",
+      "sectionIndex": "docs/ai/guides/flutter/platform-integration/index.md",
+      "routeHints": ["flutter-framework-decision"],
+      "queryPatterns": ["methodchannel", "eventchannel", "ffi", "platform channel", "native integration", "plugin"],
+      "files": ["docs/ai/guides/flutter/domains/platform-integration.md"]
+    },
+    {
+      "domainId": "package-governance",
+      "sectionId": "packages-and-plugins",
+      "sectionIndex": "docs/ai/guides/flutter/packages-and-plugins/index.md",
+      "routeHints": ["package-selection", "custom-vs-package"],
+      "queryPatterns": ["package", "sdk", "custom", "pub dependency", "dependency", "plugin", "wrapper"],
+      "files": ["docs/ai/guides/flutter/domains/package-governance.md"]
+    },
+    {
+      "domainId": "code-organization",
+      "sectionId": "app-architecture",
+      "sectionIndex": "docs/ai/guides/flutter/app-architecture/index.md",
+      "routeHints": ["code-organization-decision", "class-split-decision", "module-design-decision"],
+      "queryPatterns": ["feature first", "folder structure", "organize code", "split widget", "split class", "module", "shared core"],
+      "files": ["docs/ai/guides/flutter/domains/code-organization.md"]
+    },
+    {
+      "domainId": "architecture-patterns",
+      "sectionId": "app-architecture",
+      "sectionIndex": "docs/ai/guides/flutter/app-architecture/index.md",
+      "routeHints": ["pattern-selection"],
+      "queryPatterns": ["repository", "use case", "adapter", "mapper", "facade", "strategy", "pattern"],
+      "files": ["docs/ai/guides/flutter/domains/architecture-patterns.md"]
+    },
+    {
+      "domainId": "feature-and-module-boundaries",
+      "sectionId": "app-architecture",
+      "sectionIndex": "docs/ai/guides/flutter/app-architecture/index.md",
+      "routeHints": ["architecture-decision", "architecture-review", "module-design-decision", "code-organization-decision"],
+      "queryPatterns": ["feature module", "module boundary", "internal package", "shared module", "feature first", "module architecture"],
+      "files": ["docs/ai/guides/flutter/app-architecture/feature-and-module-boundaries.md"]
+    },
+    {
+      "domainId": "layering-and-dependencies",
+      "sectionId": "app-architecture",
+      "sectionIndex": "docs/ai/guides/flutter/app-architecture/index.md",
+      "routeHints": ["architecture-decision", "architecture-review", "module-design-decision", "pattern-selection"],
+      "queryPatterns": ["presentation layer", "domain layer", "data layer", "dependency direction", "layering", "service boundary", "repository layer"],
+      "files": ["docs/ai/guides/flutter/app-architecture/layering-and-dependencies.md"]
+    },
+    {
+      "domainId": "test-scope-selection",
+      "sectionId": "testing-and-debugging",
+      "sectionIndex": "docs/ai/guides/flutter/testing-and-debugging/index.md",
+      "routeHints": ["test-plan", "test-implement"],
+      "queryPatterns": ["unit test", "widget test", "integration test", "golden test", "test pyramid", "coverage", "test plan"],
+      "files": ["docs/ai/guides/flutter/testing-and-debugging/test-scope-selection.md"]
+    },
+    {
+      "domainId": "widget-golden-and-accessibility",
+      "sectionId": "testing-and-debugging",
+      "sectionIndex": "docs/ai/guides/flutter/testing-and-debugging/index.md",
+      "routeHints": ["test-plan", "test-implement"],
+      "queryPatterns": ["golden test", "visual regression", "accessibility test", "semantics tester", "screen reader test", "focus traversal"],
+      "files": ["docs/ai/guides/flutter/testing-and-debugging/widget-golden-and-accessibility.md"]
+    },
+    {
+      "domainId": "integration-plugin-and-debug-triage",
+      "sectionId": "testing-and-debugging",
+      "sectionIndex": "docs/ai/guides/flutter/testing-and-debugging/index.md",
+      "routeHints": ["test-plan", "test-implement"],
+      "queryPatterns": ["integration test", "plugin test", "flaky test", "debug crash", "profile mode", "release mode bug"],
+      "files": ["docs/ai/guides/flutter/testing-and-debugging/integration-plugin-and-debug-triage.md"]
+    },
+    {
+      "domainId": "build-layout-and-rendering",
+      "sectionId": "performance",
+      "sectionIndex": "docs/ai/guides/flutter/performance/index.md",
+      "routeHints": ["performance-audit", "performance-optimize", "widget-decision"],
+      "queryPatterns": ["jank", "rebuild", "build cost", "layout pass", "savelayer", "rendering", "paint", "frame drop"],
+      "files": ["docs/ai/guides/flutter/performance/build-layout-and-rendering.md"]
+    },
+    {
+      "domainId": "lists-images-and-memory",
+      "sectionId": "performance",
+      "sectionIndex": "docs/ai/guides/flutter/performance/index.md",
+      "routeHints": ["performance-audit", "performance-optimize", "widget-decision"],
+      "queryPatterns": ["listview jank", "grid performance", "image memory", "cache pressure", "shrinkwrap", "long list", "image decode", "scroll stutter"],
+      "files": ["docs/ai/guides/flutter/performance/lists-images-and-memory.md"]
+    },
+    {
+      "domainId": "startup-async-and-isolates",
+      "sectionId": "performance",
+      "sectionIndex": "docs/ai/guides/flutter/performance/index.md",
+      "routeHints": ["performance-audit", "performance-optimize", "flutter-framework-decision"],
+      "queryPatterns": ["startup", "cold start", "first frame", "isolate", "compute", "background work", "blocking main isolate"],
+      "files": ["docs/ai/guides/flutter/performance/startup-async-and-isolates.md"]
+    },
+    {
+      "domainId": "auth-secrets-and-storage",
+      "sectionId": "security",
+      "sectionIndex": "docs/ai/guides/flutter/security/index.md",
+      "routeHints": ["security-audit", "security-implement", "flutter-framework-decision"],
+      "queryPatterns": ["secure storage", "token storage", "refresh token", "secret", "biometric", "credential", "session"],
+      "files": ["docs/ai/guides/flutter/security/auth-secrets-and-storage.md"]
+    },
+    {
+      "domainId": "network-links-and-webview",
+      "sectionId": "security",
+      "sectionIndex": "docs/ai/guides/flutter/security/index.md",
+      "routeHints": ["security-audit", "security-implement", "flutter-framework-decision"],
+      "queryPatterns": ["certificate pinning", "deep link security", "universal link", "webview", "hostname verification", "tls", "intent security"],
+      "files": ["docs/ai/guides/flutter/security/network-links-and-webview.md"]
+    },
+    {
+      "domainId": "release-hardening-and-privacy",
+      "sectionId": "security",
+      "sectionIndex": "docs/ai/guides/flutter/security/index.md",
+      "routeHints": ["security-audit", "security-implement", "pipeline-change"],
+      "queryPatterns": ["obfuscate", "privacy", "permission review", "logging redaction", "analytics", "debuggable", "release hardening"],
+      "files": ["docs/ai/guides/flutter/security/release-hardening-and-privacy.md"]
+    },
+    {
+      "domainId": "ci-validation-and-caching",
+      "sectionId": "deployment",
+      "sectionIndex": "docs/ai/guides/flutter/deployment/index.md",
+      "routeHints": ["pipeline-change"],
+      "queryPatterns": ["github actions", "codemagic", "cache", "ci validation", "format analyze test", "pr pipeline", "dependency caching"],
+      "files": ["docs/ai/guides/flutter/deployment/ci-validation-and-caching.md"]
+    },
+    {
+      "domainId": "flavors-signing-and-secrets",
+      "sectionId": "deployment",
+      "sectionIndex": "docs/ai/guides/flutter/deployment/index.md",
+      "routeHints": ["pipeline-change"],
+      "queryPatterns": ["flavor", "signing", "keystore", "bundle id", "applicationid", "secret", "provisioning", "scheme"],
+      "files": ["docs/ai/guides/flutter/deployment/flavors-signing-and-secrets.md"]
+    },
+    {
+      "domainId": "release-artifacts-and-rollout",
+      "sectionId": "deployment",
+      "sectionIndex": "docs/ai/guides/flutter/deployment/index.md",
+      "routeHints": ["pipeline-change"],
+      "queryPatterns": ["artifact", "mapping file", "dsym", "testflight", "play console", "rollout", "rollback", "release notes", "changelog"],
+      "files": ["docs/ai/guides/flutter/deployment/release-artifacts-and-rollout.md"]
+    },
+    {
+      "domainId": "plugin-lifecycle-and-upgrades",
+      "sectionId": "packages-and-plugins",
+      "sectionIndex": "docs/ai/guides/flutter/packages-and-plugins/index.md",
+      "routeHints": ["package-selection", "custom-vs-package", "research-brief"],
+      "queryPatterns": ["plugin upgrade", "federated plugin", "plugin maintenance", "plugin wrapper", "plugin lifecycle", "maintainer"],
+      "files": ["docs/ai/guides/flutter/packages-and-plugins/plugin-lifecycle-and-upgrades.md"]
+    },
+    {
+      "domainId": "native-boundary-and-plugin-bridges",
+      "sectionId": "platform-integration",
+      "sectionIndex": "docs/ai/guides/flutter/platform-integration/index.md",
+      "routeHints": ["flutter-framework-decision", "package-selection", "custom-vs-package", "add-to-app", "plugin-authoring"],
+      "queryPatterns": ["bridge plugin", "app specific plugin", "platform adapter", "pigeon", "channel boundary", "native bridge"],
+      "files": ["docs/ai/guides/flutter/platform-integration/native-boundary-and-plugin-bridges.md"]
+    },
+    {
+      "domainId": "debug-triage",
+      "sectionId": "testing-and-debugging",
+      "sectionIndex": "docs/ai/guides/flutter/testing-and-debugging/index.md",
+      "routeHints": ["debug-triage"],
+      "queryPatterns": ["crash", "stack trace", "flaky", "reproduce", "triage", "release mode bug", "profile mode issue"],
+      "files": ["docs/ai/guides/flutter/testing-and-debugging/integration-plugin-and-debug-triage.md"]
+    },
+    {
+      "domainId": "offline-sync",
+      "sectionId": "data-and-backend",
+      "sectionIndex": "docs/ai/guides/flutter/data-and-backend/index.md",
+      "routeHints": ["offline-sync-strategy"],
+      "queryPatterns": ["offline first", "sync", "conflict resolution", "retry", "eventual consistency", "reconnect"],
+      "files": ["docs/ai/guides/flutter/domains/storage.md", "docs/ai/guides/flutter/domains/api-network.md"]
+    },
+    {
+      "domainId": "web-desktop",
+      "sectionId": "platform-integration",
+      "sectionIndex": "docs/ai/guides/flutter/platform-integration/index.md",
+      "routeHints": ["web-desktop-strategy"],
+      "queryPatterns": ["flutter web", "desktop", "renderer", "keyboard mouse", "window resize", "browser constraints"],
+      "files": ["docs/ai/guides/flutter/platform-integration/examples.md"]
+    },
+    {
+      "domainId": "plugin-authoring",
+      "sectionId": "packages-and-plugins",
+      "sectionIndex": "docs/ai/guides/flutter/packages-and-plugins/index.md",
+      "routeHints": ["plugin-authoring", "add-to-app"],
+      "queryPatterns": ["plugin authoring", "federated plugin", "plugin platform implementation", "plugin lifecycle"],
+      "files": ["docs/ai/guides/flutter/packages-and-plugins/plugin-lifecycle-and-upgrades.md"]
+    }
+  ]
+}

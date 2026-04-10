@@ -18,10 +18,10 @@ Bias toward findings, evidence, severity, and residual risk.
 ## Example
 
 ```bash
-node tools/prompt-runtime-ts/dist/index.js --command review --query "analyze Flutter crash in release mode"
+node tools/prompt-runtime-typescript/dist/index.js --command review --query "analyze Flutter crash in release mode"
 ```
 
 ## Canonical References
 
-- `docs/ai/11-skills/commands/README.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/commands/README.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

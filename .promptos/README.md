@@ -13,7 +13,7 @@ Default template for small items: **`plans/item-completion-plan-template.md`** (
 - **Mobile-first:** plans, runs, and metrics assume Flutter apps, store releases, device matrix, and platform channels unless explicitly marked otherwise.
 - **One primary route per run:** each snapshot in `runs/` must record a single resolved `route_id` and contract.
 - **No secrets in git:** do not commit API keys, keystores, provisioning profiles, or internal URLs. Redact in `logs/` and `metrics/`.
-- **Promote to docs after review:** approved patterns and decisions move to `docs/ai/03-memory/` via `memory-governance.md`; `.promptos/memory-drafts/` is staging only.
+- **Promote to docs after review:** approved patterns and decisions move to `docs/ai/memory/` via `memory-governance.md`; `.promptos/memory-drafts/` is staging only.
 
 ## Folder map
 
@@ -24,7 +24,7 @@ Default template for small items: **`plans/item-completion-plan-template.md`** (
 | `runs/` | **Per-invocation metadata:** query, route, contract, optional device/platform context, timestamps. |
 | `logs/` | **Structured log lines** or failure traces from CLI/automation (redacted). |
 | `metrics/` | **Aggregates:** route hit rates, eval pass rates, mobile-specific gates (e.g. release readiness). |
-| `memory-drafts/` | **Pending** `decisions` / `patterns` / `mistakes` snippets before merge into `docs/ai/03-memory/`. |
+| `memory-drafts/` | **Pending** `decisions` / `patterns` / `mistakes` snippets before merge into `docs/ai/memory/`. |
 
 ## Flutter / mobile defaults (record in every plan or run)
 

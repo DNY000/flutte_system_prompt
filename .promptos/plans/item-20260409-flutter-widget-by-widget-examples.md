@@ -21,7 +21,7 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/08-guides/flutter/`, `docs/ai/11-skills/skills/`
+- **Docs / policy:** `docs/ai/guides/flutter/`, `docs/ai/skill-system/definitions/`
 - **Tools:** repo docs, TypeScript manifest validation, prompt evals
 - **Access:** repo write access only
 - **People / team dependencies:** none

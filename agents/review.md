@@ -35,5 +35,5 @@ Produce findings-first audits, triage reports, and severity-ordered risk analysi
 
 ## Canonical References
 
-- `docs/ai/11-skills/agents/review-agent.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/agents/review-agent.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

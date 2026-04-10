@@ -31,6 +31,6 @@ Evolve the prompt operating system through better layering, evals, contracts, an
 
 ## Canonical References
 
-- `docs/ai/02-tasks/ai/prompt-system.md`
-- `docs/ai/02-tasks/ai/agent-system.md`
-- `docs/ai/02-tasks/ai/ai-evals.md`
+- `docs/ai/tasks/ai-systems/prompt-system.md`
+- `docs/ai/tasks/ai-systems/agent-system.md`
+- `docs/ai/tasks/ai-systems/ai-evals.md`

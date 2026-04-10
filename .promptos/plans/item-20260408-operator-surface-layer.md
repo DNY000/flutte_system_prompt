@@ -21,8 +21,8 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/README.md`, `docs/ai/11-skills/README.md`, `docs/ai/11-skills/agents/`, `docs/ai/11-skills/commands/`, `docs/ai/00-core/routing/routing-rules.md`
-- **Tools:** `tools/prompt-runtime-ts`, `tools/prompt-cli`, repo-level README
+- **Docs / policy:** `docs/ai/README.md`, `docs/ai/skill-system/README.md`, `docs/ai/skill-system/agents/`, `docs/ai/skill-system/commands/`, `docs/ai/core/routing/routing-rules.md`
+- **Tools:** `tools/prompt-runtime-typescript`, `tools/prompt-powershell`, repo-level README
 - **Access:** repo write access only
 - **People / team dependencies:** none
 

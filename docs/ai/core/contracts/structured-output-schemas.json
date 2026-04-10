@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "2026-04-10",
+  "description": "Structured output schemas keyed by output contract. Use the schema when the runtime supports native structured outputs. Render the same data back into the markdown contract when a human-readable artifact is required.",
+  "contracts": {
+    "design-spec-v1": {
+      "markdownSections": [
+        "Summary",
+        "User Goal",
+        "Screen Structure",
+        "Visual Direction",
+        "Visual Tokens",
+        "Interaction States",
+        "Accessibility",
+        "Flutter Composition",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "user_goal",
+          "screen_structure",
+          "visual_direction",
+          "visual_tokens",
+          "interaction_states",
+          "accessibility",
+          "flutter_composition",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "user_goal": { "type": "string" },
+          "screen_structure": { "type": "array", "items": { "type": "string" } },
+          "visual_direction": { "type": "string" },
+          "visual_tokens": { "type": "array", "items": { "type": "string" } },
+          "interaction_states": { "type": "array", "items": { "type": "string" } },
+          "accessibility": { "type": "array", "items": { "type": "string" } },
+          "flutter_composition": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "architecture-decision-v1": {
+      "markdownSections": [
+        "Summary",
+        "Problem",
+        "Constraints",
+        "Options",
+        "Decision",
+        "Module Impact",
+        "Migration Plan",
+        "Tests",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "problem",
+          "constraints",
+          "options",
+          "decision",
+          "module_impact",
+          "migration_plan",
+          "tests",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "problem": { "type": "string" },
+          "constraints": { "type": "array", "items": { "type": "string" } },
+          "options": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 3 },
+          "decision": { "type": "string" },
+          "module_impact": { "type": "array", "items": { "type": "string" } },
+          "migration_plan": { "type": "array", "items": { "type": "string" } },
+          "tests": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "decision-matrix-v1": {
+      "markdownSections": [
+        "Summary",
+        "Decision",
+        "Context Signals",
+        "Option Matrix",
+        "Recommendation",
+        "Implementation Notes",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "decision",
+          "context_signals",
+          "option_matrix",
+          "recommendation",
+          "implementation_notes",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "decision": { "type": "string" },
+          "context_signals": { "type": "array", "items": { "type": "string" } },
+          "option_matrix": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "recommendation": { "type": "string" },
+          "implementation_notes": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "implementation-plan-v1": {
+      "markdownSections": [
+        "Summary",
+        "Assumptions",
+        "Target Files",
+        "Implementation Steps",
+        "Tests",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "assumptions",
+          "target_files",
+          "implementation_steps",
+          "tests",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "assumptions": { "type": "array", "items": { "type": "string" } },
+          "target_files": { "type": "array", "items": { "type": "string" } },
+          "implementation_steps": { "type": "array", "items": { "type": "string" } },
+          "tests": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "review-report-v1": {
+      "markdownSections": [
+        "Findings",
+        "Open Questions",
+        "Residual Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "findings",
+          "open_questions",
+          "residual_risks"
+        ],
+        "properties": {
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "severity",
+                "title",
+                "impact",
+                "evidence",
+                "recommendation"
+              ],
+              "properties": {
+                "severity": {
+                  "type": "string",
+                  "enum": ["critical", "high", "medium", "low"]
+                },
+                "title": { "type": "string" },
+                "impact": { "type": "string" },
+                "evidence": { "type": "string" },
+                "recommendation": { "type": "string" }
+              }
+            }
+          },
+          "open_questions": { "type": "array", "items": { "type": "string" } },
+          "residual_risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "test-plan-v1": {
+      "markdownSections": [
+        "Summary",
+        "Coverage Scope",
+        "Test Matrix",
+        "Fixtures And Mocks",
+        "Execution Notes",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "coverage_scope",
+          "test_matrix",
+          "fixtures_and_mocks",
+          "execution_notes",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "coverage_scope": { "type": "array", "items": { "type": "string" } },
+          "test_matrix": { "type": "array", "items": { "type": "string" } },
+          "fixtures_and_mocks": { "type": "array", "items": { "type": "string" } },
+          "execution_notes": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "pipeline-change-v1": {
+      "markdownSections": [
+        "Summary",
+        "Current State",
+        "Target Pipeline",
+        "Validation Steps",
+        "Secrets And Environments",
+        "Rollback",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "current_state",
+          "target_pipeline",
+          "validation_steps",
+          "secrets_and_environments",
+          "rollback",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "current_state": { "type": "string" },
+          "target_pipeline": { "type": "array", "items": { "type": "string" } },
+          "validation_steps": { "type": "array", "items": { "type": "string" } },
+          "secrets_and_environments": { "type": "array", "items": { "type": "string" } },
+          "rollback": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "research-brief-v1": {
+      "markdownSections": [
+        "Question",
+        "Sources",
+        "Facts",
+        "Comparison",
+        "Recommendation",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question",
+          "sources",
+          "facts",
+          "comparison",
+          "recommendation",
+          "risks"
+        ],
+        "properties": {
+          "question": { "type": "string" },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "url", "tier", "as_of"],
+              "properties": {
+                "title": { "type": "string" },
+                "url": { "type": "string" },
+                "tier": { "type": "string" },
+                "as_of": { "type": "string" }
+              }
+            }
+          },
+          "facts": { "type": "array", "items": { "type": "string" } },
+          "comparison": { "type": "array", "items": { "type": "string" } },
+          "recommendation": { "type": "string" },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "ba-to-design-contract-v1": {
+      "markdownSections": [
+        "Summary",
+        "User Story",
+        "Acceptance Criteria (AC)",
+        "Extracted UI States",
+        "Non-functional UX Constraints"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "user_story",
+          "acceptance_criteria",
+          "extracted_ui_states",
+          "non_functional_ux_constraints"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "user_story": { "type": "string" },
+          "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+          "extracted_ui_states": { "type": "array", "items": { "type": "string" } },
+          "non_functional_ux_constraints": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "improvement-roadmap-v1": {
+      "markdownSections": [
+        "Summary",
+        "Current State",
+        "Gaps",
+        "Iterations",
+        "Task Backlog",
+        "Review Gates",
+        "Risks"
+      ],
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "current_state",
+          "gaps",
+          "iterations",
+          "task_backlog",
+          "review_gates",
+          "risks"
+        ],
+        "properties": {
+          "summary": { "type": "string" },
+          "current_state": { "type": "string" },
+          "gaps": { "type": "array", "items": { "type": "string" } },
+          "iterations": { "type": "array", "items": { "type": "string" } },
+          "task_backlog": { "type": "array", "items": { "type": "string" } },
+          "review_gates": { "type": "array", "items": { "type": "string" } },
+          "risks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

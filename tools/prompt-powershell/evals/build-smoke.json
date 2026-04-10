@@ -1,0 +1,41 @@
+{
+  "suite": "prompt-build-smoke-v1",
+  "description": "Smoke tests for prompt-package assembly across representative routes.",
+  "cases": [
+    {
+      "caseId": "design-screen-build",
+      "query": "design login screen UI",
+      "goal": "Design a Flutter login screen",
+      "mustContain": [
+        "route_id: design-screen",
+        "## Structured Output Schema",
+        "\"summary\"",
+        "## Output Contract",
+        "## Output Shell"
+      ]
+    },
+    {
+      "caseId": "security-audit-build",
+      "query": "security audit",
+      "goal": "Review Flutter auth storage and transport security",
+      "mustContain": [
+        "route_id: security-audit",
+        "docs/ai/guides/flutter/index.md",
+        "\"findings\"",
+        "## Route Context"
+      ]
+    },
+    {
+      "caseId": "ai-mcp-workflow-build",
+      "query": "dart flutter mcp server",
+      "goal": "Define a Flutter AI workflow using rules plus MCP plus commands",
+      "mustContain": [
+        "route_id: ai-mcp-workflow",
+        "docs/ai/guides/flutter/ai/rules-and-editor-workflows.md",
+        "docs/ai/guides/mcp/index.md",
+        "docs/ai/guides/mcp/flutter/server-and-tooling.md",
+        "\"option_matrix\""
+      ]
+    }
+  ]
+}

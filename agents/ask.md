@@ -32,5 +32,5 @@ Read-only analysis, explanation, comparison, and research framing.
 
 ## Canonical References
 
-- `docs/ai/11-skills/agents/ask-agent.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/agents/ask-agent.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

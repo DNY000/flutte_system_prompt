@@ -32,11 +32,14 @@ mkdir -p .cursor
 # Extract and inject the core files into the current project
 cp -r "$TMP_DIR/flutter_prompts-main/.cursor/rules" ./.cursor/ 2>/dev/null
 cp -r "$TMP_DIR/flutter_prompts-main/docs" . 2>/dev/null
-cp -f "$TMP_DIR/flutter_prompts-main/MASTER_PROMPT.md" . 2>/dev/null
+cp -r "$TMP_DIR/flutter_prompts-main/tools" . 2>/dev/null
+cp -f "$TMP_DIR/flutter_prompts-main/prompt-cli.ps1" . 2>/dev/null
+cp -f "$TMP_DIR/flutter_prompts-main/manual-prompt-bundle.md" . 2>/dev/null
 
 # Clean up
 rm -rf "$TMP_DIR"
 
 echo "✅ FPOS Installation Complete!"
 echo "👉 For Cursor IDE users: The rules have been embedded into .cursor/rules/prompt-os-always-on.mdc. (Please reload your window to apply)"
-echo "👉 For other Web AI tools: Please copy the configuration from MASTER_PROMPT.md."
+echo "👉 PowerShell CLI entry point: .\\prompt-cli.ps1"
+echo "👉 For other Web AI tools: Use manual-prompt-bundle.md or a routed package from .\\prompt-cli.ps1 build."

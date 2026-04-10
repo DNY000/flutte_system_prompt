@@ -6,9 +6,9 @@ These commands map to route families and response bias. They do not override rou
 
 Canonical sources:
 
-- `docs/ai/11-skills/commands/README.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
-- `tools/prompt-runtime-ts/src/commands.ts`
+- `docs/ai/skill-system/commands/README.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`
+- `tools/prompt-runtime-typescript/src/commands.ts`
 
 ## Included Commands
 

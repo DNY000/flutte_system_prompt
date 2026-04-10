@@ -17,7 +17,7 @@ Answer briefly:
 | **Who owns it?** | Person responsible for merge / release |
 | **Risk** | low / medium / high (auth, store, plugin, user data → often high) |
 
-If risk is **high**: use a review- or architecture-style contract before implementation (see `docs/ai/00-core/routing/routing-rules.md`).
+If risk is **high**: use a review- or architecture-style contract before implementation (see `docs/ai/core/routing/routing-rules.md`).
 
 ---
 
@@ -52,22 +52,22 @@ Before closing the work item, complete **`checklists/pre-completion-checklist.md
 At minimum:
 
 - Check off each item in the plan’s **Definition of done**.
-- If you changed `routes.json` or contracts: run `tools/prompt-cli/run-evals.ps1` (or equivalent CI).
+- If you changed `routes.json` or contracts: run `tools/prompt-powershell/run-evals.ps1` (or equivalent CI).
 - If you touched mobile store / code signing / native plugins: add a manual confirmation line in the plan.
 
 ---
 
 ## 4 — Persist
 
-- If there is a **decision / pattern / recurring mistake:** draft in `memory-drafts/` then merge into `docs/ai/03-memory/` per `memory-governance.md`.
+- If there is a **decision / pattern / recurring mistake:** draft in `memory-drafts/` then merge into `docs/ai/memory/` per `memory-governance.md`.
 - Update **`metrics/`** when you track weekly or per-release stats (template `mobile-weekly-export.template.json`).
-- For prompt releases: use `docs/ai/00-core/policies/prompt-release-checklist.md` and `docs/ai/10-releases/`.
+- For prompt releases: use `docs/ai/core/policies/prompt-release-checklist.md` and `docs/ai/releases/`.
 
 ---
 
 ## System documentation links
 
-- Operating model: `docs/ai/00-core/system/operating-model.md`
-- Release checklist: `docs/ai/00-core/policies/prompt-release-checklist.md`
-- Memory governance: `docs/ai/03-memory/memory-governance.md`
-- Incident loop: `docs/ai/03-memory/incident-to-memory-loop.md`
+- Operating model: `docs/ai/core/system/operating-model.md`
+- Release checklist: `docs/ai/core/policies/prompt-release-checklist.md`
+- Memory governance: `docs/ai/memory/memory-governance.md`
+- Incident loop: `docs/ai/memory/incident-to-memory-loop.md`

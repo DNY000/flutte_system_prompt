@@ -126,15 +126,15 @@ This layer links AI to real project data:
 ```text
 docs/
   ai/
-    00-core/
+    core/
       system-prompt.md
       output-rules.md
       token-rules.md
-    01-context/
+    context/
       project-context.md
       architecture-context.md
       business-context.md
-    02-tasks/
+    tasks/
       architecture.md
       security.md
       performance.md
@@ -144,13 +144,13 @@ docs/
       testing.md
       ci-cd.md
       research.md
-    03-memory/
+    memory/
       decisions.md
       patterns.md
       mistakes.md
       glossary.md
       modules.md
-    04-templates/
+    templates/
       request-template.md
       review-template.md
       implementation-template.md

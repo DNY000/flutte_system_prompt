@@ -19,10 +19,10 @@ Bias toward sequencing, options, migration order, and review gates.
 ## Example
 
 ```bash
-node tools/prompt-runtime-ts/dist/index.js --command plan --query "design auth module architecture Flutter"
+node tools/prompt-runtime-typescript/dist/index.js --command plan --query "design auth module architecture Flutter"
 ```
 
 ## Canonical References
 
-- `docs/ai/11-skills/commands/README.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/commands/README.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

@@ -36,5 +36,5 @@ Drive implementation-oriented work with target files, ordered steps, and test im
 
 ## Canonical References
 
-- `docs/ai/11-skills/agents/execute-agent.md`
-- `docs/ai/11-skills/commands/command-routing-map.md`
+- `docs/ai/skill-system/agents/execute-agent.md`
+- `docs/ai/skill-system/commands/command-routing-map.md`

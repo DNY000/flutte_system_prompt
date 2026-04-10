@@ -1,6 +1,6 @@
 # Memory drafts (staging)
 
-Content here is **not** canonical until reviewed and merged into `docs/ai/03-memory/`.
+Content here is **not** canonical until reviewed and merged into `docs/ai/memory/`.
 
 ## Flutter / mobile emphasis
 

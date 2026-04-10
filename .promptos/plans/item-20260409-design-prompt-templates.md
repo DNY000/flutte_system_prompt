@@ -21,7 +21,7 @@
 
 ## 2. Prerequisites
 
-- **Docs / policy:** `docs/ai/02-tasks/`, `docs/ai/04-templates/`, `docs/ai/11-skills/skills/`
+- **Docs / policy:** `docs/ai/tasks/`, `docs/ai/templates/`, `docs/ai/skill-system/definitions/`
 - **Tools:** repo docs, manifest validation, prompt evals
 - **Access:** repo write access only
 - **People / team dependencies:** none

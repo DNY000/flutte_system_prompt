@@ -6,18 +6,19 @@ Use this tree for prompt rules, route definitions, task prompts, templates, guid
 
 ## Start Here
 
-1. `GETTING_STARTED.md`
-2. `00-core/system/folder-standards.md`
-3. `00-core/system/operating-model.md`
-4. `00-core/system/execution-flow.md`
-5. `00-core/system/system-prompt.md`
-6. `00-core/routing/routing-rules.md`
-7. `00-core/contracts/output-contracts.md`
-8. `00-core/policies/context-loading-rules.md`
-9. `01-context/project-context.md`
-10. one task prompt from `02-tasks/`
-11. one output shell from `04-templates/contract-shells.md`
-12. one relevant guide index from `08-guides/`
+1. `getting-started.md`
+2. `core/system/folder-standards.md`
+3. `core/system/operating-model.md`
+4. `core/system/execution-flow.md`
+5. `core/system/system-prompt.md`
+6. `core/routing/routing-rules.md`
+7. `core/contracts/output-contracts.md`
+8. `core/policies/context-loading-rules.md`
+9. `context/project-context.md`
+10. one task prompt from `tasks/`
+11. one output shell from `templates/contract-shells.md`
+12. one relevant guide index from `guides/`
+When the runtime supports structured outputs, also load `core/contracts/structured-output-schemas.json` immediately after `core/contracts/output-contracts.md`.
 
 ## Canonical Execution Order
 
@@ -31,7 +32,7 @@ Use this tree for prompt rules, route definitions, task prompts, templates, guid
 8. Run quality checks.
 9. Persist durable knowledge only when needed.
 
-Detailed flow: `00-core/system/execution-flow.md`
+Detailed flow: `core/system/execution-flow.md`
 
 ## Prompt Package Assembly Order
 
@@ -49,33 +50,34 @@ The standard package order is:
 10. `Extra Context` when requested
 11. `User Request`
 12. `Final Instruction`
+When available, insert the matching entry from `core/contracts/structured-output-schemas.json` between `Output Contract` and `Output Shell`.
 
-Reference template: `04-templates/master-prompt-template.md`
+Reference template: `templates/master-prompt-template.md`
 
 ## Folder Map
 
 | Folder | Purpose |
 | --- | --- |
-| `00-core/` | Stable operating rules, routing logic, context rules, contracts, and governance |
-| `01-context/` | Stable project facts and constraints |
-| `02-tasks/` | Route-specific task prompts |
-| `03-memory/` | Durable reusable knowledge |
-| `04-templates/` | Prompt assembly, request, and contract shells |
-| `05-index/` | Query examples and discovery aids |
-| `06-examples/` | End-to-end route examples |
-| `07-references/` | Source map and references |
-| `08-guides/` | Retrieval packs for Flutter and AI-system topics |
-| `09-roadmap/` | Planned work and staged review passes |
-| `10-releases/` | Release baselines and changelog |
-| `11-skills/` | Skill definitions, command docs, and agent role profiles |
+| `core/` | Stable operating rules, routing logic, context rules, contracts, and governance |
+| `context/` | Stable project facts and constraints |
+| `tasks/` | Route-specific task prompts |
+| `memory/` | Durable reusable knowledge |
+| `templates/` | Prompt assembly, request, and contract shells |
+| `indexes/` | Query examples and discovery aids |
+| `examples/` | End-to-end route examples |
+| `references/` | Source map and references |
+| `guides/` | Retrieval packs for Flutter and AI-system topics |
+| `roadmap/` | Planned work and staged review passes |
+| `releases/` | Release baselines and changelog |
+| `skill-system/` | Skill definitions, command docs, and agent role profiles |
 
-Detailed responsibilities: `00-core/system/folder-standards.md`
+Detailed responsibilities: `core/system/folder-standards.md`
 
 ## Runtime Entry Points
 
-- PowerShell CLI: repo root `aiprompt.ps1`
-- CLI implementation: `tools/prompt-cli/aiprompt.ps1`
-- TypeScript runtime: `tools/prompt-runtime-ts/`
+- PowerShell CLI: repo root `prompt-cli.ps1`
+- CLI implementation: `tools/prompt-powershell/prompt-cli.ps1`
+- TypeScript runtime: `tools/prompt-runtime-typescript/`
 - Skill index: repo root `agents/SKILLS.md`
 - Operator wrappers: repo root `agents/`, `commands/`, `contexts/`, `manifests/`
 
@@ -83,23 +85,24 @@ Detailed responsibilities: `00-core/system/folder-standards.md`
 
 For one request, load:
 
-1. `00-core/system/system-prompt.md`
-2. `00-core/contracts/output-rules.md`
-3. `00-core/routing/routing-rules.md`
-4. `00-core/contracts/output-contracts.md`
-5. `01-context/project-context.md`
+1. `core/system/system-prompt.md`
+2. `core/contracts/output-rules.md`
+3. `core/routing/routing-rules.md`
+4. `core/contracts/output-contracts.md`
+5. `context/project-context.md`
 6. exactly one task prompt
 7. zero or more route context files
 8. one output shell
+If the serving stack supports native structured outputs, also load `core/contracts/structured-output-schemas.json`.
 
 ### Context-Aware Rules
 
-The `00-core/` directory contains several variants of `rules.md` to support different model constraints:
+The `core/` directory contains several runtime-rule variants to support different model constraints:
 
-- `rules.md` (Full)
-- `rules_10k.md`
-- `rules_4k.md`
-- `rules_1k.md`
+- `runtime-rules.md` (Canonical)
+- `runtime-rules-detailed.md`
+- `runtime-rules-compact.md`
+- `runtime-rules-minimal.md`
 
 Use `decision-engine.md` and `self-analysis-protocol.md` for decision-sensitive or high-risk work.
 
@@ -116,9 +119,9 @@ Typical route:
 
 Primary files:
 
-- `00-core/system/system-prompt.md`
-- `02-tasks/engineering/design.md`
-- `04-templates/contract-shells.md`
+- `core/system/system-prompt.md`
+- `tasks/engineering/design.md`
+- `templates/contract-shells.md`
 
 Query:
 
@@ -131,21 +134,21 @@ Typical route:
 
 Primary files:
 
-- `00-core/system/system-prompt.md`
-- `00-core/routing/decision-engine.md`
-- `02-tasks/flutter/state-management-decision.md`
-- `08-guides/flutter/domains/state-management.md`
+- `core/system/system-prompt.md`
+- `core/routing/decision-engine.md`
+- `tasks/flutter-decisions/state-management-decision.md`
+- `guides/flutter/domains/state-management.md`
 
 ## CLI Quick Start
 
 ```powershell
-.\aiprompt.ps1 help
-.\aiprompt.ps1 list-routes
-.\aiprompt.ps1 resolve -Query "design login screen UI"
-.\aiprompt.ps1 build -Query "design login screen UI" -Goal "Design login screen for Flutter"
+.\prompt-cli.ps1 help
+.\prompt-cli.ps1 list-routes
+.\prompt-cli.ps1 resolve -Query "design login screen UI"
+.\prompt-cli.ps1 build -Query "design login screen UI" -Goal "Design login screen for Flutter"
 ```
 
 More operator guidance:
 
-- `GETTING_STARTED.md`
-- `tools/prompt-cli/README.md`
+- `getting-started.md`
+- `tools/prompt-powershell/README.md`

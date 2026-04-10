@@ -11,7 +11,7 @@
 
 ## Context (Flutter / mobile)
 
-## Proposed entry for `docs/ai/03-memory/<file>.md`
+## Proposed entry for `docs/ai/memory/<file>.md`
 
 (Paste final bullet or paragraph here after review.)
 

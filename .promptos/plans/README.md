@@ -9,4 +9,4 @@ Store **architecture and execution plans** produced after `plan` mode or roadmap
 - Link related `route_id`, `output_contract`, and affected `lib/` modules.
 - Call out **platform-specific** work (Gradle, Xcode, entitlements, Play/App Store).
 
-Approved plans that become team policy should spawn a `memory-drafts/` entry and eventually `docs/ai/03-memory/decisions.md`.
+Approved plans that become team policy should spawn a `memory-drafts/` entry and eventually `docs/ai/memory/decisions.md`.
