@@ -1,197 +1,52 @@
-# Flutter Prompt Operating System
+# 🎯 Flutter Prompt Operating System (FPOS)
 
-Layered prompts, deterministic routing, output contracts, evals, and CLI tooling for Dart and Flutter AI work.
+### *Kỷ luật thép dành cho ứng dụng Flutter chuẩn Enterprise*
 
-## What This Repository Provides
+Flutter Prompt OS là một bộ khung prompt có độ chính xác cao và nền tảng kiến thức được thiết kế để biến bất kỳ AI nào (Cursor, Claude, GPT) thành một **Chuyên gia Kiến trúc sư Flutter (Senior Lead Flutter Architect)**. Hệ thống này đúc kết nhiều năm kinh nghiệm phát triển các hệ thống lớn thành một quy chuẩn hoạt động rõ ràng.
 
-- A canonical prompt knowledge base under `docs/ai/`
-- A route manifest and prompt package builder under `tools/prompt-cli/`
-- A cross-platform TypeScript runtime under `tools/prompt-runtime-ts/`
-- Skill definitions, command mapping, and agent-facing indexes
-- A thin operator surface under `agents/`, `commands/`, `contexts/`, and `manifests/`
-- Regression checks for routing and contract compliance
+---
 
-## Standard Workflow
+## 🚀 Kiến trúc Cốt lõi (Steel Core)
 
-1. Start with a raw user query.
-2. Resolve the query to one primary route.
-3. Load only the context required for that route.
-4. Enforce one output contract.
-5. Build or execute the prompt package.
-6. Validate route and contract behavior with evals.
+Hệ thống này không chỉ là một tập hợp các câu lệnh (prompt); nó là một **Hệ điều hành (Operating System)** dành riêng cho lập trình với AI, đảm bảo các tiêu chuẩn:
 
-The live runtime follows this flow:
+*   **🛡️ Bảo mật Cấp cao nhất**: Chi tiết triển khai SSL Pinning, luồng xác thực PKCE, và ngăn chặn vượt rào RLS.
+*   **🏗️ Kiến trúc Phân tầng**: Tách biệt hoàn toàn UI/Domain/Data đi kèm cơ chế lưu trữ trạng thái bằng Hydrated.
+*   **⚡ Hiệu suất Tối ưu**: Tối ưu hóa mạnh mẽ cho engine Impeller và nền tảng web WebAssembly (Wasm).
+*   **🤖 Mô hình AI-First**: Tích hợp các pattern thiết kế như Agentic function calling và Generative UI.
+*   **🌍 Công nghệ Mới nhất**: Chuẩn hóa để dùng với **Supabase 2.0+**, **Firebase 2026 Ready**, và thư viện đa ngôn ngữ **Slang i18n**.
 
-```text
-query
-  -> route
-  -> context
-  -> skills
-  -> output contract
-  -> prompt package
-  -> answer
-```
+---
 
-## Repository Layout
+## 🛠️ Hướng dẫn Cài đặt & Cách sử dụng
 
-| Path | Role |
-| --- | --- |
-| `docs/ai/` | Canonical prompts, policies, contexts, task prompts, templates, guides, references, and releases |
-| `tools/prompt-cli/` | PowerShell CLI for route resolution, prompt-package assembly, and eval execution |
-| `tools/prompt-runtime-ts/` | Cross-platform TypeScript runtime for command-aware route resolution and skill ordering |
-| `agent/` | Flat skill index and orchestration entry points |
-| `agents/` | Thin operator-facing agent profiles |
-| `commands/` | Thin command entry points for daily workflows |
-| `contexts/` | Curated context bundles for common work classes |
-| `manifests/` | Machine-readable catalog for the operator-facing surface |
-| `.promptos/` | Runtime state for plans, runs, logs, metrics, and pending memory drafts |
-| `missions/` | Mission-style request payloads and demos |
-| `playground/` | Experiments and scratch work that are not release artifacts |
+### Cách 1: Tích hợp Tự động (Dành cho Cursor IDE)
+Cách này phù hợp và khuyên dùng khi bạn đang sử dụng **Cursor IDE** để lập trình.
+1. Khởi động **Cursor** và Mở thư mục (`Open Folder`) chứa mã nguồn này.
+2. File cấu hình `.cursorrules` có sẵn sẽ tự động thực thi. AI của Cursor sẽ lập tức học được mọi quy tắc và kỷ luật kiến trúc chuẩn mực của repo này mà không cần bạn phải làm thêm gì.
 
-Detailed folder standards: `docs/ai/00-core/folder-standards.md`
+### Cách 2: Tích hợp Thủ công (Dành cho Claude / ChatGPT / v.v...)
+Sử dụng khi bạn thao tác trên giao diện web hoặc các IDE khác không hỗ trợ `.cursorrules`.
+1. Mở file [MASTER_PROMPT.md](./MASTER_PROMPT.md) trong thư mục gốc.
+2. Sao chép toàn bộ nội dung trong file.
+3. Dán nội dung đó vào **System Prompt** của AI (nếu hỗ trợ) hoặc dùng chính nội dung đó làm tín hiệu khởi động (câu lệnh mở đầu) trong khung chat với AI trước khi bạn yêu cầu tạo code/sửa tính năng.
 
-## Installation
+---
 
-### Option A: TypeScript runtime (recommended)
+## 📂 Danh mục Hệ thống (System Inventory)
 
-Requirements:
+| Phân hệ (Module) | Vị trí thư mục | Trọng tâm |
+| :--- | :--- | :--- |
+| **Data & Backend** | `docs/ai/08-guides/flutter/data-and-backend/` | Tích hợp Firebase, Supabase, Kiến trúc Offline-First. |
+| **Security** | `docs/ai/08-guides/flutter/security/` | SSL Pinning, Xác thực Sinh trắc học, Hardening. |
+| **Architecture** | `docs/ai/08-guides/flutter/app-architecture/` | Kiến trúc BLoC, Riverpod, Bảo toàn dữ liệu (Persistence). |
+| **Performance** | `docs/ai/08-guides/flutter/performance/` | Wasm, Impeller, Tối ưu DevTools. |
+| **Monetization** | `docs/ai/08-guides/flutter/domains/` | Nền tảng thanh toán Stripe, RevenueCat. |
 
-- Node.js 22+
+---
 
-```bash
-git clone <repo-url>
-cd <repo-folder>/tools/prompt-runtime-ts
-npm ci
-npm test
-npm run validate-manifest
-```
+## 🛡️ Giấy phép
+Mã nguồn được phân phối dưới giấy phép **MIT License**. Bạn có toàn quyền sử dụng, chỉnh sửa để xây dựng các dự án Flutter tốt, bảo mật và nhanh hơn.
 
-### Option B: PowerShell CLI
-
-Requirements:
-
-- Windows PowerShell or PowerShell 7+
-
-Windows:
-
-```powershell
-.\aiprompt.ps1 help
-```
-
-macOS:
-
-```bash
-brew install powershell
-pwsh ./aiprompt.ps1 help
-```
-
-## Quick Start
-
-List routes:
-
-```powershell
-.\aiprompt.ps1 list-routes
-```
-
-Resolve a query to a route:
-
-```powershell
-.\aiprompt.ps1 resolve -Query "design login screen UI" -Json
-```
-
-Build a full prompt package:
-
-```powershell
-.\aiprompt.ps1 build `
-  -Query "design login screen UI" `
-  -Goal "Design a Flutter login screen" `
-  -Memory auto `
-  -PersistRun `
-  -Constraints "Use Material 3","Support loading and error states"
-```
-
-Use the TypeScript runtime with command hints:
-
-```bash
-cd tools/prompt-runtime-ts
-npm run build
-node dist/index.js --command plan --query "design auth module architecture Flutter" --explain
-```
-
-## How Prompt Loading Works
-
-The PowerShell CLI assembles prompt packages in this order:
-
-1. Runtime block with route resolution metadata
-2. System prompt
-3. Output rules
-4. Project context
-5. Route-specific context
-6. Task prompt
-7. Output contract
-8. Output shell
-9. Optional memory and extra context
-10. User request block
-11. Final instruction
-
-The package builder lives in `tools/prompt-cli/aiprompt.ps1`.
-
-## How To Apply The Prompt In Practice
-
-### Single-input tools
-
-If the target model only accepts one large prompt field, generate a package with `build` and send the whole output as one prompt.
-
-### Role-based tools
-
-If the target model supports system or developer messages plus a separate user message:
-
-1. Use `docs/ai/00-core/system-prompt.md` as the system layer.
-2. Add `docs/ai/00-core/output-rules.md`.
-3. Add project and route context.
-4. Add the selected task prompt.
-5. Add the matching output contract and output shell.
-6. Send the raw user request as the user message.
-
-Do not load every task prompt or every guide pack together.
-
-Useful runtime options:
-
-- `-Memory auto` to inject route-aware memory files
-- `-PersistRun` to write structured run artifacts under `.promptos/runs`
-- `--persist-run` in `tools/prompt-runtime-ts` for the same purpose
-
-## Documentation Map
-
-- Getting started: `docs/ai/GETTING_STARTED.md`
-- AI index and read order: `docs/ai/README.md`
-- Operator surface catalog: `manifests/catalog.json`
-- Execution flow: `docs/ai/00-core/execution-flow.md`
-- Folder standards: `docs/ai/00-core/folder-standards.md`
-- Prompt templates: `docs/ai/04-templates/`
-- CLI usage: `tools/prompt-cli/README.md`
-
-## Validation
-
-Run routing and contract evals:
-
-```powershell
-.\tools\prompt-cli\run-evals.ps1
-```
-
-Run runtime tests and manifest validation:
-
-```bash
-cd tools/prompt-runtime-ts
-npm test
-npm run validate-manifest
-```
-
-## Maintenance Rules
-
-- Keep one primary route per request.
-- Keep one output contract per answer.
-- Keep stable rules in `00-core/`.
-- Keep route-specific behavior in `02-tasks/`.
-- Keep durable reusable knowledge in `03-memory/`.
-- Prefer retrieval fixes before adding more prompt text.
+---
+*Phát triển và bảo trì bởi Agentic Coding Team.*
