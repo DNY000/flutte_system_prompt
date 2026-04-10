@@ -15,17 +15,25 @@ Hệ thống này không chỉ cung cấp những câu lệnh đơn giản, mà 
 
 ## ⚙️ 2. Hướng dẫn Cài đặt
 
-Để hệ thống hoạt động, bạn chỉ cần đưa kho kiến thức của repository này vào nền tảng AI mà bạn dùng. 
+Để hệ thống hoạt động, bạn chỉ cần đưa kho kiến thức của nhánh FPOS này vào dự án của mình. 
 
-### Dành cho Cursor IDE (Khuyên dùng và tự động nhất)
+### Cách 1: Cài đặt tự động bằng dòng lệnh (Khuyên dùng)
+Bạn không cần phải tải thủ công. Chỉ cần mở **Terminal** tại thư mục gốc dự án Flutter của bạn và chạy lệnh sau:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DNY000/flutte_system_prompt/main/install.sh | bash
+```
+*(Lệnh này sẽ tự động tải file `.cursorrules`, file `MASTER_PROMPT.md` và thư mục `docs/` cấu trúc dự án về cho bạn).*
+
+### Cách 2: Tích hợp thủ công cho Cursor IDE
 1. Hãy chắc chắn bạn đã cài đặt phần mềm **Cursor**.
-2. **Clone** repository này hoặc di chuyển toàn bộ file này vào thư mục dự án Flutter của bạn.
-3. Mở thư mục dự án của bạn (đã chứa nội dung của thư mục này) bằng Cursor IDE.
-4. Xong! File ẩn `.cursorrules` sẽ tự động thực thi cài đặt quy tắc vào nội bộ AI. Từ giờ, mọi câu hỏi hay lệnh tạo code trong Cursor sẽ tự động tuân thủ kiến trúc chuẩn.
+2. **Clone** repository này hoặc di chuyển toàn bộ nội dung mã nguồn vào thư mục dự án Flutter của bạn.
+3. Mở thư mục dự án của bạn bằng Cursor IDE.
+4. Xong! File ẩn `.cursorrules` sẽ tự động thực thi cài đặt quy tắc vào nội bộ AI.
 
-### Dành cho công cụ chat như ChatGPT, Claude, Gemini...
-1. Truy cập vào file [MASTER_PROMPT.md](./MASTER_PROMPT.md) trong mã nguồn này.
-2. Sao chép (Copy) toàn bộ văn bản trong đó.
+### Cách 3: Dành cho công cụ chat như ChatGPT, Claude, Gemini...
+1. Truy cập vào file [MASTER_PROMPT.md](./MASTER_PROMPT.md) hoặc thư mục bạn vừa tải bằng lệnh ở trên.
+2. Sao chép (Copy) toàn bộ văn bản trong file `MASTER_PROMPT.md`.
 3. Bạn đã "cài đặt" thành công. (Xem phần cách dùng để biết tiếp theo phải làm gì).
 
 ---
