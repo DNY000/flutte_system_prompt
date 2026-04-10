@@ -9,11 +9,11 @@ The `docs/` folder is the "Brain" of FPOS.
 - **Identify Gaps**: If you notice a missing standard (e.g., a new Flutter 4.0 feature or a new Supabase package), create a new guide.
 - **Standards**: Follow the existing format in `docs/ai/08-guides/`. Guides should be evidence-first and focus on "Lethal Edge" best practices.
 
-### 2. Adding a New Skill (`agent/SKILLS.md`)
+### 2. Adding a New Skill (`agents/SKILLS.md`)
 Skills are modular capabilities. To add one:
 1.  **Define the Skill**: Create a new `SKILL.md` under `docs/ai/11-skills/skills/<skill-id>/`.
 2.  **Declare Contracts**: Specify what input/output contracts the skill satisfies.
-3.  **Register**: Add the skill to the registry in `agent/SKILLS.md`.
+3.  **Register**: Add the skill to the registry in `agents/SKILLS.md`.
 
 ### 3. Modifying Agent Roles (`agents/`)
 Agents are role profiles that orchestrate skills. 

@@ -1,6 +1,6 @@
 # Skills runtime structure
 
-**Machine-readable index of every skill:** `agent/SKILLS.md` (repo root).
+**Machine-readable index of every skill:** `agents/SKILLS.md` (repo root).
 
 This folder holds **content**: agents, commands, per-`skill_id` SKILL packs, plugins, hooks.
 

@@ -178,4 +178,4 @@ Command semantics are documented in:
 
 Skill index for the agent runtime:
 
-- `agent/SKILLS.md`
+- `agents/SKILLS.md`

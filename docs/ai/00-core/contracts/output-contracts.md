@@ -182,6 +182,23 @@ Section requirements:
 - `Facts`: include exact versions, dates, or platform assumptions
 - `Comparison`: use the same comparison criteria for each option
 
+## `ba-to-design-contract-v1`
+
+Use for Business Analysis refinement to bridge requirements to UI/UX design.
+
+Required sections:
+
+1. `Summary`
+2. `User Story`
+3. `Acceptance Criteria (AC)`
+4. `Extracted UI States`
+5. `Non-functional UX Constraints`
+
+Section requirements:
+
+- `Extracted UI States`: map AC explicitly to loading, empty, error, success, and offline design expectations
+- `Non-functional UX Constraints`: detail required tracking, analytics, rate-limiting UX, or strict accessibility needs
+
 ## `improvement-roadmap-v1`
 
 Use for prompt-system, agent-system, migration, or capability-completion planning.
@@ -336,7 +353,7 @@ Potential duplicate state emission if repository callback is retried.
 | `web-desktop-strategy` | `architecture-decision-v1` |
 | `plugin-authoring` | `architecture-decision-v1` |
 | `ai-mcp-workflow` | `decision-matrix-v1` |
-| `ba-refinement` | `implementation-plan-v1` |
+| `ba-refinement` | `ba-to-design-contract-v1` |
 | `research-brief` | `research-brief-v1` |
 | `prompt-system-roadmap` | `improvement-roadmap-v1` |
 | `agent-system-roadmap` | `improvement-roadmap-v1` |

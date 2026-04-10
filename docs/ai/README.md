@@ -76,7 +76,7 @@ Detailed responsibilities: `00-core/system/folder-standards.md`
 - PowerShell CLI: repo root `aiprompt.ps1`
 - CLI implementation: `tools/prompt-cli/aiprompt.ps1`
 - TypeScript runtime: `tools/prompt-runtime-ts/`
-- Skill index: repo root `agent/SKILLS.md`
+- Skill index: repo root `agents/SKILLS.md`
 - Operator wrappers: repo root `agents/`, `commands/`, `contexts/`, `manifests/`
 
 ## Minimum Viable Loadout

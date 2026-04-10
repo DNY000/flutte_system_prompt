@@ -43,4 +43,4 @@ testWidgets('shows error when login fails', (tester) async {
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`

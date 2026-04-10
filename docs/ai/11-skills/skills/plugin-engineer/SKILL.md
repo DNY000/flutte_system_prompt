@@ -39,5 +39,5 @@ class MyPlugin {
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Guide: `docs/ai/08-guides/flutter/platform-integration/native-boundary-and-plugin-bridges.md`

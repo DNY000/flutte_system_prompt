@@ -47,7 +47,7 @@ Persistent map of repository modules and ownership boundaries for the prompt ope
 - owned_features: skill index, skill packs, command mapping, role profiles, plugin and hook contracts
 - inbound_dependencies: route manifest, prompt authors, runtime integrators
 - outbound_dependencies: canonical core rules and task prompts
-- data_sources: `agent/SKILLS.md` and `docs/ai/11-skills/`
+- data_sources: `agents/SKILLS.md` and `docs/ai/11-skills/`
 - critical_flows: skill discovery, operator onboarding, route-to-skill alignment
 - test_focus: skill naming consistency, path integrity, precedence documentation
 - release_risk: medium

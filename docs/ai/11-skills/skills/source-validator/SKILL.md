@@ -35,5 +35,5 @@ Rank and validate sources; separate facts from inference for research outputs.
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Policy: `docs/ai/00-core/policies/mcp-research-policy.md`

@@ -47,5 +47,5 @@ Use **strategy** when multiple algorithms are swappable (e.g. pricing rules); us
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Modeling: `docs/ai/08-guides/flutter/data-and-backend/modeling-and-mappers.md`

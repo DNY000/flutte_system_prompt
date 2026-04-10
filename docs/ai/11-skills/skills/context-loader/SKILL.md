@@ -40,5 +40,5 @@ For `route_id: code` with a feature under `lib/features/auth/`:
 
 ## References
 
-- Agent skill index: `agent/SKILLS.md`
+- Agent skill index: `agents/SKILLS.md`
 - Rules: `docs/ai/00-core/policies/context-loading-rules.md`

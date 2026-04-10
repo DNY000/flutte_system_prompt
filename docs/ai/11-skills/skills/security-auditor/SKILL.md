@@ -63,6 +63,6 @@ class AuthTokenStore {
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Security implementation guidance: `docs/ai/08-guides/flutter/security/security-implementation-patterns.md`
 - File intake and upload safety: `docs/ai/08-guides/flutter/security/file-input-and-upload-safety.md`

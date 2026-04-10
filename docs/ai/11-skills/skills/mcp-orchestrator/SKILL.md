@@ -45,7 +45,7 @@ fallback_if_unavailable:
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - AI systems MCP guidance: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`
 - Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/index.md`
 - MCP server guidance: `docs/ai/08-guides/flutter/ai-and-mcp/dart-flutter-mcp-server-and-tooling.md`

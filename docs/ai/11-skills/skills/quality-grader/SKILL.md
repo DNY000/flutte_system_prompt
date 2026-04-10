@@ -43,5 +43,5 @@ Evaluate output quality against rubric and thresholds.
 
 ## References
 
-- Agent skill index: `agent/SKILLS.md`
+- Agent skill index: `agents/SKILLS.md`
 - Rubric: `tools/prompt-cli/evals/task-quality-rubric.md`

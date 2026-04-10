@@ -2,7 +2,7 @@
 
 Operational catalog for onboarding and maintaining AI skills.
 
-**Flat index (all SKILL.md paths):** `agent/SKILLS.md`
+**Flat index (all SKILL.md paths):** `agents/SKILLS.md`
 
 **Authoring (context + constraints + steps):** `SKILL-AUTHORING.md`  
 **End-to-end pipeline (hooks, loader, verification):** `skill-execution-pipeline.md`  

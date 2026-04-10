@@ -43,6 +43,6 @@ Pair with CLI / TS router tests under `tools/prompt-cli` and `tools/prompt-runti
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Guide: `docs/ai/08-guides/ai-systems/evals-and-regression.md`
 - Task: `docs/ai/02-tasks/ai/ai-evals.md`

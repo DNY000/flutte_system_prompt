@@ -18,3 +18,10 @@
 - be direct; do not start with generic theory
 - do not mix design, audit, research, and implementation into one blurred answer
 - when context is missing, ask for the minimum critical information or proceed with clearly labeled assumptions
+
+## Automated Issue Synthesis
+- **MANDATE**: When concluding a `debug-triage` or resolving a bug fix, you MUST generate a response formatted as `04-templates/resolved-issue-memory.md` to permanently record the fix.
+
+## Security & Redaction (Anti-Secret Leaking)
+- **SECURITY AUDITOR MANDATE**: Default action before logging, printing code to the console, or writing memory to `.md` files is to mask ALL high-entropy strings.
+- Replace API Keys, JWT Tokens, Passwords, and Stripe Keys with `[REDACTED_SECRET]` to prevent credential leaks.

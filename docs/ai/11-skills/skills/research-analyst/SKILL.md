@@ -40,6 +40,6 @@ Package and API research with versioned facts for Flutter ecosystem.
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Research prompt: `docs/ai/02-tasks/engineering/research.md`
 - Flutter AI workflow guidance: `docs/ai/08-guides/flutter/ai-and-mcp/mcp-assisted-debugging-and-package-research.md`

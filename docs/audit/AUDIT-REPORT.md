@@ -22,14 +22,14 @@
 
 | # | File | Approx. size |
 |---|------|--------------|
-| 1 | `agent/README.md` | ~60 lines |
-| 2 | `agent/SKILLS.md` | ~60 lines |
+| 1 | `agents/README.md` | ~60 lines |
+| 2 | `agents/SKILLS.md` | ~60 lines |
 
 ---
 
 ### Per-file analysis
 
-#### `agent/README.md`
+#### `agents/README.md`
 
 **Role & purpose:**
 Entry-point documentation for the agent layer. Covers:
@@ -65,7 +65,7 @@ Entry-point documentation for the agent layer. Covers:
 
 ---
 
-#### `agent/SKILLS.md`
+#### `agents/SKILLS.md`
 
 **Role & purpose:**
 Single navigation page (Table of Contents) for the entire skill registry. Divided into three groups:
@@ -578,7 +578,7 @@ Each entry is a direct link to `docs/ai/11-skills/skills/<id>/SKILL.md`.
 | Priority | Action |
 |----------|--------|
 | P1 | Extend to validate every path in `flutter-domains.json` `files[]` |
-| P1 | Add a check that `agent/SKILLS.md` lists all skills referenced in `routes.json` |
+| P1 | Add a check that `agents/SKILLS.md` lists all skills referenced in `routes.json` |
 | P2 | Add unit tests for `parseContractDocTable` and `parseContractSectionNames` |
 
 ---
@@ -1159,7 +1159,7 @@ docs/ai/
 |----------|--------|--------|
 | **P0** | Add Flutter version metadata to every `docs/ai/08-guides/flutter/` section `index.md` | `docs/` |
 | **P1** | Create `routes.schema.json` for IDE-level validation of `routes.json` | `tools/` |
-| **P1** | Add a short-description column to `agent/SKILLS.md` | `agent/` |
+| **P1** | Add a short-description column to `agents/SKILLS.md` | `agent/` |
 | **P1** | Extend `validate-manifest` to check `flutter-domains.json` `files[]` and `SKILLS.md` sync | `tools/` |
 | **P1** | Create `missions/mission.schema.yaml` and validate `primary_route_hint` in the CLI | `missions/` |
 | **P1** | Add sample expected output to `playground/showcase-route-resolve.md` | `playground/` |

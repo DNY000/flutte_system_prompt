@@ -34,6 +34,6 @@ Merge rule: single PR; Agent B must not contradict tokens in Agent A without exp
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Task: `docs/ai/02-tasks/ai/agent-system.md`
 - Guide: `docs/ai/08-guides/ai-systems/context-memory-and-mcp.md`

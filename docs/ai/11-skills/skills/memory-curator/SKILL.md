@@ -38,5 +38,5 @@ Use the full incident structure when the change came from production: `docs/ai/0
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Governance: `docs/ai/03-memory/memory-governance.md`

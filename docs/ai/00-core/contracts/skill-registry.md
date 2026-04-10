@@ -2,7 +2,7 @@
 
 These are logical skills for the Dart/Flutter prompt system.
 
-**Operational detail:** how skills get enough **context, constraints, and steps** — `docs/ai/11-skills/SKILL-AUTHORING.md`. **Execution order** with hooks — `docs/ai/11-skills/skill-execution-pipeline.md`. **Flat file index** — `agent/SKILLS.md`. **Route wiring** — `tools/prompt-cli/routes.json` field `skills`.
+**Operational detail:** how skills get enough **context, constraints, and steps** — `docs/ai/11-skills/SKILL-AUTHORING.md`. **Execution order** with hooks — `docs/ai/11-skills/skill-execution-pipeline.md`. **Flat file index** — `agents/SKILLS.md`. **Route wiring** — `tools/prompt-cli/routes.json` field `skills`.
 
 ## Core Skills
 
@@ -52,7 +52,7 @@ These are logical skills for the Dart/Flutter prompt system.
 | `agent-architect` | agent topology, handoffs, tool boundaries, MCP integration | agent-system roadmap |
 | `eval-designer` | benchmark sets, graders, route tests, regression strategy | eval roadmap |
 
-Flat links to each `SKILL.md`: `agent/SKILLS.md` (repo root).
+Flat links to each `SKILL.md`: `agents/SKILLS.md` (repo root).
 
 ## Skill Activation Rules
 

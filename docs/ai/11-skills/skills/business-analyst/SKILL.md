@@ -13,7 +13,7 @@ User flows, requirement clarification, and acceptance criteria before implementa
 
 ## Output
 
-- Artifact matching the active **output contract** (see `docs/ai/00-core/contracts/output-contracts.md`)
+- Artifact matching the **ba-to-design-contract-v1** output contract (see `docs/ai/00-core/contracts/output-contracts.md`)
 
 ## Example
 
@@ -24,7 +24,7 @@ User flows, requirement clarification, and acceptance criteria before implementa
 - **AC2:** On successful request, show confirmation and throttle resend per rate-limit policy.
 - **AC3:** Errors from the API surface a non-technical message and a retry when safe.
 
-Map each AC to a **test layer** (widget vs integration) in the implementation plan.
+Map each AC to explicitly an **UI State** (empty, loading, error, success, offline) and define strict **UX Constraints** (like rate limiting) within the `ba-to-design-contract-v1`.
 
 ## Anti-patterns
 
@@ -35,4 +35,4 @@ Map each AC to a **test layer** (widget vs integration) in the implementation pl
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`

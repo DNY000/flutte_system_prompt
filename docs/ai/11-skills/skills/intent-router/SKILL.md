@@ -41,5 +41,5 @@ Resolve one primary route with explicit risk level.
 
 ## References
 
-- Agent skill index: `agent/SKILLS.md`
+- Agent skill index: `agents/SKILLS.md`
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`

@@ -36,5 +36,5 @@ Rollback: prior artifact 1.4.9+299 tagged in store; hotfix branch procedure docu
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`
 - Guide: `docs/ai/08-guides/flutter/deployment/flavors-signing-and-secrets.md`

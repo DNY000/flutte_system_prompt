@@ -42,4 +42,4 @@ Never log raw email, card numbers, or auth tokens — use hashed IDs or omit.
 
 - Registry: `docs/ai/00-core/contracts/skill-registry.md`
 - Contracts (when present): `docs/ai/00-core/contracts/skill-contracts.md`
-- Agent index: `agent/SKILLS.md`
+- Agent index: `agents/SKILLS.md`

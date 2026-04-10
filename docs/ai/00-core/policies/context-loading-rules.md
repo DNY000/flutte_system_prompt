@@ -18,6 +18,14 @@ For every task, load:
 2. stable facts from `01-context/project-context.md`
 3. relevant memory entries only if they affect the task
 
+## Retrieval Protocol (Mandatory for Research)
+
+Before loading any domain-specific guides, agents MUST follow the Retrieval Protocol:
+1. **Query**: Identify what you don't know.
+2. **Index**: Always load `08-guides/flutter/index.md` first to find the exact file.
+3. **Section**: Navigate to the targeted sub-folder indices if needed.
+4. **Leaf Pack**: Load ONLY the exact document required.
+
 ## Optional Context Layers
 
 Load only when needed:
@@ -35,6 +43,8 @@ Load only when needed:
 
 ## Token Discipline
 
+- **MAXIMUM**: Load no more than 2 guide files per session.
+- **RESTRICTED**: Never load all guide files or the entire `08-guides` directory simultaneously.
 - never load all task prompts together
 - never load all memory files by default
 - never load all section indexes together
