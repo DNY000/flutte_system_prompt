@@ -3,7 +3,7 @@
 ### *The Deterministic Engine for Enterprise-Grade Flutter Development*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Engine: Agentic](https://img.shields.io/badge/Engine-Agentic-blue)](https://github.com/DNY000/flutte_system_prompt)
+[![Engine: Agentic](https://img.shields.io/badge/Engine-Agentic-blue)](https://github.com/DNY000/flutter_prompts)
 [![Standards: Hardened](https://img.shields.io/badge/Standards-Hardened-red)](docs/ai/00-core/system/rules.md)
 
 ---
@@ -42,7 +42,7 @@ graph TD
 You do not need to clone this repository manually. Run the following command at the root of your Flutter project to "inject" the FPOS brain:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DNY000/flutte_system_prompt/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/DNY000/flutter_prompts/main/install.sh | bash
 ```
 
 **What happens next?**

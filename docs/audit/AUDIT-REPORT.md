@@ -1,6 +1,6 @@
 # Detailed Audit Report — Folders 2 → 6
 
-**Repo:** `DNY000/flutte_system_prompt` | **Ref:** `main` | **Audit date:** 2026-04-08
+**Repo:** `DNY000/flutter_prompts` | **Ref:** `main` | **Audit date:** 2026-04-08
 
 ---
 

@@ -15,7 +15,7 @@ TMP_DIR=$(mktemp -d)
 echo "📥 Downloading FPOS architectural standards..."
 
 # Use curl to fetch the zip directly, WITHOUT using git. Completely avoids tracking metadata.
-curl -fsSL "https://github.com/DNY000/flutte_system_prompt/archive/refs/heads/main.zip" -o "$TMP_DIR/fpos.zip"
+curl -fsSL "https://github.com/DNY000/flutter_prompts/archive/refs/heads/main.zip" -o "$TMP_DIR/fpos.zip"
 
 if [ $? -ne 0 ]; then
     echo "❌ Error: Failed to download the package from GitHub. Please check your internet connection."
@@ -30,9 +30,9 @@ unzip -q "$TMP_DIR/fpos.zip" -d "$TMP_DIR"
 mkdir -p .cursor
 
 # Extract and inject the core files into the current project
-cp -r "$TMP_DIR/flutte_system_prompt-main/.cursor/rules" ./.cursor/ 2>/dev/null
-cp -r "$TMP_DIR/flutte_system_prompt-main/docs" . 2>/dev/null
-cp -f "$TMP_DIR/flutte_system_prompt-main/MASTER_PROMPT.md" . 2>/dev/null
+cp -r "$TMP_DIR/flutter_prompts-main/.cursor/rules" ./.cursor/ 2>/dev/null
+cp -r "$TMP_DIR/flutter_prompts-main/docs" . 2>/dev/null
+cp -f "$TMP_DIR/flutter_prompts-main/MASTER_PROMPT.md" . 2>/dev/null
 
 # Clean up
 rm -rf "$TMP_DIR"
