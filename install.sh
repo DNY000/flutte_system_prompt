@@ -4,37 +4,39 @@
 # 🎯 FPOS - Flutter Prompt OS Installer
 # ==========================================
 
-echo "🚀 Bắt đầu cài đặt Flutter Prompt OS (FPOS)..."
+echo "🚀 Starting Flutter Prompt OS (FPOS) Installation..."
 
-# Kiểm tra xem có phải project Flutter không (cảnh báo nhẹ)
+# Check if it's a Flutter project
 if [ ! -f "pubspec.yaml" ]; then
-    echo "⚠️ Cảnh báo: Không tìm thấy pubspec.yaml. Bạn có chắc đây là thư mục gốc của dự án Flutter không?"
+    echo "⚠️ Warning: pubspec.yaml not found. Make sure you are running this in the root of your Flutter project."
 fi
 
-# Tạo thư mục tạm để tải hệ thống
 TMP_DIR=$(mktemp -d)
-echo "📥 Đang tải các cấu hình hệ thống từ GitHub..."
+echo "📥 Downloading FPOS architectural standards..."
 
-# Git clone ẩn đi toàn bộ dự án vào thư mục tạm
-git clone --depth 1 "https://github.com/DNY000/flutte_system_prompt.git" "$TMP_DIR" > /dev/null 2>&1
+# Use curl to fetch the zip directly, WITHOUT using git. Completely avoids tracking metadata.
+curl -fsSL "https://github.com/DNY000/flutte_system_prompt/archive/refs/heads/main.zip" -o "$TMP_DIR/fpos.zip"
 
 if [ $? -ne 0 ]; then
-    echo "❌ Lỗi: Không thể tải mã nguồn từ GitHub. Vui lòng kiểm tra kết nối mạng."
+    echo "❌ Error: Failed to download the package from GitHub. Please check your internet connection."
     rm -rf "$TMP_DIR"
     exit 1
 fi
 
-echo "📦 Đang tích hợp FPOS vào dự án của bạn..."
+echo "📦 Extracting and installing core components..."
+unzip -q "$TMP_DIR/fpos.zip" -d "$TMP_DIR"
 
-# Sao chép các tệp cần thiết
-cp "$TMP_DIR/.cursorrules" . 2>/dev/null
-cp -r "$TMP_DIR/docs" . 2>/dev/null
-cp "$TMP_DIR/MASTER_PROMPT.md" . 2>/dev/null
+# Create destination directory if not exists
+mkdir -p .cursor
 
-# Dọn dẹp thư mục tạm
+# Extract and inject the core files into the current project
+cp -r "$TMP_DIR/flutte_system_prompt-main/.cursor/rules" ./.cursor/ 2>/dev/null
+cp -r "$TMP_DIR/flutte_system_prompt-main/docs" . 2>/dev/null
+cp -f "$TMP_DIR/flutte_system_prompt-main/MASTER_PROMPT.md" . 2>/dev/null
+
+# Clean up
 rm -rf "$TMP_DIR"
 
-echo "✅ Cài đặt FPOS hoàn tất thành công!"
-echo "👉 Hướng dẫn tiếp theo:"
-echo "   - Nếu bạn dùng Cursor IDE: Hãy mở lại dự án (Restart) để .cursorrules hoạt động."
-echo "   - Nếu bạn dùng AI khác: Mở file MASTER_PROMPT.md để lấy nội dung System Prompt."
+echo "✅ FPOS Installation Complete!"
+echo "👉 For Cursor IDE users: The rules have been embedded into .cursor/rules/prompt-os-always-on.mdc. (Please reload your window to apply)"
+echo "👉 For other Web AI tools: Please copy the configuration from MASTER_PROMPT.md."
