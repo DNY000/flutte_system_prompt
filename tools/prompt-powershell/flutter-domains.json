@@ -12,7 +12,7 @@
       "domainId": "layout",
       "sectionId": "ui",
       "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
-      "routeHints": ["widget-decision", "flutter-framework-decision"],
+      "routeHints": ["widget-decision", "flutter-framework-decision", "design-screen", "design-system"],
       "queryPatterns": ["layoutbuilder", "singlechildscrollview", "listview", "customscrollview", "sliver", "expanded", "flexible", "row", "column", "wrap", "stack", "safearea"],
       "files": ["docs/ai/guides/flutter/domains/layout.md"]
     },
@@ -44,7 +44,7 @@
       "domainId": "navigation",
       "sectionId": "ui",
       "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
-      "routeHints": ["flutter-framework-decision"],
+      "routeHints": ["flutter-framework-decision", "design-screen"],
       "queryPatterns": ["navigator", "go router", "gorouter", "router", "route", "deeplink", "dialog", "bottom sheet"],
       "files": ["docs/ai/guides/flutter/domains/navigation.md"]
     },
@@ -76,7 +76,7 @@
       "domainId": "theming-adaptive",
       "sectionId": "ui",
       "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
-      "routeHints": [],
+      "routeHints": ["design-screen", "design-system"],
       "queryPatterns": ["theme", "materialapp", "cupertinoapp", "adaptive", "responsive", "theming"],
       "files": ["docs/ai/guides/flutter/domains/theming-adaptive.md"]
     },
@@ -84,7 +84,7 @@
       "domainId": "accessibility-localization",
       "sectionId": "ui",
       "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
-      "routeHints": [],
+      "routeHints": ["design-screen", "design-system"],
       "queryPatterns": ["semantics", "accessibility", "localization", "arb", "keyboard", "focus order", "screen reader"],
       "files": ["docs/ai/guides/flutter/domains/accessibility-localization.md"]
     },
@@ -92,7 +92,7 @@
       "domainId": "assets-media",
       "sectionId": "ui",
       "sectionIndex": "docs/ai/guides/flutter/ui/index.md",
-      "routeHints": [],
+      "routeHints": ["design-screen", "design-system"],
       "queryPatterns": ["image asset", "image network", "assetbundle", "asset", "media", "placeholder"],
       "files": ["docs/ai/guides/flutter/domains/assets-media.md"]
     },

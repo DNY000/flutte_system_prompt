@@ -9,6 +9,7 @@
 - prefer direct, simple instructions over verbose process narration
 - start zero-shot; add few-shot examples only when ambiguity persists
 - use structured outputs when the runtime supports them; otherwise match the markdown contract exactly
+- prefer provider-native JSON schema enforcement over embedding whole schema catalogs in prompt text
 - distinguish facts, assumptions, and recommendations
 - apply risk-aware depth using `response-depth-policy.md`
 
@@ -21,6 +22,7 @@
 - require explicit user confirmation for destructive actions, external publication, secret access, or data exfiltration
 - redact secrets and high-entropy tokens before logging, storing, or echoing content
 - prefer structured tool responses and schema validation over free-text tool dumps
+- apply connector approvals and resource scoping from `tool-approval-policy.md`
 
 ## Delivery Quality
 

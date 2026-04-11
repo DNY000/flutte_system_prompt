@@ -29,6 +29,15 @@ interface SurfaceCatalog {
   contexts: SurfaceCatalogItem[];
 }
 
+interface FlutterDomainManifest {
+  domains: Array<{
+    domainId: string;
+    sectionId: string;
+    sectionIndex: string;
+    files: string[];
+  }>;
+}
+
 function repoRootFromArgs(): string {
   const args = process.argv.slice(2);
   const idx = args.indexOf("--repo-root");
@@ -59,6 +68,40 @@ function parseContractSectionNames(markdown: string): Set<string> {
     names.add(m[1]);
   }
   return names;
+}
+
+function normalizeInlineOptions(value: string): string[] {
+  const backticked = [...value.matchAll(/`([^`]+)`/g)].map((match) => match[1].trim()).filter(Boolean);
+  if (backticked.length > 0) {
+    return backticked;
+  }
+
+  return value
+    .split(/\s*(?:,|or)\s*/i)
+    .map((part) => part.replace(/`/g, "").trim())
+    .filter(Boolean);
+}
+
+function parseTaskPromptDefaultRoute(markdown: string): { routeIds: string[]; outputContracts: string[] } {
+  const routeIds: string[] = [];
+  const outputContracts: string[] = [];
+
+  for (const line of markdown.split(/\r?\n/)) {
+    const routeMatch = line.match(/^\s*-\s*route:\s+(.+)$/i);
+    if (routeMatch) {
+      routeIds.push(...normalizeInlineOptions(routeMatch[1]));
+    }
+
+    const contractMatch = line.match(/^\s*-\s*output contract:\s+(.+)$/i);
+    if (contractMatch) {
+      outputContracts.push(...normalizeInlineOptions(contractMatch[1]));
+    }
+  }
+
+  return {
+    routeIds: [...new Set(routeIds)],
+    outputContracts: [...new Set(outputContracts)]
+  };
 }
 
 function validateSurfaceCatalog(repoRoot: string, manifest: RoutesManifest, errors: string[]): void {
@@ -114,6 +157,33 @@ function validateSurfaceCatalog(repoRoot: string, manifest: RoutesManifest, erro
   }
 }
 
+function validateFlutterDomainManifest(repoRoot: string, errors: string[]): void {
+  const domainManifestPath = join(repoRoot, "tools", "prompt-powershell", "flutter-domains.json");
+  if (!existsSync(domainManifestPath)) {
+    errors.push("Missing Flutter domain manifest: tools/prompt-powershell/flutter-domains.json");
+    return;
+  }
+
+  const domainManifest = JSON.parse(readFileSync(domainManifestPath, "utf8")) as FlutterDomainManifest;
+  const seenDomainIds = new Set<string>();
+  for (const domain of domainManifest.domains) {
+    if (seenDomainIds.has(domain.domainId)) {
+      errors.push(`Flutter domain manifest: duplicate domainId ${domain.domainId}`);
+    }
+    seenDomainIds.add(domain.domainId);
+
+    if (!existsSync(join(repoRoot, domain.sectionIndex))) {
+      errors.push(`Flutter domain manifest ${domain.domainId}: missing sectionIndex ${domain.sectionIndex}`);
+    }
+
+    for (const file of domain.files ?? []) {
+      if (!existsSync(join(repoRoot, file))) {
+        errors.push(`Flutter domain manifest ${domain.domainId}: missing file ${file}`);
+      }
+    }
+  }
+}
+
 function main(): void {
   const repoRoot = repoRootFromArgs();
   const errors: string[] = [];
@@ -127,6 +197,9 @@ function main(): void {
   const contractsMd = readFileSync(contractsPath, "utf8");
   const docRouteTable = parseContractDocTable(contractsMd);
   const contractSections = parseContractSectionNames(contractsMd);
+  const structuredSchemasPath = join(repoRoot, "docs/ai/core/contracts/structured-output-schemas.json");
+  const structuredSchemas = JSON.parse(readFileSync(structuredSchemasPath, "utf8")) as { contracts?: Record<string, unknown> };
+  const schemaContractIds = new Set(Object.keys(structuredSchemas.contracts ?? {}));
 
   const routeIds = new Set<string>();
   for (const route of manifest.routes) {
@@ -142,6 +215,19 @@ function main(): void {
     const taskPath = join(repoRoot, route.taskPrompt);
     if (!existsSync(taskPath)) {
       errors.push(`Route ${route.routeId}: missing taskPrompt file ${route.taskPrompt}`);
+    } else {
+      const taskPrompt = readFileSync(taskPath, "utf8");
+      const defaults = parseTaskPromptDefaultRoute(taskPrompt);
+      if (defaults.routeIds.length > 0 && !defaults.routeIds.includes(route.routeId)) {
+        errors.push(
+          `Route ${route.routeId}: task prompt ${route.taskPrompt} does not declare this manifest route in its default route list`
+        );
+      }
+      if (defaults.outputContracts.length > 0 && !defaults.outputContracts.includes(route.outputContract)) {
+        errors.push(
+          `Route ${route.routeId}: task prompt ${route.taskPrompt} does not declare manifest contract "${route.outputContract}" in its output-contract list`
+        );
+      }
     }
 
     for (const cf of route.contextFiles ?? []) {
@@ -161,6 +247,8 @@ function main(): void {
       errors.push(
         `Route ${route.routeId}: outputContract "${route.outputContract}" has no matching section '## \\\`${route.outputContract}\\\`' in output-contracts.md`
       );
+    } else if (!schemaContractIds.has(route.outputContract)) {
+      errors.push(`Route ${route.routeId}: outputContract "${route.outputContract}" is missing from structured-output-schemas.json`);
     }
 
     if (docRouteTable.has(route.routeId)) {
@@ -178,6 +266,12 @@ function main(): void {
   for (const [routeId] of docRouteTable) {
     if (!routeIds.has(routeId)) {
       errors.push(`output-contracts.md table references unknown route_id: ${routeId}`);
+    }
+  }
+
+  for (const contractId of contractSections) {
+    if (!schemaContractIds.has(contractId)) {
+      errors.push(`output-contracts.md contract section is missing structured schema entry: ${contractId}`);
     }
   }
 
@@ -214,6 +308,7 @@ function main(): void {
   }
 
   validateSurfaceCatalog(repoRoot, manifest, errors);
+  validateFlutterDomainManifest(repoRoot, errors);
 
 
 

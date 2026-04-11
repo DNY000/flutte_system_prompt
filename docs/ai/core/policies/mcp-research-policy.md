@@ -54,6 +54,8 @@ Use the `source-validator` skill output shape when available.
 - keep connector scope narrow and explicit
 - prefer allowlisted servers and least privilege
 - require explicit confirmation for side effects outside the LLM context
+- require explicit approval before widening MCP roots, connector scopes, or protected resources
+- prefer typed MCP resources and templates over free-form text payloads whenever available
 
 ## Promotion To Memory
 

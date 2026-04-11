@@ -3,7 +3,7 @@ import { evaluateCommandRouteAlignment, parseCommand } from "./commands.js";
 import { decideExecutionPolicy } from "./execution-policy.js";
 import { repoRootFromManifestPath, resolveRoutesManifestPath } from "./paths.js";
 import { persistRuntimeRun } from "./persist-run.js";
-import { resolveRoute, topRouteCandidates } from "./router.js";
+import { analyzeRouteResolution } from "./router.js";
 import { resolveSkillsByPrecedence } from "./skills.js";
 import type { RoutesManifest, RuntimeResult } from "./types.js";
 
@@ -42,7 +42,8 @@ function main(): void {
   const command = parseCommand(commandRaw);
   const manifestPath = resolveRoutesManifestPath(process.cwd(), argValue(args, "--routes"));
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as RoutesManifest;
-  const match = resolveRoute(query, manifest);
+  const routeAnalysis = analyzeRouteResolution(query, manifest);
+  const match = routeAnalysis.match;
 
   const skills = resolveSkillsByPrecedence({
     route: match.route,
@@ -56,6 +57,9 @@ function main(): void {
     routeId: match.route.routeId,
     outputContract: match.route.outputContract,
     riskLevel: match.route.riskLevel,
+    routeConfidence: routeAnalysis.confidence,
+    clarificationNeeded: routeAnalysis.clarificationNeeded,
+    clarificationReason: routeAnalysis.clarificationReason,
     skills,
     matchedPattern: match.matchedPattern,
     executionPolicy
@@ -64,7 +68,7 @@ function main(): void {
   if (args.includes("--explain")) {
     const alignment = evaluateCommandRouteAlignment(command, match.route);
     result.explain = {
-      topCandidates: topRouteCandidates(query, manifest, 5).map((c) => ({
+      topCandidates: routeAnalysis.topCandidates.map((c) => ({
         routeId: c.routeId,
         score: c.score,
         matchedPattern: c.matchedPattern
@@ -72,6 +76,11 @@ function main(): void {
       commandAlignment: {
         warnings: alignment.warnings,
         hints: alignment.hints
+      },
+      routeConfidence: {
+        level: routeAnalysis.confidence,
+        clarificationNeeded: routeAnalysis.clarificationNeeded,
+        clarificationReason: routeAnalysis.clarificationReason
       }
     };
   }

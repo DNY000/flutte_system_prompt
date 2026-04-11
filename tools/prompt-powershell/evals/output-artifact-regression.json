@@ -57,6 +57,12 @@
       "shouldPass": true
     },
     {
+      "caseId": "ba-to-design-pass",
+      "routeId": "ba-to-design",
+      "artifactPath": "tools/prompt-powershell/evals/output-fixtures/ba-to-design-pass.md",
+      "shouldPass": true
+    },
+    {
       "caseId": "review-report-bad-severity-order",
       "routeId": "security-audit",
       "artifactPath": "tools/prompt-powershell/evals/output-fixtures/review-report-bad-severity-order.md",

@@ -15,10 +15,13 @@ param(
     [ValidateSet('none', 'auto', 'decisions', 'patterns', 'mistakes', 'glossary', 'modules', 'all')]
     [string[]]$Memory = @('none'),
     [switch]$SkipProjectContext,
+    [switch]$ForceProjectContext,
     [switch]$IncludeReferences,
     [switch]$PersistRun,
     [string]$OutputPath,
     [switch]$Clipboard,
+    [ValidateSet('auto', 'manual', 'openai', 'google')]
+    [string]$ProviderAdapter = 'auto',
     [switch]$Json
 )
 
@@ -117,8 +120,12 @@ function Resolve-RouteFromQuery {
     $best = $null
     $bestScore = -1
     $bestPattern = $null
+    $perRouteCandidates = New-Object System.Collections.Generic.List[object]
 
     foreach ($route in $Manifest.routes) {
+        $routeBestScore = -1
+        $routeBestPattern = $null
+
         foreach ($pattern in $route.queryPatterns) {
             $normalizedPattern = Normalize-Text -Text $pattern
             $patternTokens = @($normalizedPattern -split '\s+' | Where-Object { $_ })
@@ -132,11 +139,24 @@ function Resolve-RouteFromQuery {
                 $score = ($matchedTokens.Count * 10) - ($patternTokens.Count - $matchedTokens.Count)
             }
 
+            if ($score -gt $routeBestScore) {
+                $routeBestScore = $score
+                $routeBestPattern = $pattern
+            }
+
             if ($score -gt $bestScore) {
                 $best = $route
                 $bestScore = $score
                 $bestPattern = $pattern
             }
+        }
+
+        if ($routeBestScore -gt 0) {
+            $perRouteCandidates.Add([pscustomobject]@{
+                routeId = $route.routeId
+                score = $routeBestScore
+                matchedPattern = $routeBestPattern
+            })
         }
     }
 
@@ -144,10 +164,59 @@ function Resolve-RouteFromQuery {
         throw "Could not resolve a route from query: $QueryValue"
     }
 
+    $topCandidates = @(
+        $perRouteCandidates |
+        Sort-Object @{ Expression = 'score'; Descending = $true }, @{ Expression = 'routeId'; Descending = $false } |
+        Select-Object -First 5
+    )
+
+    $confidenceLevel = 'low'
+    $clarificationNeeded = $true
+    $clarificationReason = 'Only a weak lexical route match was found.'
+    $primary = if ($topCandidates.Count -gt 0) { $topCandidates[0] } else { $null }
+    $secondary = if ($topCandidates.Count -gt 1) { $topCandidates[1] } else { $null }
+    $hasCoordinator = $normalizedQuery -match '\b(and|or|va|hoac)\b'
+
+    if ($null -ne $primary -and $null -eq $secondary) {
+        if ($primary.score -ge 1008 -or $primary.score -ge 25) {
+            $confidenceLevel = 'high'
+            $clarificationNeeded = $false
+            $clarificationReason = $null
+        }
+        elseif ($primary.score -ge 20) {
+            $confidenceLevel = 'medium'
+            $clarificationNeeded = $false
+            $clarificationReason = $null
+        }
+    }
+    elseif ($null -ne $primary -and $null -ne $secondary) {
+        $scoreGap = $primary.score - $secondary.score
+        if ($hasCoordinator -and $secondary.score -ge 18) {
+            $clarificationReason = "The query mixes multiple intent cues and top routes remain plausible ($($primary.routeId): $($primary.score), $($secondary.routeId): $($secondary.score))."
+        }
+        elseif (($primary.score -ge 1008 -and $scoreGap -ge 6) -or ($primary.score -ge 25 -and $scoreGap -ge 12)) {
+            $confidenceLevel = 'high'
+            $clarificationNeeded = $false
+            $clarificationReason = $null
+        }
+        elseif ($primary.score -ge 20 -and $scoreGap -ge 8) {
+            $confidenceLevel = 'medium'
+            $clarificationNeeded = $false
+            $clarificationReason = $null
+        }
+        else {
+            $clarificationReason = "Top route candidates are close in score ($($primary.routeId): $($primary.score), $($secondary.routeId): $($secondary.score))."
+        }
+    }
+
     return [pscustomobject]@{
         route = $best
         score = $bestScore
         matchedPattern = $bestPattern
+        topCandidates = $topCandidates
+        routeConfidence = $confidenceLevel
+        clarificationNeeded = $clarificationNeeded
+        clarificationReason = $clarificationReason
     }
 }
 
@@ -283,7 +352,44 @@ function Test-GuidePackSupport {
         $Route
     )
 
-    return @('flutter-decision', 'architecture', 'test', 'performance', 'security', 'ci-cd') -contains $Route.taskType
+    return @('flutter-decision', 'architecture', 'test', 'performance', 'security', 'ci-cd', 'design') -contains $Route.taskType
+}
+
+function Should-IncludeProjectContext {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Route,
+        [string]$QueryValue
+    )
+
+    if ($ForceProjectContext) {
+        return $true
+    }
+
+    if ($SkipProjectContext) {
+        return $false
+    }
+
+    if (@('code', 'architecture', 'security', 'performance', 'test', 'ci-cd', 'ba') -contains $Route.taskType) {
+        return $true
+    }
+
+    if (Test-AnyNormalizedSignal -Text $QueryValue -Signals @('project', 'repo', 'repository', 'codebase', 'existing app', 'current app', 'current code')) {
+        return $true
+    }
+
+    return $false
+}
+
+function Get-ProviderAdapterRelativePath {
+    param([string]$ProviderAdapterValue)
+
+    switch ($ProviderAdapterValue) {
+        'openai' { return 'docs/ai/templates/provider-adapters/openai.md' }
+        'google' { return 'docs/ai/templates/provider-adapters/google-gemini.md' }
+        'manual' { return 'docs/ai/templates/provider-adapters/manual-editor.md' }
+        default { return $null }
+    }
 }
 
 function Get-SectionExampleFiles {
@@ -567,7 +673,11 @@ function Get-RouteResolutionBlock {
         [string[]]$DomainIds,
         [bool]$NeedReferences,
         [Parameter(Mandatory = $true)]
-        $ExecutionPolicy
+        $ExecutionPolicy,
+        [string]$RouteConfidence,
+        [bool]$ClarificationNeeded,
+        [string]$ClarificationReason,
+        [object[]]$TopCandidates
     )
 
     $secondaryIntent = 'none'
@@ -610,6 +720,12 @@ $contextBlock
 
 Required Skills
 $skillBlock
+
+Route Confidence
+- level: $RouteConfidence
+- clarification_needed: $ClarificationNeeded
+- clarification_reason: $(if ($ClarificationReason) { $ClarificationReason } else { 'none' })
+- top_candidates: $(if ($TopCandidates -and $TopCandidates.Count -gt 0) { ($TopCandidates | ForEach-Object { "$($_.routeId)=$($_.score)" }) -join '; ' } else { 'none' })
 "@.Trim()
 }
 
@@ -617,16 +733,21 @@ function Build-PromptPackage {
     param(
         [Parameter(Mandatory = $true)]
         $Route,
-        [string]$MatchedPattern
+        [string]$MatchedPattern,
+        $RouteAnalysis
     )
 
     $systemPrompt = Get-FileText -RelativePath 'docs/ai/core/system/system-prompt.md'
     $outputRules = Get-FileText -RelativePath 'docs/ai/core/contracts/output-rules.md'
+    $tokenRules = Get-FileText -RelativePath 'docs/ai/core/policies/token-rules.md'
     $taskPrompt = Get-FileText -RelativePath $Route.taskPrompt
-    $projectContext = if ($SkipProjectContext) { '' } else { Get-FileText -RelativePath 'docs/ai/context/project-context.md' }
+    $includeProjectContext = Should-IncludeProjectContext -Route $Route -QueryValue $Query
+    $projectContext = if ($includeProjectContext) { Get-FileText -RelativePath 'docs/ai/context/project-context.md' } else { '' }
     $contractRules = Get-MarkdownSection -RelativePath 'docs/ai/core/contracts/output-contracts.md' -HeaderText $Route.outputContract
     $contractShell = Get-MarkdownSection -RelativePath 'docs/ai/templates/contract-shells.md' -HeaderText $Route.outputContract
     $structuredOutputSchema = Get-StructuredOutputSchemaText -ContractId $Route.outputContract
+    $providerAdapterPath = Get-ProviderAdapterRelativePath -ProviderAdapterValue $ProviderAdapter
+    $providerAdapterBlock = if ($providerAdapterPath) { Get-FileText -RelativePath $providerAdapterPath } else { '' }
     $routeContextFiles = @()
     $domainManifest = $null
     $resolvedDomains = [pscustomobject]@{
@@ -640,6 +761,9 @@ function Build-PromptPackage {
         $routeContextFiles += @($Route.contextFiles | Where-Object { $_ })
     }
 
+    $memoryFiles = Get-MemoryFiles -Selection $Memory -Route $Route -QueryValue $Query
+    $executionPolicy = Get-ExecutionPolicy -Route $Route -QueryValue $Query -SelectedMemoryFiles @($memoryFiles)
+
     if (Test-GuidePackSupport -Route $Route) {
         $domainManifest = Get-DomainManifest
         $resolvedDomains = Resolve-FlutterDomains -QueryValue $Query -Route $Route -DomainManifest $domainManifest
@@ -649,6 +773,15 @@ function Build-PromptPackage {
         $routeContextFiles += @($resolvedDomains.sectionIndexes)
         $routeContextFiles += @(Get-SectionExampleFiles -SectionIndexes @($resolvedDomains.sectionIndexes))
         $routeContextFiles += @($resolvedDomains.files)
+    }
+
+    if ($executionPolicy.mcpNeeded -ne 'false' -or $executionPolicy.researchNeeded -ne 'false') {
+        $routeContextFiles += 'docs/ai/core/policies/mcp-research-policy.md'
+    }
+
+    if ($Route.taskType -in @('ai-system', 'research', 'security') -or $executionPolicy.mcpNeeded -ne 'false') {
+        $routeContextFiles += 'docs/ai/core/policies/agent-safety-policy.md'
+        $routeContextFiles += 'docs/ai/core/policies/tool-approval-policy.md'
     }
 
     $routeContextFiles = @($routeContextFiles | Where-Object { $_ } | Select-Object -Unique)
@@ -662,8 +795,6 @@ $(Get-FileText -RelativePath $routeContextFile)
 "@
     }
 
-    $memoryFiles = Get-MemoryFiles -Selection $Memory -Route $Route -QueryValue $Query
-    $executionPolicy = Get-ExecutionPolicy -Route $Route -QueryValue $Query -SelectedMemoryFiles @($memoryFiles)
     $memoryBlocks = @()
     foreach ($memoryFile in $memoryFiles) {
         $memoryBlocks += @"
@@ -702,6 +833,7 @@ $(Get-FileText -RelativePath 'docs/ai/references/source-map.md')
     $requiredContext = @(
         'docs/ai/core/system/system-prompt.md',
         'docs/ai/core/contracts/output-rules.md',
+        'docs/ai/core/policies/token-rules.md',
         $Route.taskPrompt
     )
 
@@ -709,15 +841,19 @@ $(Get-FileText -RelativePath 'docs/ai/references/source-map.md')
         $requiredContext += 'docs/ai/core/contracts/structured-output-schemas.json'
     }
 
+    if ($providerAdapterPath) {
+        $requiredContext += $providerAdapterPath
+    }
+
     if ($routeContextFiles.Count -gt 0) {
         $requiredContext += $routeContextFiles
     }
 
-    if (-not $SkipProjectContext) {
+    if ($includeProjectContext) {
         $requiredContext += 'docs/ai/context/project-context.md'
     }
 
-    $routeResolution = Get-RouteResolutionBlock -Route $Route -MatchedPattern $MatchedPattern -RequiredContext $requiredContext -ExtraFiles @($ExtraContextFiles) -MemoryFiles @($memoryFiles) -SectionIds @($resolvedDomains.sectionIds) -DomainIds @($resolvedDomains.domainIds) -NeedReferences $IncludeReferences.IsPresent -ExecutionPolicy $executionPolicy
+    $routeResolution = Get-RouteResolutionBlock -Route $Route -MatchedPattern $MatchedPattern -RequiredContext $requiredContext -ExtraFiles @($ExtraContextFiles) -MemoryFiles @($memoryFiles) -SectionIds @($resolvedDomains.sectionIds) -DomainIds @($resolvedDomains.domainIds) -NeedReferences $IncludeReferences.IsPresent -ExecutionPolicy $executionPolicy -RouteConfidence $RouteAnalysis.routeConfidence -ClarificationNeeded $RouteAnalysis.clarificationNeeded -ClarificationReason $RouteAnalysis.clarificationReason -TopCandidates @($RouteAnalysis.topCandidates)
 
     $requestBody = @"
 Task Type
@@ -770,7 +906,7 @@ $($extraBlocks -join "`n`n")
         ''
     }
 
-    $projectContextSection = if ($SkipProjectContext) {
+    $projectContextSection = if (-not $includeProjectContext) {
         ''
     }
     else {
@@ -803,6 +939,17 @@ $structuredOutputSchema
         ''
     }
 
+    $providerAdapterSection = if ($providerAdapterBlock) {
+        @"
+## Provider Adapter
+
+$providerAdapterBlock
+"@
+    }
+    else {
+        ''
+    }
+
     $text = @"
 # AI Prompt Package
 
@@ -817,6 +964,11 @@ $systemPrompt
 ## Output Rules
 
 $outputRules
+
+## Token Rules
+
+$tokenRules
+$providerAdapterSection
 $structuredOutputSection
 $projectContextSection
 $routeContextSection
@@ -854,6 +1006,7 @@ Do not restate system rules.
         routeContextFiles = @($routeContextFiles | Select-Object -Unique)
         memoryFiles = @($memoryFiles | Select-Object -Unique)
         executionPolicy = $executionPolicy
+        includeProjectContext = $includeProjectContext
         resolvedDomains = $resolvedDomains
     }
 }
@@ -896,6 +1049,8 @@ Common options:
   -ExtraContextFiles docs/ai/examples/route-resolution-examples.md
   -Memory auto
   -Memory decisions patterns glossary
+  -ForceProjectContext
+  -ProviderAdapter openai
   -PersistRun
   -IncludeReferences
   -Clipboard
@@ -942,6 +1097,10 @@ switch ($Command) {
             outputContract = $resolved.route.outputContract
             matchedPattern = $resolved.matchedPattern
             score = $resolved.score
+            routeConfidence = $resolved.routeConfidence
+            clarificationNeeded = $resolved.clarificationNeeded
+            clarificationReason = $resolved.clarificationReason
+            topCandidates = $resolved.topCandidates
             executionPolicy = $executionPolicy
         }
 
@@ -987,6 +1146,7 @@ switch ($Command) {
     'build' {
         $resolvedRoute = $null
         $matchedPattern = $null
+        $routeAnalysis = $null
 
         if ($RouteId) {
             $resolvedRoute = Get-RouteById -RouteIdValue $RouteId -Manifest $manifest
@@ -995,12 +1155,22 @@ switch ($Command) {
             $resolved = Resolve-RouteFromQuery -QueryValue $Query -Manifest $manifest
             $resolvedRoute = $resolved.route
             $matchedPattern = $resolved.matchedPattern
+            $routeAnalysis = $resolved
         }
         else {
             throw "The build command requires -RouteId or -Query."
         }
 
-        $package = Build-PromptPackage -Route $resolvedRoute -MatchedPattern $matchedPattern
+        if (-not $routeAnalysis) {
+            $routeAnalysis = [pscustomobject]@{
+                routeConfidence = 'manual'
+                clarificationNeeded = $false
+                clarificationReason = $null
+                topCandidates = @()
+            }
+        }
+
+        $package = Build-PromptPackage -Route $resolvedRoute -MatchedPattern $matchedPattern -RouteAnalysis $routeAnalysis
 
         if ($PersistRun) {
             $runRecord = [pscustomobject]@{
@@ -1012,12 +1182,16 @@ switch ($Command) {
                 outputContract = $resolvedRoute.outputContract
                 riskLevel = $resolvedRoute.riskLevel
                 matchedPattern = $(if ($matchedPattern) { $matchedPattern } else { 'manual-route' })
+                routeConfidence = $routeAnalysis.routeConfidence
+                clarificationNeeded = $routeAnalysis.clarificationNeeded
+                clarificationReason = $routeAnalysis.clarificationReason
                 queryLength = $(if ($null -eq $Query) { 0 } else { $Query.Length })
                 queryHash = Get-TextHash -Text $Query
                 requiredContext = $package.requiredContext
                 routeContextFiles = $package.routeContextFiles
                 memoryFiles = $package.memoryFiles
                 executionPolicy = $package.executionPolicy
+                includeProjectContext = $package.includeProjectContext
                 outputPath = $(if ($OutputPath) { $OutputPath } else { $null })
             }
             [void](Write-RunRecord -Record $runRecord)

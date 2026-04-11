@@ -36,6 +36,17 @@
         "docs/ai/guides/mcp/flutter/server-and-tooling.md",
         "\"option_matrix\""
       ]
+    },
+    {
+      "caseId": "ba-to-design-build",
+      "query": "convert user story to design",
+      "goal": "Translate a checkout requirement into a UI-ready design handoff",
+      "mustContain": [
+        "route_id: ba-to-design",
+        "\"user_story\"",
+        "## Output Contract",
+        "## Output Shell"
+      ]
     }
   ]
 }

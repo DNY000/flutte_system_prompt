@@ -1,0 +1,11 @@
+{
+  "suite": "vietnamese-routing-benchmark-v1",
+  "description": "Route resolution checks using Vietnamese phrasings.",
+  "cases": [
+    { "query": "thiet ke man hinh dang nhap flutter", "expectedRouteId": "design-screen" },
+    { "query": "nen dung provider hay riverpod", "expectedRouteId": "state-management-decision" },
+    { "query": "phan tich loi crash flutter ban release", "expectedRouteId": "debug-triage" },
+    { "query": "review kien truc module flutter", "expectedRouteId": "architecture-review" },
+    { "query": "tu yeu cau nghiep vu sang thiet ke giao dien flutter", "expectedRouteId": "ba-to-design" }
+  ]
+}

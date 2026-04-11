@@ -7,6 +7,7 @@ Canonical sources:
 - `docs/ai/core/system/system-prompt.md`
 - `docs/ai/core/system/runtime-rules-compact.md`
 - `docs/ai/core/contracts/output-rules.md`
+- `docs/ai/core/policies/token-rules.md`
 
 Manual prompt:
 
@@ -36,6 +37,8 @@ Mobile defaults:
 Manual workflow:
 
 1. Resolve one route from `tools/prompt-powershell/routes.json`.
-2. Load `system-prompt.md`, `output-rules.md`, one task prompt, one contract, and only the leaf guides that materially change the answer.
-3. If available, pass the matching entry from `structured-output-schemas.json` as the output schema.
-4. Return only the contract output. Do not add unrelated sections.
+2. If targeting a specific runtime, load one adapter from `docs/ai/templates/provider-adapters/`.
+3. Load `system-prompt.md`, `output-rules.md`, `token-rules.md`, one task prompt, one contract, and only the leaf guides that materially change the answer.
+4. Add `tool-approval-policy.md` whenever tools, MCP, file operations, or external resources are in scope.
+5. If available, pass the matching entry from `structured-output-schemas.json` as the output schema instead of pasting prose-only formatting instructions.
+6. Return only the contract output. Do not add unrelated sections.

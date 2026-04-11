@@ -2,7 +2,7 @@ export const COMMAND_POLICIES = [
     {
         command: "ask",
         preferredTaskTypes: ["research", "flutter-decision", "ai-system", "design"],
-        preferredContracts: ["research-brief-v1", "decision-matrix-v1", "design-spec-v1"]
+        preferredContracts: ["research-brief-v1", "decision-matrix-v1", "design-spec-v1", "ba-to-design-contract-v1"]
     },
     {
         command: "plan",
@@ -12,6 +12,7 @@ export const COMMAND_POLICIES = [
             "improvement-roadmap-v1",
             "implementation-plan-v1",
             "design-spec-v1",
+            "ba-to-design-contract-v1",
             "decision-matrix-v1",
             "test-plan-v1"
         ]

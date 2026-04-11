@@ -1,4 +1,4 @@
-import type { RouteDef, RouteMatch, RoutesManifest } from "./types.js";
+import type { RouteDef, RouteMatch, RoutesManifest, RoutingConfidence } from "./types.js";
 import { normalizeText } from "./normalize.js";
 
 export function scorePattern(query: string, pattern: string): number {
@@ -21,6 +21,14 @@ export interface RouteCandidate {
   routeId: string;
   score: number;
   matchedPattern: string;
+}
+
+export interface RouteResolutionAnalysis {
+  match: RouteMatch;
+  topCandidates: RouteCandidate[];
+  confidence: RoutingConfidence;
+  clarificationNeeded: boolean;
+  clarificationReason?: string;
 }
 
 /**
@@ -58,6 +66,68 @@ export function topRouteCandidates(query: string, manifest: RoutesManifest, limi
     return (index.get(a.routeId) ?? 0) - (index.get(b.routeId) ?? 0);
   });
   return perRoute.slice(0, Math.max(1, limit));
+}
+
+function confidenceFromCandidates(query: string, candidates: RouteCandidate[]): {
+  confidence: RoutingConfidence;
+  clarificationNeeded: boolean;
+  clarificationReason?: string;
+} {
+  const primary = candidates[0];
+  const secondary = candidates[1];
+  const normalizedQuery = normalizeText(query);
+  const hasCoordinator = /\b(and|or|va|hoac)\b/.test(normalizedQuery);
+  if (!primary) {
+    return {
+      confidence: "low",
+      clarificationNeeded: true,
+      clarificationReason: "No route produced a confident match."
+    };
+  }
+
+  if (!secondary) {
+    if (primary.score >= 1008 || primary.score >= 25) return { confidence: "high", clarificationNeeded: false };
+    if (primary.score >= 20) return { confidence: "medium", clarificationNeeded: false };
+    return {
+      confidence: "low",
+      clarificationNeeded: true,
+      clarificationReason: "Only a weak lexical route match was found."
+    };
+  }
+
+  const scoreGap = primary.score - secondary.score;
+  if (hasCoordinator && secondary.score >= 18) {
+    return {
+      confidence: "low",
+      clarificationNeeded: true,
+      clarificationReason: `The query mixes multiple intent cues and top routes remain plausible (${primary.routeId}: ${primary.score}, ${secondary.routeId}: ${secondary.score}).`
+    };
+  }
+  if ((primary.score >= 1008 && scoreGap >= 6) || (primary.score >= 25 && scoreGap >= 12)) {
+    return { confidence: "high", clarificationNeeded: false };
+  }
+  if (primary.score >= 20 && scoreGap >= 8) {
+    return { confidence: "medium", clarificationNeeded: false };
+  }
+
+  return {
+    confidence: "low",
+    clarificationNeeded: true,
+    clarificationReason: `Top route candidates are close in score (${primary.routeId}: ${primary.score}, ${secondary.routeId}: ${secondary.score}).`
+  };
+}
+
+export function analyzeRouteResolution(query: string, manifest: RoutesManifest): RouteResolutionAnalysis {
+  const match = resolveRoute(query, manifest);
+  const topCandidates = topRouteCandidates(query, manifest, 5);
+  const confidence = confidenceFromCandidates(query, topCandidates);
+  return {
+    match,
+    topCandidates,
+    confidence: confidence.confidence,
+    clarificationNeeded: confidence.clarificationNeeded,
+    clarificationReason: confidence.clarificationReason
+  };
 }
 
 /**

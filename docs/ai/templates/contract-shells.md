@@ -151,6 +151,20 @@ Recommendation
 Risks
 ```
 
+## `ba-to-design-contract-v1`
+
+```text
+Summary
+
+User Story
+
+Acceptance Criteria (AC)
+
+Extracted UI States
+
+Non-functional UX Constraints
+```
+
 ## `improvement-roadmap-v1`
 
 ```text

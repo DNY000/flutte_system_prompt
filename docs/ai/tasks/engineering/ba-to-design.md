@@ -7,7 +7,7 @@ Use this prompt to translate raw Business Analyst (BA) requirements, User Storie
 ## Default Routing
 
 - route: `ba-to-design`
-- output contract: `design-spec-v1`
+- output contract: `ba-to-design-contract-v1`
 
 ## Required Input
 
@@ -34,21 +34,21 @@ Always follow `docs/ai/core/policies/context-loading-rules.md` and load **one** 
 - **Mathematical Enforcement:** You MUST calculate and apply the 8-Point Grid (paddings: 16, 24, 32) and the **60-30-10 Color Rule** (60% Base, 30% Secondary Card, 10% CTA). Never use arbitrary pixel numbers.
 - **Domain Enforcement:** Apply the specific playbooks. If it's E-commerce, prioritize the Sticky CTA. If it's Education, prioritize Chunked Cards and Theme Extension palettes.
 - **State Expansion:** BAs often forget edge cases. You fully expand the State Matrix to include: Default, Hover, Pressed (-10% Lightness), Loading, Empty, Offline, and Permission-Denied states.
-- **JSON Payload Generation:** As the final step, you MUST convert your design decisions into the `stitch_protocol_v1` JSON payload as defined in `docs/ai/guides/mcp/stitch-ai/design-bridge-from-figma.md`.
+- **Design Handoff Ready:** The output must be strong enough that a downstream UI designer can turn it into a concrete `design-spec-v1` without reopening the business requirements.
+- **JSON Payload Generation:** When a downstream tool needs it, convert the inferred design decisions into the `stitch_protocol_v1` JSON payload as defined in `docs/ai/guides/mcp/stitch-ai/design-bridge-from-figma.md`, but keep the route contract itself separate.
 
 ## Steps
 
 1. Parse the Business Goal and identify the single most critical User Action (This becomes the 10% CTA Color).
 2. Select the optimal App Domain Playbook to inherit constraints (e.g. Education, Fintech).
-3. Define the `Screen Structure`, deciding between Lists, Forms, or Dashboards.
-4. Define the `Visual Tokens` by explicitly mapping the 60-30-10 ratios and Base-8 Paddings using the Aesthetics Excellence Guide.
-5. Extract the missing Edge Cases and Interaction Physics variables into `Interaction States`.
-6. Map the entire conceptual structure to literal Flutter Composition widgets (e.g., `CustomScrollView`, `SliverAppBar`, `ThemeExtension`).
-7. Output the markdown Spec, and append the `stitch_protocol_v1` JSON structure at the very end of your response for the Stitch AI engine.
+3. Convert raw business constraints into concrete `Acceptance Criteria (AC)`.
+4. Extract implied UI states, failure states, permission states, and empty states into `Extracted UI States`.
+5. Infer non-functional UX constraints for accessibility, security, analytics, rate limits, and responsiveness.
+6. Keep explicit separation between confirmed business facts and inferred UX mechanics.
 
 ## Validation
 
-- Output matches `design-spec-v1` sections exactly.
+- Output matches `ba-to-design-contract-v1` sections exactly.
 - When the runtime supports structured outputs, use the matching schema from `docs/ai/core/contracts/structured-output-schemas.json` and render the same data back into the markdown contract before appending the final JSON payload.
 - If appending `stitch_protocol_v1`, keep the markdown design spec first and the machine-readable JSON payload last.
 
@@ -56,8 +56,8 @@ Always follow `docs/ai/core/policies/context-loading-rules.md` and load **one** 
 
 **Example request:** "As a shopper, I want to see my cart items so I can checkout." (Domain: E-commerce)
 
-**Expected output fragment (`design-spec-v1`):**
+**Expected output fragment (`ba-to-design-contract-v1`):**
 
-- `Visual Direction`: High-contrast Checkout CTA (Orange #FF6B00). Soft shadows on cart items.
-- `Flutter Composition`: `CustomScrollView` with `SliverList` for items. `SafeArea` bottom navigation bar for the persistent Sticky Checkout button to maximize conversion.
-- `Interaction States`: Empty Cart (requires an illustration and a "Start Shopping" button), Offline checkout disabled.
+- `Acceptance Criteria (AC)`: Shopper can review items, edit quantities, and start checkout with a persistent CTA.
+- `Extracted UI States`: Empty cart; offline cart sync pending; payment method missing; destructive remove-item confirmation.
+- `Non-functional UX Constraints`: 60-30-10 emphasis on checkout CTA; large touch targets; analytics on checkout-start and cart-abandon.

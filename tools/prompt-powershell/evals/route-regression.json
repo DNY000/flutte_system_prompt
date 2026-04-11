@@ -123,6 +123,10 @@
       "expectedRouteId": "ba-refinement"
     },
     {
+      "query": "convert user story to design",
+      "expectedRouteId": "ba-to-design"
+    },
+    {
       "query": "optimize prompts",
       "expectedRouteId": "prompt-system-roadmap"
     },

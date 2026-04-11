@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { resolveRoute, scorePattern, topRouteCandidates } from "./router.js";
+import { analyzeRouteResolution, resolveRoute, scorePattern, topRouteCandidates } from "./router.js";
 const miniManifest = {
     routes: [
         {
@@ -44,4 +44,64 @@ test("topRouteCandidates respects manifest order on tie", () => {
 test("scorePattern handles accented Latin text and maps \\u0111 to d", () => {
     const score = scorePattern("mo\u0111ule d\u00E9sign flutter", "module design flutter");
     assert.ok(score >= 1000);
+});
+test("analyzeRouteResolution flags ambiguous close matches", () => {
+    const manifest = {
+        routes: [
+            {
+                routeId: "security-audit",
+                taskType: "security",
+                primaryIntent: "security.audit",
+                outputContract: "review-report-v1",
+                taskPrompt: "docs/ai/tasks/engineering/security.md",
+                skills: ["intent-router"],
+                riskLevel: "medium",
+                queryPatterns: ["review security", "security audit"]
+            },
+            {
+                routeId: "performance-audit",
+                taskType: "performance",
+                primaryIntent: "performance.audit",
+                outputContract: "review-report-v1",
+                taskPrompt: "docs/ai/tasks/engineering/performance.md",
+                skills: ["intent-router"],
+                riskLevel: "medium",
+                queryPatterns: ["review performance", "performance audit"]
+            }
+        ]
+    };
+    const analysis = analyzeRouteResolution("review security and performance", manifest);
+    assert.equal(analysis.confidence, "low");
+    assert.equal(analysis.clarificationNeeded, true);
+    assert.ok(analysis.clarificationReason);
+});
+test("analyzeRouteResolution marks strong unique substring matches as high confidence", () => {
+    const manifest = {
+        routes: [
+            {
+                routeId: "state-management-decision",
+                taskType: "flutter-decision",
+                primaryIntent: "flutter.state_management",
+                outputContract: "decision-matrix-v1",
+                taskPrompt: "docs/ai/tasks/flutter-decisions/state-management-decision.md",
+                skills: ["intent-router"],
+                riskLevel: "high",
+                queryPatterns: ["provider riverpod auth state"]
+            },
+            {
+                routeId: "package-selection",
+                taskType: "flutter-decision",
+                primaryIntent: "flutter.package_selection",
+                outputContract: "decision-matrix-v1",
+                taskPrompt: "docs/ai/tasks/flutter-decisions/package-selection.md",
+                skills: ["intent-router"],
+                riskLevel: "high",
+                queryPatterns: ["choose flutter package"]
+            }
+        ]
+    };
+    const analysis = analyzeRouteResolution("provider riverpod auth state", manifest);
+    assert.equal(analysis.match.route.routeId, "state-management-decision");
+    assert.equal(analysis.confidence, "high");
+    assert.equal(analysis.clarificationNeeded, false);
 });

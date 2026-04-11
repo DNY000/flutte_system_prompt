@@ -1,0 +1,24 @@
+{
+  "suite": "ambiguity-routing-benchmark-v1",
+  "description": "Routing confidence checks for ambiguous or weakly specified queries.",
+  "cases": [
+    {
+      "query": "help me with flutter architecture or state management",
+      "expectedRouteId": "architecture-decision",
+      "expectedConfidence": "low",
+      "expectedClarificationNeeded": true
+    },
+    {
+      "query": "review security and performance for this app",
+      "expectedRouteId": "security-audit",
+      "expectedConfidence": "low",
+      "expectedClarificationNeeded": true
+    },
+    {
+      "query": "design login screen flutter",
+      "expectedRouteId": "design-screen",
+      "expectedConfidence": "high",
+      "expectedClarificationNeeded": false
+    }
+  ]
+}

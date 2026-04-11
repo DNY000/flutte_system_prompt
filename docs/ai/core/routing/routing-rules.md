@@ -45,6 +45,7 @@ If the runtime supports structured outputs, `structured_output_schema` must poin
 - `architecture.pattern_selection`
 - `design.ui_screen`
 - `design.design_system`
+- `design.ba_to_design`
 - `architecture.solution`
 - `architecture.review`
 - `code.implement`
@@ -103,6 +104,7 @@ If the runtime supports structured outputs, `structured_output_schema` must poin
 | `plugin-authoring` | `platform.plugin_authoring` | `architecture-decision-v1` | `intent-router`, `plugin-engineer`, `flutter-architect`, `mcp-orchestrator`, `security-auditor`, `context-loader` |
 | `ai-mcp-workflow` | `ai.mcp_workflow` | `decision-matrix-v1` | `intent-router`, `prompt-architect`, `mcp-orchestrator`, `research-analyst`, `source-validator`, `context-loader` |
 | `ba-refinement` | `ba.refinement` | `implementation-plan-v1` | `intent-router`, `business-analyst`, `context-loader` |
+| `ba-to-design` | `design.ba_to_design` | `ba-to-design-contract-v1` | `intent-router`, `business-analyst`, `flutter-ui-designer`, `context-loader` |
 | `research-brief` | `research.external` | `research-brief-v1` | `intent-router`, `research-analyst`, `source-validator`, `context-loader` |
 | `prompt-system-roadmap` | `ai.prompt_system` | `improvement-roadmap-v1` | `intent-router`, `prompt-architect`, `quality-grader`, `context-loader` |
 | `agent-system-roadmap` | `ai.agent_system` | `improvement-roadmap-v1` | `intent-router`, `agent-architect`, `mcp-orchestrator`, `context-loader` |

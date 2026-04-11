@@ -1,31 +1,24 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 const REVIEW_SEVERITY_ORDER = ["critical", "high", "medium", "low"];
 const REVIEW_SEVERITY_RANK = new Map(REVIEW_SEVERITY_ORDER.map((severity, index) => [severity, index]));
+function loadSchemaBackedSections() {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const schemaPath = join(here, "..", "..", "..", "docs", "ai", "core", "contracts", "structured-output-schemas.json");
+    const document = JSON.parse(readFileSync(schemaPath, "utf8"));
+    const result = {};
+    for (const [contractId, entry] of Object.entries(document.contracts ?? {})) {
+        if (entry.markdownSections?.length) {
+            result[contractId] = entry.markdownSections;
+        }
+    }
+    return result;
+}
+const SCHEMA_BACKED_SECTIONS = loadSchemaBackedSections();
 const CONTRACT_SPECS = {
-    "design-spec-v1": {
-        requiredSections: [
-            "Summary",
-            "User Goal",
-            "Screen Structure",
-            "Visual Direction",
-            "Visual Tokens",
-            "Interaction States",
-            "Accessibility",
-            "Flutter Composition",
-            "Risks"
-        ]
-    },
+    "design-spec-v1": {},
     "architecture-decision-v1": {
-        requiredSections: [
-            "Summary",
-            "Problem",
-            "Constraints",
-            "Options",
-            "Decision",
-            "Module Impact",
-            "Migration Plan",
-            "Tests",
-            "Risks"
-        ],
         validateSections: (sections) => {
             const errors = [];
             if (!hasListLikeContent(sections.get("Options") ?? "", 2)) {
@@ -38,15 +31,6 @@ const CONTRACT_SPECS = {
         }
     },
     "decision-matrix-v1": {
-        requiredSections: [
-            "Summary",
-            "Decision",
-            "Context Signals",
-            "Option Matrix",
-            "Recommendation",
-            "Implementation Notes",
-            "Risks"
-        ],
         validateSections: (sections) => {
             const optionMatrix = sections.get("Option Matrix") ?? "";
             if (!hasListLikeContent(optionMatrix, 2)) {
@@ -56,7 +40,6 @@ const CONTRACT_SPECS = {
         }
     },
     "implementation-plan-v1": {
-        requiredSections: ["Summary", "Assumptions", "Target Files", "Implementation Steps", "Tests", "Risks"],
         validateSections: (sections) => {
             const errors = [];
             if (!hasListLikeContent(sections.get("Target Files") ?? "", 1) && !containsLikelyFilePath(sections.get("Target Files") ?? "")) {
@@ -72,11 +55,9 @@ const CONTRACT_SPECS = {
         }
     },
     "review-report-v1": {
-        requiredSections: ["Findings", "Open Questions", "Residual Risks"],
         validateSections: (sections) => validateReviewReport(sections.get("Findings") ?? "")
     },
     "test-plan-v1": {
-        requiredSections: ["Summary", "Coverage Scope", "Test Matrix", "Fixtures And Mocks", "Execution Notes", "Risks"],
         validateSections: (sections) => {
             if (!hasListLikeContent(sections.get("Test Matrix") ?? "", 1)) {
                 return ["Test Matrix must map scenarios using a list or table."];
@@ -85,15 +66,6 @@ const CONTRACT_SPECS = {
         }
     },
     "pipeline-change-v1": {
-        requiredSections: [
-            "Summary",
-            "Current State",
-            "Target Pipeline",
-            "Validation Steps",
-            "Secrets And Environments",
-            "Rollback",
-            "Risks"
-        ],
         validateSections: (sections) => {
             const errors = [];
             if (!hasOrderedList(sections.get("Target Pipeline") ?? "")) {
@@ -106,7 +78,6 @@ const CONTRACT_SPECS = {
         }
     },
     "research-brief-v1": {
-        requiredSections: ["Question", "Sources", "Facts", "Comparison", "Recommendation", "Risks"],
         validateSections: (sections) => {
             const errors = [];
             if (!hasListLikeContent(sections.get("Sources") ?? "", 1)) {
@@ -118,8 +89,8 @@ const CONTRACT_SPECS = {
             return errors;
         }
     },
+    "ba-to-design-contract-v1": {},
     "improvement-roadmap-v1": {
-        requiredSections: ["Summary", "Current State", "Gaps", "Iterations", "Task Backlog", "Review Gates", "Risks"],
         validateSections: (sections) => {
             const errors = [];
             if (!hasOrderedList(sections.get("Iterations") ?? "")) {
@@ -180,13 +151,7 @@ function parseTopLevelSections(markdown) {
 function hasMeaningfulContent(content) {
     if (!content)
         return false;
-    const trimmed = content.trim();
-    return trimmed.length > 0;
-}
-function isNoneContent(content) {
-    if (!content)
-        return false;
-    return content.trim().toLowerCase() === "none";
+    return content.trim().length > 0;
 }
 function countListItems(content) {
     return content.split(/\r?\n/).filter((line) => /^\s*(?:-|\*|\d+\.)\s+\S/.test(line)).length;
@@ -227,7 +192,7 @@ function parseReviewFindings(findingsSection) {
 }
 function validateReviewReport(findingsSection) {
     const trimmed = findingsSection.trim();
-    if (!trimmed || isNoneContent(trimmed)) {
+    if (!trimmed || trimmed.toLowerCase() === "none") {
         return [];
     }
     const findings = parseReviewFindings(findingsSection);
@@ -261,7 +226,8 @@ function validateReviewReport(findingsSection) {
 }
 export function verifyArtifactMarkdown(markdown, contractId) {
     const spec = CONTRACT_SPECS[contractId];
-    if (!spec) {
+    const requiredSections = spec?.requiredSections ?? SCHEMA_BACKED_SECTIONS[contractId];
+    if (!spec && !requiredSections) {
         return {
             contractId,
             ok: false,
@@ -274,27 +240,27 @@ export function verifyArtifactMarkdown(markdown, contractId) {
     if (parsed.duplicates.length > 0) {
         errors.push(`Duplicate top-level sections: ${parsed.duplicates.join(", ")}`);
     }
-    const unexpectedSections = parsed.sectionOrder.filter((name) => !spec.requiredSections.includes(name));
+    const unexpectedSections = parsed.sectionOrder.filter((name) => !requiredSections.includes(name));
     if (unexpectedSections.length > 0) {
         errors.push(`Unexpected top-level sections: ${unexpectedSections.join(", ")}`);
     }
-    const missingSections = spec.requiredSections.filter((name) => !parsed.sectionContent.has(name));
+    const missingSections = requiredSections.filter((name) => !parsed.sectionContent.has(name));
     if (missingSections.length > 0) {
         errors.push(`Missing required sections: ${missingSections.join(", ")}`);
     }
-    const presentRequiredSections = parsed.sectionOrder.filter((name) => spec.requiredSections.includes(name));
+    const presentRequiredSections = parsed.sectionOrder.filter((name) => requiredSections.includes(name));
     if (missingSections.length === 0 &&
         unexpectedSections.length === 0 &&
-        presentRequiredSections.some((name, index) => name !== spec.requiredSections[index])) {
-        errors.push(`Top-level sections must follow this order: ${spec.requiredSections.join(" -> ")}`);
+        presentRequiredSections.some((name, index) => name !== requiredSections[index])) {
+        errors.push(`Top-level sections must follow this order: ${requiredSections.join(" -> ")}`);
     }
-    for (const sectionName of spec.requiredSections) {
+    for (const sectionName of requiredSections) {
         const content = parsed.sectionContent.get(sectionName);
         if (!hasMeaningfulContent(content)) {
             errors.push(`Section "${sectionName}" must not be empty.`);
         }
     }
-    if (spec.validateSections) {
+    if (spec?.validateSections) {
         errors.push(...spec.validateSections(parsed.sectionContent));
     }
     return {
@@ -305,5 +271,5 @@ export function verifyArtifactMarkdown(markdown, contractId) {
     };
 }
 export function supportedContracts() {
-    return Object.keys(CONTRACT_SPECS);
+    return [...new Set([...Object.keys(CONTRACT_SPECS), ...Object.keys(SCHEMA_BACKED_SECTIONS)])];
 }

@@ -355,6 +355,7 @@ Potential duplicate state emission if repository callback is retried.
 | `plugin-authoring` | `architecture-decision-v1` |
 | `ai-mcp-workflow` | `decision-matrix-v1` |
 | `ba-refinement` | `implementation-plan-v1` |
+| `ba-to-design` | `ba-to-design-contract-v1` |
 | `research-brief` | `research-brief-v1` |
 | `prompt-system-roadmap` | `improvement-roadmap-v1` |
 | `agent-system-roadmap` | `improvement-roadmap-v1` |

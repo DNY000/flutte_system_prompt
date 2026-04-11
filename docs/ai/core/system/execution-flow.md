@@ -35,6 +35,7 @@ Turn one raw request into one routed, bounded, and contract-compliant answer.
 | --- | --- | --- |
 | Normalize | Raw query | Normalized query |
 | Resolve Route | Normalized query + route manifest | `route_id`, `output_contract`, `risk_level`, `skills` |
+| Resolve Confidence | Route candidates + score gap | `route_confidence`, `clarification_needed`, `clarification_reason` |
 | Load Context | Route + query | Required context files |
 | Activate Skills | Route + optional overrides | Ordered skill list |
 | Select Contract | Route metadata | One output contract |
@@ -50,17 +51,19 @@ The package should be assembled in this order:
 
 1. `Runtime`
 2. `System Prompt`
-3. `Output Rules`
-4. `Structured Output Schema`
-5. `Project Context`
-6. `Route Context`
-7. `Task Prompt`
-8. `Output Contract`
-9. `Output Shell`
-10. `Memory`
-11. `Extra Context`
-12. `User Request`
-13. `Final Instruction`
+3. `Provider Adapter`
+4. `Output Rules`
+5. `Structured Output Schema`
+6. `Token Rules`
+7. `Project Context` when the query materially depends on repo-specific state
+8. `Route Context`
+9. `Task Prompt`
+10. `Output Contract`
+11. `Output Shell`
+12. `Memory`
+13. `Extra Context`
+14. `User Request`
+15. `Final Instruction`
 
 This order matches the package built by `tools/prompt-powershell/prompt-cli.ps1`.
 
@@ -80,7 +83,8 @@ The current router is deterministic and manifest-based:
 
 - substring match gets the highest score
 - otherwise token overlap decides the winner
-- ties keep the first route declared in manifest order
+- low score gaps trigger a clarification signal in the runtime
+- ties still keep the first route declared in manifest order, but should be treated as low-confidence
 
 Reference:
 

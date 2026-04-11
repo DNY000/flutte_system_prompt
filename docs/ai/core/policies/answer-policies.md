@@ -80,6 +80,17 @@ Policy:
 - include tests by level (unit/widget/integration)
 - call out security and performance impact explicitly
 
+## BA To Design Family
+
+Applies to:
+- `ba-to-design`
+
+Policy:
+- output contract must be `ba-to-design-contract-v1`
+- translate business requirements into UI states and UX constraints
+- keep requirements testable and handoff-ready for design work
+- separate confirmed requirements from inferred UX mechanics
+
 ## Test Planning Family
 
 Applies to:

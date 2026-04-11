@@ -79,6 +79,9 @@ The result tells you:
 - `primaryIntent`
 - `outputContract`
 - `matchedPattern`
+- `routeConfidence`
+- `clarificationNeeded`
+- `clarificationReason`
 
 ## 5. Build A Prompt Package
 
@@ -98,20 +101,24 @@ The generated package contains:
 
 1. Runtime metadata
 2. System prompt
-3. Output rules
-4. Structured output schema
-5. Project context
-6. Route context
-7. Task prompt
-8. Output contract
-9. Output shell
-10. User request
-11. Final instruction
+3. Optional provider adapter
+4. Output rules
+5. Structured output schema
+6. Token rules
+7. Conditional project context
+8. Route context
+9. Task prompt
+10. Output contract
+11. Output shell
+12. User request
+13. Final instruction
 
 Helpful options:
 
 - `-Memory auto` to load suggested memory files for the selected route
 - `-PersistRun` to write a structured run record under `.promptos/runs`
+- `-ProviderAdapter openai|google|manual` to tune the package for a target runtime
+- `-ForceProjectContext` to include repository context even when the route is otherwise portable
 
 ## 6. Load The Prompt Into A Model
 
@@ -124,14 +131,17 @@ Use the full output of `build` as a single prompt.
 Do not paste every file blindly. Load in this order:
 
 1. `core/system/system-prompt.md`
-2. `core/contracts/output-rules.md`
-3. `core/contracts/structured-output-schemas.json` entry for the selected contract when the runtime supports structured outputs
-4. `context/project-context.md`
-5. route-specific context files
-6. one task prompt from `tasks/`
-7. the matching section from `core/contracts/output-contracts.md`
-8. the matching shell from `templates/contract-shells.md`
-9. the user request as the user message
+2. one provider adapter from `templates/provider-adapters/` when targeting a specific runtime
+3. `core/contracts/output-rules.md`
+4. `core/contracts/structured-output-schemas.json` entry for the selected contract when the runtime supports structured outputs
+5. `core/policies/token-rules.md`
+6. `context/project-context.md` only when project facts materially change the answer
+7. route-specific context files
+8. one task prompt from `tasks/`
+9. the matching section from `core/contracts/output-contracts.md`
+10. the matching shell from `templates/contract-shells.md`
+11. `core/policies/tool-approval-policy.md` when tools, MCP, or side effects are in scope
+12. the user request as the user message
 
 Use the full `build` package only when you want the runtime metadata and user request already embedded.
 
@@ -189,8 +199,9 @@ When adding a new route:
 4. Add route skills.
 5. Add route context files if needed.
 6. Add regression cases to `tools/prompt-powershell/evals/route-regression.json`.
-7. Add contract compliance coverage if needed.
-8. Run `npm run validate-manifest` and `run-evals.ps1`.
+7. Add contract compliance, ambiguity, and language coverage when the route changes intent boundaries.
+8. Add or update output fixtures when introducing a new contract.
+9. Run `npm run validate-manifest` and `run-evals.ps1`.
 
 Do not add a route if an existing task prompt already covers the request family.
 

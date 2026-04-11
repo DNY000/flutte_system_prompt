@@ -17,7 +17,8 @@
         "flutter screen design",
         "design flutter screen layout",
         "design flutter interface",
-        "design flutter login screen"
+        "design flutter login screen",
+        "thiet ke man hinh dang nhap flutter"
       ]
     },
     {
@@ -96,7 +97,8 @@
         "BLoC vs Riverpod",
         "when to use ValueNotifier",
         "provider or riverpod for flutter",
-        "setstate or riverpod"
+        "setstate or riverpod",
+        "nen dung provider hay riverpod"
       ]
     },
     {
@@ -232,7 +234,8 @@
         "audit architecture",
         "review module",
         "review dependency direction",
-        "review module boundary"
+        "review module boundary",
+        "review kien truc module flutter"
       ]
     },
     {
@@ -412,7 +415,8 @@
         "flaky issue",
         "analyze flutter error",
         "flutter app crash",
-        "flutter runtime error"
+        "flutter runtime error",
+        "phan tich loi crash flutter ban release"
       ]
     },
     {
@@ -542,6 +546,23 @@
         "business requirement",
         "user flow",
         "refine requirement"
+      ]
+    },
+    {
+      "routeId": "ba-to-design",
+      "taskType": "design",
+      "primaryIntent": "design.ba_to_design",
+      "outputContract": "ba-to-design-contract-v1",
+      "taskPrompt": "docs/ai/tasks/engineering/ba-to-design.md",
+      "skills": ["intent-router", "business-analyst", "flutter-ui-designer", "context-loader"],
+      "riskLevel": "medium",
+      "queryPatterns": [
+        "ba to design",
+        "business requirements to design",
+        "convert user story to design",
+        "turn requirements into design spec",
+        "requirements to flutter ui",
+        "tu yeu cau nghiep vu sang thiet ke giao dien flutter"
       ]
     },
     {

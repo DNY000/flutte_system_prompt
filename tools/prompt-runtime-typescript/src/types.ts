@@ -2,6 +2,7 @@ export type RiskLevel = "low" | "medium" | "high";
 export type NeedLevel = "false" | "optional" | "true";
 export type MultiAgentMode = "off" | "consider" | "recommended";
 export type MemoryWriteMode = "optional" | "likely" | "enabled";
+export type RoutingConfidence = "high" | "medium" | "low";
 
 export interface RouteDef {
   routeId: string;
@@ -44,6 +45,11 @@ export interface RuntimeExplain {
     warnings: string[];
     hints: string[];
   };
+  routeConfidence: {
+    level: RoutingConfidence;
+    clarificationNeeded: boolean;
+    clarificationReason?: string;
+  };
 }
 
 export interface ExecutionPolicy {
@@ -59,6 +65,9 @@ export interface RuntimeResult {
   routeId: string;
   outputContract: string;
   riskLevel: RiskLevel;
+  routeConfidence: RoutingConfidence;
+  clarificationNeeded: boolean;
+  clarificationReason?: string;
   skills: string[];
   matchedPattern: string;
   executionPolicy: ExecutionPolicy;

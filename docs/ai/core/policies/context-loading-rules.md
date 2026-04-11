@@ -7,6 +7,7 @@ Load context by layers to reduce token usage and keep trust boundaries clear.
 - `core/system/system-prompt.md`
 - `core/contracts/output-rules.md`
 - `core/policies/token-rules.md`
+- `core/policies/tool-approval-policy.md` when tools, MCP, or connectors are in scope
 
 ## Load By Route
 

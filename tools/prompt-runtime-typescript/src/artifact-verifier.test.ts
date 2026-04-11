@@ -148,3 +148,34 @@ Calm and clear.
   assert.equal(result.ok, false);
   assert.ok(result.errors.some((error) => error.includes("Missing required sections: Visual Tokens")));
 });
+
+test("ba-to-design artifact passes required structure", () => {
+  const markdown = `
+## Summary
+Translate checkout requirements into a mobile-first delivery flow.
+
+## User Story
+As a shopper, I want to review my cart and delivery timing before payment so I can confirm the order confidently.
+
+## Acceptance Criteria (AC)
+- User can review cart line items and total price.
+- User can confirm delivery address and ETA before payment.
+- User can continue to payment from a persistent primary CTA.
+
+## Extracted UI States
+- Loading
+- Empty
+- Error
+- Offline
+- Payment blocked until address is valid
+
+## Non-functional UX Constraints
+- Primary CTA must remain visible on mobile without hiding the fee breakdown.
+- Price and ETA changes need analytics events and accessible announcements.
+- Touch targets must stay at least 48dp and remain usable with large text.
+`.trim();
+
+  const result = verifyArtifactMarkdown(markdown, "ba-to-design-contract-v1");
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.errors, []);
+});

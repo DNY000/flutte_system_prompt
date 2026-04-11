@@ -1,3 +1,7 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
 export interface ArtifactVerificationResult {
   contractId: string;
   ok: boolean;
@@ -12,39 +16,35 @@ interface ParsedSections {
 }
 
 interface ContractSpec {
-  requiredSections: string[];
+  requiredSections?: string[];
   validateSections?: (sections: Map<string, string>) => string[];
+}
+
+interface SchemaContractEntry {
+  markdownSections?: string[];
 }
 
 const REVIEW_SEVERITY_ORDER = ["critical", "high", "medium", "low"] as const;
 const REVIEW_SEVERITY_RANK = new Map(REVIEW_SEVERITY_ORDER.map((severity, index) => [severity, index] as const));
 
+function loadSchemaBackedSections(): Record<string, string[]> {
+  const here = dirname(fileURLToPath(import.meta.url));
+  const schemaPath = join(here, "..", "..", "..", "docs", "ai", "core", "contracts", "structured-output-schemas.json");
+  const document = JSON.parse(readFileSync(schemaPath, "utf8")) as { contracts?: Record<string, SchemaContractEntry> };
+  const result: Record<string, string[]> = {};
+  for (const [contractId, entry] of Object.entries(document.contracts ?? {})) {
+    if (entry.markdownSections?.length) {
+      result[contractId] = entry.markdownSections;
+    }
+  }
+  return result;
+}
+
+const SCHEMA_BACKED_SECTIONS = loadSchemaBackedSections();
+
 const CONTRACT_SPECS: Record<string, ContractSpec> = {
-  "design-spec-v1": {
-    requiredSections: [
-      "Summary",
-      "User Goal",
-      "Screen Structure",
-      "Visual Direction",
-      "Visual Tokens",
-      "Interaction States",
-      "Accessibility",
-      "Flutter Composition",
-      "Risks"
-    ]
-  },
+  "design-spec-v1": {},
   "architecture-decision-v1": {
-    requiredSections: [
-      "Summary",
-      "Problem",
-      "Constraints",
-      "Options",
-      "Decision",
-      "Module Impact",
-      "Migration Plan",
-      "Tests",
-      "Risks"
-    ],
     validateSections: (sections) => {
       const errors: string[] = [];
       if (!hasListLikeContent(sections.get("Options") ?? "", 2)) {
@@ -57,15 +57,6 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
     }
   },
   "decision-matrix-v1": {
-    requiredSections: [
-      "Summary",
-      "Decision",
-      "Context Signals",
-      "Option Matrix",
-      "Recommendation",
-      "Implementation Notes",
-      "Risks"
-    ],
     validateSections: (sections) => {
       const optionMatrix = sections.get("Option Matrix") ?? "";
       if (!hasListLikeContent(optionMatrix, 2)) {
@@ -75,7 +66,6 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
     }
   },
   "implementation-plan-v1": {
-    requiredSections: ["Summary", "Assumptions", "Target Files", "Implementation Steps", "Tests", "Risks"],
     validateSections: (sections) => {
       const errors: string[] = [];
       if (!hasListLikeContent(sections.get("Target Files") ?? "", 1) && !containsLikelyFilePath(sections.get("Target Files") ?? "")) {
@@ -91,11 +81,9 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
     }
   },
   "review-report-v1": {
-    requiredSections: ["Findings", "Open Questions", "Residual Risks"],
     validateSections: (sections) => validateReviewReport(sections.get("Findings") ?? "")
   },
   "test-plan-v1": {
-    requiredSections: ["Summary", "Coverage Scope", "Test Matrix", "Fixtures And Mocks", "Execution Notes", "Risks"],
     validateSections: (sections) => {
       if (!hasListLikeContent(sections.get("Test Matrix") ?? "", 1)) {
         return ["Test Matrix must map scenarios using a list or table."];
@@ -104,15 +92,6 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
     }
   },
   "pipeline-change-v1": {
-    requiredSections: [
-      "Summary",
-      "Current State",
-      "Target Pipeline",
-      "Validation Steps",
-      "Secrets And Environments",
-      "Rollback",
-      "Risks"
-    ],
     validateSections: (sections) => {
       const errors: string[] = [];
       if (!hasOrderedList(sections.get("Target Pipeline") ?? "")) {
@@ -125,7 +104,6 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
     }
   },
   "research-brief-v1": {
-    requiredSections: ["Question", "Sources", "Facts", "Comparison", "Recommendation", "Risks"],
     validateSections: (sections) => {
       const errors: string[] = [];
       if (!hasListLikeContent(sections.get("Sources") ?? "", 1)) {
@@ -137,8 +115,8 @@ const CONTRACT_SPECS: Record<string, ContractSpec> = {
       return errors;
     }
   },
+  "ba-to-design-contract-v1": {},
   "improvement-roadmap-v1": {
-    requiredSections: ["Summary", "Current State", "Gaps", "Iterations", "Task Backlog", "Review Gates", "Risks"],
     validateSections: (sections) => {
       const errors: string[] = [];
       if (!hasOrderedList(sections.get("Iterations") ?? "")) {
@@ -203,13 +181,7 @@ function parseTopLevelSections(markdown: string): ParsedSections {
 
 function hasMeaningfulContent(content: string | undefined): boolean {
   if (!content) return false;
-  const trimmed = content.trim();
-  return trimmed.length > 0;
-}
-
-function isNoneContent(content: string | undefined): boolean {
-  if (!content) return false;
-  return content.trim().toLowerCase() === "none";
+  return content.trim().length > 0;
 }
 
 function countListItems(content: string): number {
@@ -269,7 +241,7 @@ function parseReviewFindings(findingsSection: string): ReviewFinding[] {
 
 function validateReviewReport(findingsSection: string): string[] {
   const trimmed = findingsSection.trim();
-  if (!trimmed || isNoneContent(trimmed)) {
+  if (!trimmed || trimmed.toLowerCase() === "none") {
     return [];
   }
 
@@ -303,7 +275,9 @@ function validateReviewReport(findingsSection: string): string[] {
 
 export function verifyArtifactMarkdown(markdown: string, contractId: string): ArtifactVerificationResult {
   const spec = CONTRACT_SPECS[contractId];
-  if (!spec) {
+  const requiredSections = spec?.requiredSections ?? SCHEMA_BACKED_SECTIONS[contractId];
+
+  if (!spec && !requiredSections) {
     return {
       contractId,
       ok: false,
@@ -319,33 +293,33 @@ export function verifyArtifactMarkdown(markdown: string, contractId: string): Ar
     errors.push(`Duplicate top-level sections: ${parsed.duplicates.join(", ")}`);
   }
 
-  const unexpectedSections = parsed.sectionOrder.filter((name) => !spec.requiredSections.includes(name));
+  const unexpectedSections = parsed.sectionOrder.filter((name) => !requiredSections.includes(name));
   if (unexpectedSections.length > 0) {
     errors.push(`Unexpected top-level sections: ${unexpectedSections.join(", ")}`);
   }
 
-  const missingSections = spec.requiredSections.filter((name) => !parsed.sectionContent.has(name));
+  const missingSections = requiredSections.filter((name) => !parsed.sectionContent.has(name));
   if (missingSections.length > 0) {
     errors.push(`Missing required sections: ${missingSections.join(", ")}`);
   }
 
-  const presentRequiredSections = parsed.sectionOrder.filter((name) => spec.requiredSections.includes(name));
+  const presentRequiredSections = parsed.sectionOrder.filter((name) => requiredSections.includes(name));
   if (
     missingSections.length === 0 &&
     unexpectedSections.length === 0 &&
-    presentRequiredSections.some((name, index) => name !== spec.requiredSections[index])
+    presentRequiredSections.some((name, index) => name !== requiredSections[index])
   ) {
-    errors.push(`Top-level sections must follow this order: ${spec.requiredSections.join(" -> ")}`);
+    errors.push(`Top-level sections must follow this order: ${requiredSections.join(" -> ")}`);
   }
 
-  for (const sectionName of spec.requiredSections) {
+  for (const sectionName of requiredSections) {
     const content = parsed.sectionContent.get(sectionName);
     if (!hasMeaningfulContent(content)) {
       errors.push(`Section "${sectionName}" must not be empty.`);
     }
   }
 
-  if (spec.validateSections) {
+  if (spec?.validateSections) {
     errors.push(...spec.validateSections(parsed.sectionContent));
   }
 
@@ -358,5 +332,5 @@ export function verifyArtifactMarkdown(markdown: string, contractId: string): Ar
 }
 
 export function supportedContracts(): string[] {
-  return Object.keys(CONTRACT_SPECS);
+  return [...new Set([...Object.keys(CONTRACT_SPECS), ...Object.keys(SCHEMA_BACKED_SECTIONS)])];
 }

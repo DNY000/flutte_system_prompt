@@ -123,6 +123,10 @@
       "expectedContract": "implementation-plan-v1"
     },
     {
+      "routeId": "ba-to-design",
+      "expectedContract": "ba-to-design-contract-v1"
+    },
+    {
       "routeId": "prompt-system-roadmap",
       "expectedContract": "improvement-roadmap-v1"
     },
